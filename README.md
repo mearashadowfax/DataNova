@@ -98,7 +98,7 @@ Click the button below to start deploying your project on Vercel:
 
 If you're deploying to a different platform, you may need to install a different adapter.  Astro provides official adapters for various platforms, including Netlify, Cloudflare, and Node.js. You can find a list of adapters in the [Astro documentation](https://docs.astro.build/en/guides/on-demand-rendering/#server-adapters).
 
-To change the adapter, you'll need to modify the `astro.config.mjs` file. For example, to use the Netlify adapter, you would install it with npm install @astrojs/netlify and then update your astro.config.mjs file like this:
+To change the adapter, you'll need to modify the `astro.config.mjs` file. For example, to use the Netlify adapter, you would install it with `npx astro add netlify` and then update your `astro.config.mjs` file like this:
 
 ```mjs
  import { defineConfig } from 'astro/config';
@@ -110,8 +110,6 @@ To change the adapter, you'll need to modify the `astro.config.mjs` file. For ex
     adapter: netlify(),
  });
 ```
-
-## Project Structure
 
 ## Content Management
 ### Keystatic CMS
