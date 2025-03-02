@@ -1,6 +1,7 @@
 # Versatile Astro Template for Multi-Page Websites
 
-![DataNova](https://github.com/user-attachments/assets/edb63b04-92c5-45f4-8567-ed235f511d1b)
+![DataNova](https://github.com/user-attachments/assets/8ddf1de6-18d1-4c62-8cbb-331805506de5)
+
 
 DataNova is an open-source, multi-page website template that empowers you to build a variety of websites and applications. From marketing sites to documentation hubs, DataNova provides the foundation you need with [Keystatic CMS](https://keystatic.com/), [Astro DB](https://docs.astro.build/en/guides/astro-db/), and a modern design built with [Astro](https://astro.build/), [Tailwind CSS](https://tailwindcss.com/), and [Preline UI](https://preline.co/).
 
