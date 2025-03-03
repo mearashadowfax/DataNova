@@ -1,7 +1,6 @@
 # Versatile Astro Template for Multi-Page Websites
 
-![DataNova](https://github.com/user-attachments/assets/8ddf1de6-18d1-4c62-8cbb-331805506de5)
-
+![DataNova](https://github.com/user-attachments/assets/b2ca99ee-8161-4755-9b66-205993ef2910)
 
 DataNova is an open-source, multi-page website template that empowers you to build a variety of websites and applications. From marketing sites to documentation hubs, DataNova provides the foundation you need with [Keystatic CMS](https://keystatic.com/), [Astro DB](https://docs.astro.build/en/guides/astro-db/), and a modern design built with [Astro](https://astro.build/), [Tailwind CSS](https://tailwindcss.com/), and [Preline UI](https://preline.co/).
 
@@ -19,6 +18,7 @@ DataNova is an open-source, multi-page website template that empowers you to bui
   * [Development Commands](#development-commands)
 * [Deployment](#deployment)
 * [Project Structure](#project-structure)
+* [Customization](#customization)
 * [Content Management](#content-management)
   * [Keystatic CMS](#keystatic-cms)
   * [Content Collections](#content-collections)
@@ -27,20 +27,13 @@ DataNova is an open-source, multi-page website template that empowers you to bui
   * [Astro SEO](#astro-seo)
   * [Astro Font](#astro-font)
   * [Client-Side Router](#client-side-router)
-* [Customization](#customization)
-* [Troubleshooting](#troubleshooting)
-* [Tools and Technologies](#tools-and-technologies)
-* [Contributing](#contributing)
-* [License](#license)
-
 
 ## Why Choose DataNova?
 
 * **Versatile:** Build a variety of websites, from blogs and landing pages to complex applications.
 * **Easy content management:** Keystatic CMS makes it simple to manage and update your content.
-* **Modern technology:** Built with Astro, a fast and modern site generator.
-* **Attractive design:** Includes Tailwind CSS and Preline UI for a visually appealing and customizable look.
-* **Developer-friendly:** Well-structured codebase for easy customization and extension.
+* **Modern technology:** Built with Astro for fast, lightweight, and SEO-friendly websites.
+* **Developer-friendly:** Modular components, easy customization, and extendable architecture.
 
 ### Features
 
@@ -65,9 +58,11 @@ DataNova is an open-source, multi-page website template that empowers you to bui
 This guide will provide you with the necessary steps to set up and familiarize yourself with the Astro project on your local development machine.
 
 ### Use This Template
-To get started, click the `Use this template` button (the big green one at the top right) to create your own repo from this template in your GitHub account.
+
+Click the `Use this template` button at the top right of the repository to create your own repo based on this template.
 
 ### Clone the Repository
+
 Once your repository is created, you can clone it to your local machine using the following commands:
 
 ```bash
@@ -105,7 +100,6 @@ Click the button below to start deploying your project on Vercel:
 
 > [!NOTE]
 > SSR is used because Keystatic requires server-side execution for its API routes. If you only intend to use Keystatic for local development, you can configure the project for static output as described in the [Keystatic CMS section](#keystatic-cms).
-
 > [!TIP]  
 > If you're deploying to a different platform, you may need to install a different adapter.  Astro provides official adapters for various platforms, including Netlify, Cloudflare, and Node.js. You can find a list of adapters in the [Astro documentation](https://docs.astro.build/en/guides/on-demand-rendering/#server-adapters).
 >
@@ -162,6 +156,134 @@ DataNova organizes modular sections, components, content, and layout to streamli
     └── content.config.ts                # Contains content collections configuration options
 ```
 
+## Customization
+
+This section provides guidance on customizing various aspects of the DataNova template, including the navigation bar, mega menu, footer, and sections.
+
+### Navigation
+
+#### Navigation Bar Links
+
+The navigation bar links are stored in the `utils/navigation.ts` file. To add or modify links, update the `navigationLinks` array:
+
+```typescript
+export const navigationLinks = [
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+];
+
+```
+
+Replace `label` with the desired display text and use `href` to specify the corresponding page path.
+
+Use these links in the `Navbar`:
+
+```astro
+   <div class="grow">
+     {
+       navigationLinks.map((link) => (
+         <a
+           href={link.href}
+           class={`flex items-center rounded-lg p-2 font-medium text-slate-800 hover:bg-slate-100 ${
+             currentPath === link.href ? "underline underline-offset-4" : ""
+           }`}
+           aria-current={currentPath === link.href ? "page" : undefined}
+         >
+           {link.label}
+         </a>
+       ))
+     }
+   </div>
+```
+
+The `currentPath` variable is used to highlight the active link in the navigation.
+
+#### Mega Menu Links
+
+The mega menu allows you to create dropdown menus with multiple sections and links. The mega menu links are stored in the `utils/megaMenu/*` files. For example, the downloads mega menu is stored in `utils/megaMenu/downloads.ts`:
+
+```ts
+   export const downloadsMenu = [
+     {
+       sectionTitle: "Download",
+       items: [
+         {
+           icon: "download",
+           title: "DataNova Core Tool",
+           description: "Download the free trial version.",
+           href: "/downloads/datanova-core",
+         },
+       ],
+     },
+     {
+       sectionTitle: "Licensing",
+       items: [
+         { icon: "badge", title: "License Options", href: "/downloads/license-options" },
+         { icon: "chatBubble", title: "Request a Quote", href: "/downloads/request-quote" },
+       ],
+     },
+   ];
+```
+
+You can create new mega menu sections by adding new files to the `utils/megaMenu/` directory.
+
+The mega menu is generated by the `MegaMenu/*.astro` components. For example, the downloads mega menu is generated by the `src/components/common/MegaMenu/Downloads.astro` component:
+
+Generate and display the mega menu in components like `src/components/common/MegaMenu/Downloads.astro`:
+
+```astro
+   ---
+   import { downloadsMenu } from "@utils/megaMenu/downloads";
+   const currentPath = Astro.url.pathname;
+   ---
+   <div class="hs-dropdown">
+     <button class={`hs-dropdown-toggle ${ currentPath.startsWith("/downloads") ? "underline" : "" }`}>
+       Downloads
+     </button>
+     // ...
+     <div class="hs-dropdown-menu">
+       {
+         downloadsMenu.map((section) => (
+           <div>
+             <p>{section.sectionTitle}</p>
+             {section.items.map((item) => (
+               <a href={item.href}>
+                 <p>{item.title}</p>
+                 <p>{item.description}</p>
+               </a>
+             ))}
+           </div>
+         ))
+       }
+     </div>
+   </div>
+```
+
+To use the mega menu in the navigation bar, import and add the `MegaMenu` components to the `Navbar.astro` component.
+
+#### Footer Links
+
+The footer section is fully customizable. You can modify the company information, contact details, email subscription form, and copyright information.
+
+* **Company Information**: Update the companyName and companyDescription props in the Footer.astro component to reflect your organization's details.
+* **Contact Information**: Modify the contactDetails object in the Footer.astro component to specify your address, phone, email, and website.
+* **Email Subscription Form**: The footer includes an email subscription form powered by the FooterForm component. You can customize it to collect additional details or adjust styling.
+* **Copyright and Attribution**: Update the copyrightYear, craftedBy, and trademarkNotice props in the Footer.astro component to reflect your copyright information and attribution.
+
+### Content Sections and Common Components
+
+Most content sections and common components in DataNova follow a similar structure, making it easy to customize their content and appearance.
+
+**To customize the content:**
+
+* Modify the title, subTitle, and other content variables within the component file.
+* Update the call-to-action (CTA) configurations, such as primaryCTA, secondaryCTA, and tertiaryCTA, to change the button text and links.
+
+**To customize the appearance:**
+
+* Use Tailwind CSS utility classes to fine-tune the styling of individual elements.
+* Modify the layout and arrangement of elements within the section or component.
+
 ## Content Management
 
 ### Keystatic CMS
@@ -177,19 +299,19 @@ DataNova uses Keystatic CMS for managing content. You can edit content through t
 >
 > 1. **Update `astro.config.mjs`:**
 >
->  ```mjs
+> ```mjs
 >  import { defineConfig } from 'astro/config';
->  // ... other imports
+>  // ...
 >
 >  const isDev = process.env.NODE_ENV === "development"
 >
 >  export default defineConfig({
->    // ... other configurations
+>    // ...
 >    integrations: [
->      // ... other integrations like react and markdoc ...
->      ...(isDev ? [keystatic()] :) // uses the integration conditionally
+>      // ...
+>      ...(isDev ? [keystatic()] :) // Uses the integration conditionally
 >    ],
->    output: isDev ? 'server' : 'static' // only set server rendering for dev mode
+>    output: isDev ? 'server' : 'static' // Only set server rendering for dev mode
 >  });
 > ```
 >
@@ -204,12 +326,73 @@ DataNova uses Keystatic CMS for managing content. You can edit content through t
 > 3. **Update your dynamic route to use `getStaticPaths()`. Refer to the [Astro documentation](https://docs.astro.build/en/guides/content-collections/#building-for-static-output-default) for details on generating static content from collections.**
 
 ### Content Collections
+
 The template includes content collections for:
 
-Articles: Located in src/content/articles
-Reference: Located in src/content/reference
-Spreadsheets: Located in src/data/spreadsheets
-Whitepapers: Located in src/data/whitepapers
-
 ## Data Handling with Astro DB
+
 DataNova utilizes Astro DB with Turso for the feedback component. This allows users to provide feedback on articles and reference posts, which is stored in the database. To learn more about Astro DB and Turso, visit the Astro DB documentation and the Turso website.
+
+## Integrations and Enhancements
+
+DataNova leverages several Astro integrations to enhance its functionality and improve the developer experience.
+
+### Astro SEO
+
+The `astro-seo` integration helps manage SEO metadata and schema.org data, improving the website's visibility on search engines.
+
+In `BaseLayout.astro`, the `SEO` component from `astro-seo` is used to define global SEO settings like `title`, `description`, `openGraph`, and `twitter` metadata. Page-specific SEO settings can be overridden by passing `seo` props to the `BaseLayout` component, as shown in the example below:
+
+```astro
+---
+//...
+
+const seo = {
+  title: "About DataNova",
+  description: "Learn more about DataNova...",
+};
+---
+
+<BaseLayout seo={seo}>
+  {/* ... page content ... */}
+</BaseLayout>
+```
+
+### Astro SEO Schema
+
+The `astro-seo-schema` integration provides a convenient way to add schema.org structured data to your pages, helping search engines understand the content better.
+
+In `BaseLayout.astro`, the Schema component from `astro-seo-schema` is used to define default schema.org data for the website. Page-specific schema.org data can be added by passing `schema` props to the `BaseLayout` component, as shown in the example below.
+
+```astro
+---
+// ...
+import type { WithContext, Thing } from "schema-dts";
+
+const schema: WithContext<Thing> = {
+  // ... schema.org metadata
+};
+---
+
+<BaseLayout schema={schema}>
+  {/* ... page content ... */}
+</BaseLayout>
+```
+
+### Astro Font
+
+The `astro-font` integration optimizes font loading and preloading, improving website performance.
+
+In `BaseLayout.astro`, the `AstroFont` component is used to define font configurations, including `name`, `src`, `preload`, `display`, `selector`, and `fallback` options. This ensures fonts are loaded efficiently and applied to the correct elements.
+
+### Client-Side Router
+
+The `ClientRouter` component from `astro:transitions` enables client-side routing with page transitions, providing a smoother and more interactive user experience.
+
+In `BaseLayout.astro`, the `ClientRouter` component is included to activate client-side routing. This allows for page transitions and improves navigation performance.
+
+### Sitemap Generation
+
+While DataNova doesn't include the official `@astrojs/sitemap` integration by default, you can easily add it if needed. However, please note that the official integration cannot generate sitemap entries for dynamic routes in SSR mode.
+
+If you require more advanced sitemap generation capabilities, such as including dynamic routes or customizing sitemap entries, you can use the community-maintained [Sitemap Extensions](https://inox-tools.fryuni.dev/sitemap-ext) package.

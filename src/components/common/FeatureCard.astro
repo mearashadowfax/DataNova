@@ -1,0 +1,13 @@
+---
+import Icon from "@ui/icons/Icon.astro";
+const { icon, description, styleClass } = Astro.props;
+---
+
+<div class={`z-10 flex w-2/3 flex-col rounded-xl bg-white/50 p-4 shadow-lg ring-1 ring-white/5 backdrop-blur-xl md:p-5 xl:w-1/2 ${styleClass}`}>
+  <p class="mt-1 text-xs font-medium uppercase text-slate-500">
+    <Icon name={icon} />
+  </p>
+  <p class="mt-2 text-slate-600">
+    {description}
+  </p>
+</div>

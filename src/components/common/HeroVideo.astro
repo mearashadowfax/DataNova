@@ -1,0 +1,30 @@
+---
+import { Image } from "astro:assets";
+import chart from "@images/chart.webp";
+
+const video = "https://vyclk3sx0z.ufs.sh/f/hv6ttNERWpXuOGj0KhIPk5MLw0bimBlYnq6Vd2NfSJW9gCQU";
+const videoWebM = "https://vyclk3sx0z.ufs.sh/f/hv6ttNERWpXuSmf3s2VRkQ1V2YvoeXidH6GO3asLpy5zZAFD";
+---
+
+{/* Hero Visual */}
+<div class="relative m-auto w-full sm:w-[90%] pt-16">
+  <div
+    class="pointer-events-none hidden sm:block absolute inset-x-0 -bottom-2 z-10 h-20 w-full bg-gradient-to-b from-transparent via-offWhite to-offWhite"
+  >
+  </div>
+
+  <Image
+    src={chart}
+    alt="Chart"
+    loading={"eager"}
+    class="hidden sm:block absolute inset-[25%_auto_auto_-8%] z-20 w-[25%]"
+  />
+
+  <div class="aspect-video">
+    <video autoplay loop muted playsinline preload="metadata" class="aspect-auto rounded-xl">
+      <source src={video} type="video/mp4" />
+      <source src={videoWebM} type="video/webm" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>

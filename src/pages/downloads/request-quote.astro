@@ -1,0 +1,77 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+import ContactFormAlt from "@ui/forms/ContactFormAlt.astro";
+const title = "Request a Custom Quote";
+const subTitle =
+  "Provide your contact details, the required number of licenses/users, and any additional information or questions. We’ll send you a tailored quote promptly.";
+---
+
+<BaseLayout>
+  <section class="bg-gradient-to-bl from-teal-200 via-transparent to-white">
+    <div class="mx-auto max-w-[85rem] px-4 pb-28 pt-48 sm:px-6 lg:px-8">
+      <div class="mb-10 max-w-2xl lg:mb-14">
+        <h1
+          class="text-balance text-4xl text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
+        >
+          {title}
+        </h1>
+        <p class="ml-1 mt-1 text-lg text-slate-600">
+          {subTitle}
+        </p>
+      </div>
+
+      <div class="w-full lg:w-[48%]">
+        <div class="rounded-xl bg-teal-400 pb-10 md:order-2 md:pb-0">
+          <ContactFormAlt />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Automatically adjusting the height of the textarea
+    // based on its content. Triggers when the textarea content changes.
+    document.addEventListener("astro:page-load", () => {
+      function textareaAutoHeight(
+        el: HTMLTextAreaElement,
+        offsetTop: number = 0,
+      ): void {
+        el.style.height = "auto";
+        el.style.height = `${el.scrollHeight + offsetTop}px`;
+      }
+
+      (() => {
+        const textareas: string[] = ["#input-message"];
+
+        textareas.forEach((selector) => {
+          const textarea = document.querySelector(
+            selector,
+          ) as HTMLTextAreaElement;
+
+          if (!textarea) return;
+
+          const overlay = textarea.closest(".hs-overlay");
+
+          if (overlay) {
+            const instance = (window as any).HSOverlay.getInstance(
+              overlay,
+              true,
+            );
+
+            if (instance) {
+              instance.element.on("open", () =>
+                textareaAutoHeight(textarea, 3),
+              );
+            }
+          } else {
+            textareaAutoHeight(textarea, 3);
+          }
+
+          textarea.addEventListener("input", () => {
+            textareaAutoHeight(textarea, 3);
+          });
+        });
+      })();
+    });
+  </script>
+</BaseLayout>

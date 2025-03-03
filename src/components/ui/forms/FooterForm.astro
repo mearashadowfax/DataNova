@@ -1,0 +1,54 @@
+---
+const formStrings = {
+  legend: "Subscribe to our newsletter",
+  placeholder: "Enter your email",
+  submit: "Submit",
+  description:
+    "Get all the information you need. Enter your email, and we'll be in touch.",
+};
+---
+
+<form>
+  {/* Fieldset for grouping form elements */}
+  <fieldset
+    class="mt-4 flex flex-col items-center gap-2 rounded-lg bg-teal-400 p-2 sm:flex-row sm:gap-3"
+    aria-labelledby="form-legend"
+  >
+    {/* Visible legend for screen readers */}
+    <legend id="form-legend" class="sr-only text-lg font-medium text-slate-700"
+      >{formStrings.legend}</legend
+    >
+
+    {/* Email input */}
+    <div class="w-full">
+      <label for="email-input" class="sr-only">{formStrings.placeholder}</label>
+      <input
+        type="email"
+        id="email-input"
+        name="email"
+        class="block w-full rounded-lg border-transparent px-4 py-3 text-sm focus:border-teal-700/80 focus:ring-teal-700/80"
+        placeholder={formStrings.placeholder}
+        required
+        aria-label={formStrings.placeholder}
+        aria-describedby="form-description"
+        autocomplete="email"
+        autocorrect="off"
+        spellcheck="false"
+      />
+    </div>
+
+    {/* Submit button */}
+    <button
+      type="submit"
+      class="inline-flex w-full items-center justify-center gap-x-2 whitespace-nowrap rounded-lg border border-transparent bg-teal-100 p-3 text-sm font-medium text-slate-700 transition duration-300 hover:bg-teal-700/80 hover:text-white focus:bg-teal-700 focus:text-white focus:outline-none sm:w-auto"
+      aria-label="Submit email"
+    >
+      {formStrings.submit}
+    </button>
+  </fieldset>
+
+  {/* Description paragraph with ARIA association */}
+  <p id="form-description" class="mt-3 text-sm text-slate-400">
+    {formStrings.description}
+  </p>
+</form>

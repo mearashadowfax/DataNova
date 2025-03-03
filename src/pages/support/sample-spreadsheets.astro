@@ -1,0 +1,83 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const spreadsheets = await getCollection("spreadsheets");
+
+export const pageContent  = {
+  pageTitle: "Sample Spreadsheets",
+  tableHeadings: {
+    name: "Spreadsheet",
+    details: "Description",
+    action: "Action"
+  },
+  actionLabel: "Download"
+};
+---
+
+<BaseLayout>
+  <section class="mx-auto max-w-[85rem] px-4 pb-12 pt-48 sm:px-6 lg:px-8">
+    <div class="max-w-7xl">
+      <div class="mx-auto max-w-3xl lg:mx-0">
+        <h1
+          class="text-balance text-4xl text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
+        >
+        {pageContent.pageTitle}
+        </h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8">
+    <div class="flex flex-col">
+      <div class="overflow-x-auto">
+        <div class="inline-block p-1.5 align-middle lg:w-4/5">
+          <table class="divide-y divide-slate-200">
+            <thead>
+              <tr>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-start text-xs font-medium uppercase text-slate-500"
+                  >{pageContent.tableHeadings.name}</th
+                >
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-start text-xs font-medium uppercase text-slate-500"
+                  >{pageContent.tableHeadings.details}</th
+                >
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-end text-xs font-medium uppercase text-slate-500"
+                  >{pageContent.tableHeadings.action}</th
+                >
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              {
+                spreadsheets.map((item) => (
+                  <tr class="transition duration-150 hover:bg-slate-100">
+                    <td class="whitespace-normal px-6 py-4 text-base font-medium text-slate-800">
+                      {item.data.title}
+                    </td>
+                    <td
+                      class="whitespace-normal px-6 py-4 text-base text-slate-800"
+                      set:html={item.data.description}
+                    />
+                    <td class="whitespace-nowrap px-6 py-4 text-end text-sm font-medium">
+                      <a
+                        href={item.data.url}
+                        class="inline-flex items-center gap-x-2 text-teal-700 transition-colors duration-300 hover:text-teal-800 focus:outline-none"
+                      >
+                        {pageContent.actionLabel}
+                      </a>
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

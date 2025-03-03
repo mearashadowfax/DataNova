@@ -1,0 +1,33 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+
+export const pageContent = {
+  pageTitle: "Knowledge Base",
+  content: "Still building our knowledge hub! While we're constantly adding new resources and documentation, some topics might not be covered yet. If you can't find what you're looking for, reach out to our team — we'll get you answers fast and make sure you have the support you need.",
+};
+---
+
+<BaseLayout>
+  <section class="bg-gradient-to-br from-teal-200 via-transparent to-white">
+    <div class="mx-auto max-w-[85rem] px-4 pb-12 pt-48 sm:px-6 lg:px-8">
+      <div class="max-w-7xl">
+        <div class="mx-auto max-w-3xl lg:mx-0">
+          <h1
+            class="text-balance text-4xl text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
+          >
+            {pageContent.pageTitle}
+          </h1>
+          <p
+            class="mt-8 text-pretty text-lg font-medium text-slate-700 sm:text-xl/8"
+          >
+            {pageContent.content}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section
+    class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20"
+  >
+  </section>
+</BaseLayout>

@@ -1,0 +1,139 @@
+---
+import Navbar from "@sections/Navbar.astro";
+import Footer from "@sections/Footer.astro";
+import { ClientRouter } from "astro:transitions";
+import { SEO, type Props as SEOProps } from "astro-seo";
+import { Schema } from "astro-seo-schema";
+import type { WithContext, Thing } from "schema-dts";
+import { AstroFont } from "astro-font";
+import "@styles/base.css";
+
+interface Props {
+  seo?: SEOProps; // Optional SEO properties to customize meta tags
+  schema?: WithContext<Thing>; // Optional schema.org properties for structured data
+}
+
+// Extract `seo` and `schema` from properties or define defaults
+const { seo, schema } = Astro.props;
+const socialImage = `${Astro.site}social.png`; // Path to the default social sharing image
+
+// Define default JSON-LD Schema.org data if no schema is passed
+const defaultSchema: WithContext<Thing> = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  inLanguage: "en-US",
+  "@id": Astro.url.href,
+  url: Astro.url.href,
+  name: "DataNova",
+  description:
+    "Unlock powerful data insights with DataNova's advanced analytics suite for Excel. Visualize, analyze, and make data-driven decisions in minutes with seamless Excel integration, AI-powered analysis, and predictive forecasting models.",
+  isPartOf: {
+    "@type": "WebSite",
+    url: `${Astro.site}`,
+    name: "DataNova",
+    description:
+      "DataNova Analytics Inc. provides advanced analytics for Excel to help businesses unlock actionable insights quickly with no coding required.",
+  },
+};
+---
+
+<html lang="en" class="scroll-pt-32">
+  <head>
+    {/* SEO Meta Tags */}
+    <SEO
+      charset="utf-8"
+      title={seo?.title ?? "DataNova"}
+      description={seo?.description ??
+        "Unlock powerful data insights with DataNova's advanced analytics suite for Excel. Visualize, analyze, and make data-driven decisions in minutes with seamless Excel integration, AI-powered analysis, and predictive forecasting models."}
+      openGraph={{
+        basic: {
+          title: "DataNova - Unlock Insights from Your Excel Data",
+          type: "website",
+          image: socialImage,
+        },
+        optional: {
+          description:
+            "Transform your Excel workspace with DataNova's powerful analytics suite. Get insights, predictive models, and visualizations in minutes with no coding required.",
+        },
+      }}
+      twitter={{
+        card: "summary_large_image",
+        title: "DataNova - Unlock Insights from Your Excel Data",
+        description:
+          "Transform your Excel workspace with DataNova's powerful analytics suite. Visualize and analyze data quickly with no coding required.",
+        image: socialImage,
+        imageAlt: "DataNova Logo.",
+      }}
+      extend={{
+        link: [
+          { rel: "icon", href: "/icon.svg", type: "image/svg+xml" },
+          { rel: "sitemap", href: "/sitemap-index.xml" },
+        ],
+        meta: [
+          { name: "viewport", content: "width=device-width" },
+          { name: "generator", content: `${Astro.generator}` },
+        ],
+      }}
+    />
+    {/* Schema.org JSON-LD */}
+    <Schema item={schema ?? defaultSchema} />
+
+    {/* Client-Side Router for page transitions */}
+    <ClientRouter />
+
+    {/* Font Definitions */}
+    <AstroFont
+      config={[
+        {
+          name: "DM Sans",
+          src: [
+            {
+              style: "normal",
+              weight: "100 900",
+              path: "/fonts/DMSans.woff2",
+            },
+          ],
+          preload: true,
+          display: "swap",
+          selector: "h1, h2, h3, h4",
+          fallback: "sans-serif",
+        },
+        {
+          name: "Work Sans",
+          src: [
+            {
+              style: "normal",
+              weight: "100 900",
+              path: "/fonts/WorkSans.woff2",
+            },
+          ],
+          preload: true,
+          display: "swap",
+          selector: "body",
+          fallback: "sans-serif",
+        },
+      ]}
+    />
+
+    {/* Remove duplicate font links during transitions */}
+    <script>
+      import type { TransitionBeforeSwapEvent } from "astro:transitions/client";
+      document.addEventListener("astro:before-swap", (e) =>
+        [
+          ...(e as TransitionBeforeSwapEvent).newDocument.head.querySelectorAll(
+            'link[as="font"]',
+          ),
+        ].forEach((link) => link.remove()),
+      );
+    </script>
+  </head>
+  <body class="bg-offWhite selection:bg-teal-400 selection:text-slate-700">
+    <Navbar />
+
+    <main>
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,97 @@
+---
+import { Image } from "astro:assets";
+import image_1 from "@images/toolbar.webp";
+import image_2 from "@images/graph.webp";
+import image_3 from "@images/dashboard.webp";
+
+// Content for the section title and subtitle
+const title = `<span class="text-teal-700">Data</span><span class="font-normal text-slate-400">Nova</span>'s Powerful Analytics Suite`;
+const subTitle = `Discover how DataNova transforms your Excel workspace into a comprehensive analytics powerhouse, making data analysis accessible and actionable.`;
+
+// Features list for displaying the key highlights
+
+const features = [
+  {
+    title: "Native Excel integration", // Feature title
+    description:
+      "Work directly in Excel with our native toolbar and custom functions", // Feature description
+    image: image_1, // Associated image
+    class:
+      "content-center border-b border-dashed border-slate-400 py-5 sm:col-span-2 sm:p-5", // Custom CSS classes for layout and styling
+    alignment: "mx-auto mt-10 rounded-xl shadow-lg sm:w-[75%]", // Alignment and styling for the image
+  },
+  {
+    title: "Comprehensive analytics suite",
+    description: `Choose from <span class="font-bold">30+</span> statistical models and <span class="font-bold">25+</span> visualization templates to unlock insights from any dataset.`,
+    image: image_2,
+    class: "content-center py-5 sm:row-start-2 sm:p-5 sm:py-10",
+    alignment:
+      "ml-auto mr-auto mt-10 w-[65%] rounded-xl shadow-lg sm:ml-0 sm:w-[45%]",
+  },
+  {
+    title: "Smart analysis tools",
+    description:
+      "Let AI do the heavy lifting. Automatically detect patterns, spot anomalies, and get accurate forecasts from your historical data.",
+    image: image_3,
+    class:
+      "content-center border-t border-dashed border-slate-400 py-5 sm:row-span-2 sm:row-start-2 sm:border-l sm:border-t-0 sm:p-5 sm:text-right",
+    alignment: "ml-auto mr-auto mt-10 w-[80%] rounded-xl shadow-lg sm:mr-0",
+  },
+  {
+    title: "And more...",
+    class: "content-center border-t border-dashed border-slate-400 py-5 sm:p-5",
+    moreFeatures: [
+      "Works seamlessly with all modern Excel versions (2013+) on both Windows and Mac",
+      "Build interactive dashboards that update in real-time as your data changes",
+      "Access your insights anywhere through cloud integration with Google Sheets and OneDrive",
+      "Create custom reports that tell your data's story exactly how you want",
+    ],
+  },
+];
+---
+
+<div class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20">
+  {/* Section container for the title and subtitle */}
+  <div class="mx-auto mb-10 max-w-2xl text-center lg:mb-14">
+    <h2
+      class="text-balance text-2xl font-semibold text-slate-800 md:text-3xl md:leading-tight"
+    >
+      <Fragment set:html={title} />
+    </h2>
+    <p class="mt-1 text-pretty text-slate-600">
+      <Fragment set:html={subTitle} />
+    </p>
+  </div>
+
+  <div
+    class="mx-auto grid max-w-[85rem] px-4 pb-10 sm:grid-cols-2 sm:grid-rows-3 sm:px-6 lg:px-8 lg:pb-14"
+  >
+    {
+      features.map((feature) => (
+        <div class={`${feature.class}`}>
+          <h2 class="text-2xl font-bold text-slate-600">{feature.title}</h2>
+
+          <p class="mt-2 text-base/6 text-slate-600">
+            <Fragment set:html={feature.description || ""} />
+          </p>
+
+          {feature.image && (
+            <Image
+              class={`${feature.alignment || ""}`}
+              src={feature.image}
+              alt=""
+            />
+          )}
+
+          {feature.moreFeatures && (
+            <ul class="ml-4 mt-4 w-4/5 list-inside list-disc space-y-2 text-base/6 text-slate-600 marker:text-teal-600">
+              {feature.moreFeatures.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))
+    }
+  </div>
+</div>

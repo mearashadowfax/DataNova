@@ -1,0 +1,85 @@
+---
+import Icon from "@ui/icons/Icon.astro";
+
+// Content for the section title and subtitle
+const title =
+  'Why Choose <span class="text-teal-700">Data</span><span class="font-normal text-slate-400">Nova</span>?';
+const subTitle =
+  "Experience the perfect balance of power and simplicity in data analytics. From startups to enterprises, DataNova empowers teams to extract meaningful insights from their data while maintaining seamless integration with existing workflows. Transform the way you analyze, visualize, and act on your data.";
+
+const features = [
+  {
+    borderClasses: "md:border-l md:border-r",
+    gradientClasses: "bg-gradient-to-l from-teal-200 to-transparent",
+    icon: "cursorRays",
+    heading: "Built for Everyone",
+    description:
+      "Whether you're a business analyst or data scientist, DataNova's intuitive interface makes advanced analytics accessible. Start with simple visualizations and progress to complex predictive models at your own pace.",
+  },
+  {
+    borderClasses: "border-b border-t md:border-b-0",
+    gridClasses: "md:col-start-2 md:col-end-3",
+    gradientClasses: "bg-gradient-to-t from-teal-200 to-transparent",
+    icon: "cog",
+    heading: "Enterprise-Grade Analytics",
+    description:
+      "Harness the full power of advanced analytics with our comprehensive toolset. From automated pattern recognition to custom modeling, DataNova scales with your analytical needs while maintaining exceptional performance.",
+  },
+  {
+    borderClasses: "md:border-l md:border-r md:border-t",
+    gridClasses: "md:col-end-4",
+    gradientClasses: "bg-gradient-to-tl from-teal-200 to-transparent",
+    icon: "puzzle",
+    heading: "Seamless Integration",
+    description:
+      "Keep your existing Excel workflow while adding powerful analytics capabilities. DataNova works where you do, transforming your familiar spreadsheets into a sophisticated business intelligence platform.",
+  },
+];
+---
+
+<section
+  class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20"
+>
+  <div
+    class="grid grid-flow-row-dense grid-cols-1 md:grid-cols-3 md:grid-rows-2"
+  >
+    {/* Section container for the title and subtitle */}
+    <div
+      class="mx-auto max-w-lg pb-5 text-center md:col-span-2 lg:mx-0 lg:flex-auto lg:text-left"
+    >
+      <h2
+        class="text-balance text-2xl font-semibold tracking-tight text-slate-800 md:text-3xl md:leading-tight"
+      >
+        <Fragment set:html={title} />
+      </h2>
+      <p class="mt-6 text-pretty text-lg/8 text-slate-700">
+        {subTitle}
+      </p>
+    </div>
+
+    {/* Feature Cards */}
+    {
+      features &&
+        features.map((feature) => (
+          <div
+            class={`group relative mx-auto flex flex-col border-dashed border-slate-400 py-10 ${feature.borderClasses} ${feature.gridClasses}`}
+          >
+            <div
+              class={`group pointer-events-none absolute inset-0 h-full w-full ${feature.gradientClasses} opacity-0 transition duration-300 group-hover:opacity-100`}
+            />
+            <div class="relative z-10 mb-4 px-10">
+              <Icon name={feature.icon} />
+            </div>
+            <div class="relative z-10 mb-2 px-10 text-lg font-semibold">
+              <span class="inline-block text-balance text-slate-800 transition duration-300 group-hover:translate-x-2">
+                {feature.heading}
+              </span>
+            </div>
+            <p class="z-10 max-w-sm text-pretty px-4 text-sm text-slate-700 sm:max-w-lg md:mx-auto">
+              {feature.description}
+            </p>
+          </div>
+        ))
+    }
+  </div>
+</section>

@@ -1,0 +1,159 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+import type { WithContext, Thing } from "schema-dts";
+
+// Data describing the "About" section content
+const aboutData = {
+  title: "DataNova,",
+  description:
+    "founded in 2018, is a leading provider of powerful analytics tools that transform your Excel workspace into a comprehensive analytics powerhouse, making data analysis accessible and actionable for businesses worldwide.",
+  statistics: [
+    {
+      label: "Industry Sectors Served",
+      value: "15+",
+    },
+    {
+      label: "Data Points Processed",
+      value: "Billions",
+    },
+    {
+      label: "Custom Reports Generated",
+      value: "500,000+",
+    },
+  ],
+};
+
+// Data describing the expertise section
+const expertiseData = {
+  title: "Our Expertise:",
+  expertise: [
+    {
+      title: "AI-Powered Insights:",
+      description:
+        "Uncover deep insights and predict trends with advanced AI algorithms for proactive decision-making.",
+    },
+    {
+      title: "Real-Time Data Visualization:",
+      description:
+        "Transform data into interactive visuals, tracking key metrics in real-time for actionable insights.",
+    },
+    {
+      title: "Predictive Analytics Engine:",
+      description:
+        "Leverage machine learning to forecast trends and identify opportunities, staying ahead of the curve.",
+    },
+  ],
+};
+
+// SEO metadata for the page
+const seo = {
+  title: "About DataNova",
+  description: "Learn more about DataNova, the analytics platform that transforms your Excel data with advanced insights and predictive models.",
+};
+
+// Schema.org metadata for SEO
+const schema: WithContext<Thing> = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "inLanguage": "en-US",
+  "@id": Astro.url.href,
+  "url": Astro.url.href,
+  "name": "About DataNova",
+  "description": "Get to know DataNova, the powerful analytics platform for Excel that enables businesses to make data-driven decisions quickly with no coding required.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "url": `${Astro.site}`,
+    "name": "DataNova",
+    "description": "DataNova Analytics Inc. provides advanced analytics for Excel to help businesses unlock actionable insights quickly with no coding required."
+  }
+};
+---
+
+<BaseLayout seo={seo} schema={schema}>
+  <section class="mx-auto max-w-[85rem] px-4 pb-12 pt-48 sm:px-6 lg:px-8">
+    <div class="max-w-7xl">
+      <div class="mx-auto max-w-2xl lg:mx-0">
+        <h1
+          class="text-balance text-4xl text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
+        >
+          {aboutData.title}
+        </h1>
+        <p
+          class="mt-8 text-pretty text-lg font-medium text-slate-700 sm:text-xl/8"
+        >
+          {aboutData.description}
+        </p>
+      </div>
+
+      {/* Statistics Section */}
+      <div class="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
+        <dl
+          class="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4"
+        >
+          {
+            aboutData.statistics.map((stat) => (
+              <div class="flex flex-col-reverse gap-1">
+                <dt class="text-base/7 text-slate-700">{stat.label}</dt>
+                <dd class="text-4xl font-semibold tracking-tight text-slate-800">
+                  {stat.value}
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  {/* Expertise Section */}
+  <section class="mx-auto max-w-[85rem] px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+    <div
+      class="group relative isolate overflow-hidden rounded-3xl bg-teal-200 p-5 sm:p-11"
+    >
+      <div
+        class="group pointer-events-none absolute inset-0 -top-[10%] h-[120%] w-full rounded-xl bg-gradient-to-r from-teal-200 to-offWhite opacity-0 transition duration-1000 group-hover:opacity-100"
+      >
+      </div>
+      <div class="svgBlock mx-auto max-w-7xl">
+        <h2
+          class="relative text-balance pl-4 text-2xl font-semibold text-slate-800 md:text-3xl md:leading-tight"
+        >
+          {expertiseData.title}
+        </h2>
+        <dl
+          class="relative mt-10 grid max-w-xl grid-cols-1 items-start text-base/7 text-slate-600 sm:max-w-none lg:grid-flow-row-dense lg:auto-rows-fr lg:grid-cols-3"
+        >
+          {
+            expertiseData.expertise.map((item, index) => (
+              <div
+                class={`px-5 py-5 sm:px-10 lg:py-0 ${index === 1 ? "h-full border-y border-dashed border-slate-400 lg:border-x lg:border-y-0" : ""}`}
+              >
+                <dt class="text-balance text-lg font-semibold text-slate-600">
+                  {item.title}
+                </dt>
+                <dd class="mt-2 text-pretty text-slate-500">
+                  {item.description}
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .svgBlock::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url(/guilloche.svg);
+      background-repeat: repeat;
+      background-position: right top;
+      background-size: 20px, 20px;
+      opacity: 0.075;
+      background-clip: padding-box;
+      mask-image: linear-gradient(270deg, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+    }
+  </style>
+</BaseLayout>

@@ -1,0 +1,167 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+import Icon from "@ui/icons/Icon.astro";
+import PostFeedback from "@common/PostFeedback.svelte";
+import { formatDate } from "@utils/utils";
+import { getReadingTime } from "@utils/reading-time";
+import { getEntry, render } from "astro:content";
+
+// 1. Get the slug from the incoming server request
+const { id } = Astro.params;
+if (id === undefined) {
+  return Astro.redirect("/404");
+}
+
+// 2. Query for the entry directly using the request slug
+const post = await getEntry("articles", id);
+
+// 3. Redirect if the entry does not exist
+if (post === undefined) {
+  return Astro.redirect("/404");
+}
+
+// 4. Render the entry to HTML in the template
+const { Content, headings } = await render(post);
+
+const validHeadings = headings.filter((heading) => heading.depth === 2);
+const readingTime = getReadingTime(post.body ?? "");
+const slug = id;
+---
+
+<BaseLayout>
+  <section class="mx-auto max-w-[85rem] px-4 py-24 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-screen-xl">
+      <div class="grid gap-8 md:grid-cols-4 lg:gap-12">
+        {
+          validHeadings.length > 0 && (
+            <div class="relative mt-10 rounded-lg border border-dashed p-5 md:mt-0 md:border-none md:p-0 md:pb-24">
+              <nav class="sticky top-10 md:top-32">
+                <small class="font-semibold uppercase">On this page</small>
+                <ul class="mt-2 space-y-2">
+                  {validHeadings.map((heading) => (
+                    <li>
+                      <a
+                        href={`#${heading.slug}`}
+                        class="block text-slate-400 transition-colors duration-200 hover:text-slate-600"
+                        data-toc-link
+                      >
+                        {heading.text}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          )
+        }
+        <div class="mx-auto md:col-span-2 md:col-start-2 md:pt-8">
+          <ul class="mb-5 text-xs text-slate-500">
+            <li
+              class="relative inline-block pe-6 before:absolute before:end-2 before:top-1/2 before:size-1 before:-translate-y-1/2 before:rounded-full before:bg-slate-300 last:pe-0 last-of-type:before:hidden"
+            >
+              {formatDate(post.data.date)}
+            </li>
+            <li
+              class="relative inline-block pe-6 before:absolute before:end-2 before:top-1/2 before:size-1 before:-translate-y-1/2 before:rounded-full before:bg-slate-300 last:pe-0 last-of-type:before:hidden"
+            >
+              {readingTime}
+            </li>
+          </ul>
+
+          <h1
+            class="mb-4 text-balance text-center text-2xl text-slate-800 sm:text-3xl md:mb-6 md:text-left xl:text-5xl"
+          >
+            {post.data.title}
+          </h1>
+          <section
+            class="prose prose-slate prose-headings:font-normal prose-h3:text-slate-500 prose-strong:text-slate-500"
+          >
+            <Content />
+          </section>
+          <PostFeedback
+            client:only="svelte"
+            title="Was this post helpful?"
+            firstChoice="Yes"
+            secondChoice="No"
+            slug={slug}
+          >
+            <svelte:fragment slot="helpfulIcon">
+              <Icon
+                name="thumbUp"
+                class="transition duration-300 group-hover:-translate-y-1 group-focus-visible:-translate-y-1"
+              />
+            </svelte:fragment>
+            <svelte:fragment slot="notHelpfulIcon">
+              <Icon
+                name="thumbDown"
+                class="transition duration-300 group-hover:translate-y-1 group-focus-visible:translate-y-1"
+              />
+            </svelte:fragment>
+          </PostFeedback>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Initializes the Table of Contents (TOC) by highlighting the active section
+    // as the user scrolls. Uses IntersectionObserver for performance optimization.
+    let intersectionObserver: IntersectionObserver | null = null;
+
+    function safeInitTOC() {
+      if ("requestIdleCallback" in window) {
+        requestIdleCallback(initTOC);
+      } else {
+        setTimeout(initTOC, 200);
+      }
+    }
+
+    function initTOC() {
+      const tocLinks = document.querySelectorAll("[data-toc-link]");
+      const sections = document.querySelectorAll("h2[id]");
+
+      if (!tocLinks.length || !sections.length) return;
+
+      tocLinks.forEach((link) =>
+        link.classList.remove("text-slate-600", "font-medium"),
+      );
+
+      intersectionObserver = new IntersectionObserver(
+        (entries) => {
+          let activeSection = null;
+
+          entries.forEach((entry) => {
+            if (entry.target instanceof HTMLElement && entry.isIntersecting) {
+              activeSection = entry.target;
+            }
+          });
+
+          if (activeSection) {
+            const sectionId = (activeSection as HTMLElement).getAttribute("id");
+            if (sectionId) {
+              document
+                .querySelector(`[data-toc-link][href="#${sectionId}"]`)
+                ?.classList.add("text-slate-600", "font-medium");
+            }
+          }
+        },
+        {
+          threshold: 0.3,
+          rootMargin: "-20% 0px -55% 0px",
+        },
+      );
+
+      sections.forEach((section) => intersectionObserver?.observe(section));
+    }
+
+    function cleanup() {
+      intersectionObserver?.disconnect();
+      intersectionObserver = null;
+    }
+
+    safeInitTOC();
+
+    document.addEventListener("astro:page-load", safeInitTOC);
+    document.addEventListener("astro:before-swap", cleanup);
+  </script>
+</BaseLayout>

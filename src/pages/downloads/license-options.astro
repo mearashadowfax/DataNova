@@ -1,0 +1,242 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+import Icon from "@ui/icons/Icon.astro";
+
+// Hero
+const preTitle = "Register";
+const title = "Purchase a license key for the DataNova Core";
+const subTitle =
+  "The DataNova Core comes in two editions: Essential and Advanced. Choose the one that fits your goals to unlock your data's full potential. Upgrading is simple when you're ready to grow.";
+
+// Comparison Table Link
+const compareLinkTitle = "Compare editions & features";
+const compareLink = "editions";
+const compareLinkAriaLabel =
+  "Explore the detailed feature comparison of the Essential and Advanced Editions of DataNova Core.";
+
+// Price Tiers
+const essentialTier = {
+  title: "Essential Edition",
+  price: "$115.15",
+  priceDescription: "/Single-User License",
+  description: [
+    "For individuals and small teams.",
+    "Unlock your data’s potential with robust analytics tools, including 30+ statistical models and 25+ visualization templates to turn insights into action.",
+  ],
+  cta: {
+    text: "Register Essential",
+    link: "#",
+  },
+};
+
+const advancedTier = {
+  title: "Advanced Edition",
+  price: "$250.50",
+  priceDescription: "/Single-User License",
+  description: [
+    "For data-driven organizations.",
+    "Experience unparalleled AI-powered analytics with automated pattern recognition, anomaly detection, and advanced forecasting tools to stay ahead.",
+  ],
+  cta: {
+    text: "Register Advanced",
+    link: "#",
+  },
+};
+
+// Features
+const features = [
+  {
+    title: "Our Guarantee",
+    description:
+      "We stand by the quality of DataNova. If you're not completely satisfied, we’ll issue a full refund within 30 days of purchase.",
+    className: "rounded-xl lg:rounded-l-xl lg:rounded-r-none",
+  },
+  {
+    title: "Lifetime Licensing",
+    description:
+      "Purchase once, use forever. Both Essential and Advanced Editions include perpetual licenses with no ongoing maintenance fees.",
+    className: "rounded-xl lg:rounded-none",
+  },
+  {
+    title: "One Year of Free Updates",
+    description:
+      "Access all software updates free for one year from the purchase date. Afterward, continue receiving updates at a reduced renewal rate.",
+    className: "rounded-xl lg:rounded-r-xl lg:rounded-l-none",
+  },
+];
+
+// Info Section
+const infoSections = [
+  {
+    title: "System Requirements",
+    content: [
+      "DataNova Core is compatible with Windows 10/11 and macOS 11 (Big Sur) or later. Works seamlessly with Excel 2013, 2016, 2019, 2021, and Microsoft 365 on both 32-bit and 64-bit platforms.",
+      "The Subscription Edition also requires an active internet connection.",
+    ],
+    className: "md:row-span-2 md:content-center py-5 sm:p-5",
+    icon: null,
+  },
+  {
+    title: null,
+    content: [
+      `Every installation package includes the full DataNova Core software, sample workbooks, and detailed user documentation. For enterprise solutions, bulk licensing, or invoicing inquiries, reach out to us at <a href='mailto:sales@datanova.com' aria-label='Sales email' class="hover:text-slate-400 transition-colors duration-300"
+>sales@datanova.com</a> or call <a href='tel:1-833-328-2669' aria-label='Contact number' class="hover:text-slate-400 transition-colors duration-300"
+>1 (833) 328-2669</a>. Discounts for academic and non-profit organizations are available.`,
+    ],
+    className:
+      "md:content-center md:border-l border-t md:border-t-0 border-dashed border-slate-400 py-5 sm:p-5",
+    icon: "info",
+    iconClass: "shrink-0 size-8 text-slate-600 mt-6",
+  },
+  {
+    title: "Partners & Resellers",
+    content: [
+      "DataNova Analytics is proud to collaborate with top-tier software resellers worldwide. Contact us to locate an authorized reseller or invite your preferred reseller to join our partner network.",
+    ],
+    className:
+      "md:col-start-2 md:row-start-2 md:content-center md:border-l border-t border-dashed border-slate-400 py-5 sm:p-5",
+    icon: null,
+  },
+];
+---
+
+<BaseLayout>
+  <section class="mx-auto max-w-[85rem] px-4 pb-12 pt-40 sm:px-6 lg:px-8">
+    <div class="max-w-7xl">
+      <div class="mx-auto max-w-xl lg:mx-0">
+        <p class="text-base/7 font-medium text-slate-400">{preTitle}</p>
+        <h1
+          class="mt-1 text-balance text-4xl text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
+        >
+          {title}
+        </h1>
+        <p
+          class="mt-8 text-pretty text-lg font-medium text-slate-700 sm:text-xl/8"
+        >
+          {subTitle}
+        </p>
+        <a
+          href={compareLink}
+          target="_blank"
+          class="group mt-5 inline-flex items-center justify-center gap-x-2 text-center font-medium text-slate-700 shadow-lg shadow-transparent transition duration-300 hover:text-slate-400 focus:outline-none"
+          aria-label={compareLinkAriaLabel}
+        >
+          {compareLinkTitle}
+          <Icon name="chevronRight" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="mx-auto mt-16 grid max-w-lg grid-cols-1 items-center gap-y-6 px-4 sm:mt-20 md:px-0 lg:max-w-4xl lg:grid-cols-2 lg:gap-y-0"
+  >
+    <div
+      class="rounded-3xl rounded-t-3xl bg-white/60 p-8 ring-1 ring-slate-900/10 sm:p-10 lg:rounded-b-none lg:rounded-bl-3xl lg:rounded-tr-none"
+    >
+      <h3 class="text-base/7 font-semibold text-slate-600">
+        {essentialTier.title}
+      </h3>
+      <p class="mt-4 flex items-baseline gap-x-2">
+        <span class="text-5xl font-semibold tracking-tight text-slate-900"
+          >{essentialTier.price}</span
+        >
+        <span class="text-base text-slate-500"
+          >{essentialTier.priceDescription}</span
+        >
+      </p>
+      {
+        essentialTier.description.map((desc, index) => (
+          <p
+            class={`${index === 0 ? "mt-6 text-base font-medium text-slate-600" : "mt-8 text-base/6 text-slate-600 sm:mt-10"} `}
+          >
+            {desc}
+          </p>
+        ))
+      }
+      <a
+        href={essentialTier.cta.link}
+        aria-describedby={essentialTier.title}
+        class="mt-8 block rounded-lg px-3.5 py-2.5 text-center text-sm font-semibold ring-1 ring-inset ring-teal-700 transition duration-300 hover:bg-teal-700/80 hover:text-white focus:bg-teal-700 focus:text-white focus:outline-none sm:mt-10"
+      >
+        {essentialTier.cta.text}</a
+      >
+    </div>
+
+    <div
+      class="relative flex flex-col justify-evenly rounded-3xl bg-teal-700 p-8 shadow-2xl ring-1 ring-teal-900/10 sm:p-10 lg:h-[120%]"
+    >
+      <h3 class="text-base/7 font-semibold text-teal-100">
+        {advancedTier.title}
+      </h3>
+      <p class="mt-4 flex items-baseline gap-x-2">
+        <span class="text-5xl font-semibold tracking-tight text-white"
+          >{advancedTier.price}</span
+        >
+        <span class="text-base text-teal-200"
+          >{advancedTier.priceDescription}</span
+        >
+      </p>
+      {
+        advancedTier.description.map((desc, index) => (
+          <p
+            class={`${index === 0 ? "mt-6 text-base font-medium text-teal-50 lg:mt-0" : "mt-8 text-base/6 text-teal-50 sm:mt-10"}`}
+          >
+            {desc}
+          </p>
+        ))
+      }
+
+      <a
+        href={advancedTier.cta.link}
+        aria-describedby={advancedTier.title}
+        class="mt-8 block rounded-lg bg-teal-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm transition-colors duration-300 hover:bg-teal-600/80 focus:bg-teal-600/80 focus:outline-none sm:mt-10"
+        >{advancedTier.cta.text}</a
+      >
+    </div>
+  </section>
+
+  <section class="py-24 sm:py-40">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <dl class="grid grid-cols-1 gap-x-3 gap-y-16 text-center lg:grid-cols-3">
+        {
+          features.map(({ title, description, className }) => (
+            <div class={`flex flex-col gap-y-4 bg-teal-100 p-10 ${className}`}>
+              <dt class="text-base/7 text-slate-600">{description}</dt>
+              <dd class="order-first text-3xl font-medium tracking-tight text-slate-900">
+                <h3>{title}</h3>
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section
+    class="mx-auto max-w-[85rem] px-4 pb-10 sm:px-6 md:pb-14 lg:px-8 lg:pb-20"
+  >
+    <div
+      class="relative grid overflow-hidden rounded-3xl bg-teal-300 px-5 py-5 shadow-xl md:grid-cols-2 md:grid-rows-2"
+    >
+      {
+        infoSections.map(({ title, content, className, icon, iconClass }) => (
+          <div class={className}>
+            {title && (
+              <h3 class="text-balance text-2xl font-bold tracking-tight text-slate-800">
+                {title}
+              </h3>
+            )}
+            {icon && <Icon name={icon} class={iconClass} />}
+
+            {content.map((paragraph) => (
+              <p class="mt-6 text-pretty text-lg/8 text-slate-700">
+                <Fragment set:html={paragraph} />
+              </p>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

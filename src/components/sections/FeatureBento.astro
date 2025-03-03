@@ -1,0 +1,153 @@
+---
+import { Image } from "astro:assets";
+
+import image_1 from "@images/toolbar.webp";
+import image_2 from "@images/chart.webp";
+import image_3 from "@images/dashboard.webp";
+import PlatformOrbit from "@common/PlatformOrbit.astro";
+
+// Content for the section title and subtitle
+const title = `<span class="text-teal-700">Data</span><span class="font-normal text-slate-400">Nova</span>'s Powerful Analytics Suite`;
+const subTitle = `Discover how DataNova transforms your Excel workspace into a comprehensive analytics powerhouse, making data analysis accessible and actionable.`;
+
+const features = [
+  {
+    title: "Comprehensive analytics suite",
+    description: `Choose from <span class="font-bold">30+</span> statistical models and <span class="font-bold">25+</span> visualization templates to unlock insights from any dataset.`,
+    image: image_2,
+    imageClass: "mx-auto mt-5 self-end object-cover w-[90%]",
+    imageContainerClass:
+      "relative flex min-h-[30rem] w-full grow [container-type:inline-size] max-lg:mx-auto max-lg:max-w-sm",
+    imageFadeClass:
+      "pointer-events-none absolute inset-x-0 bottom-1 z-10 mx-auto h-16 w-[90%] bg-gradient-to-b from-transparent via-white to-white",
+    headingClass: "pb-3 sm:pb-0",
+    class: "relative lg:row-span-2",
+    wrapperClass: "lg:rounded-l-3xl",
+  },
+  {
+    title: "Native Excel integration",
+    description:
+      "Work directly in Excel with our native toolbar and custom functions",
+    image: image_1,
+    imageClass: "w-full rounded-t-xl",
+    imageContainerClass:
+      "relative flex flex-1 items-center justify-center px-4 max-lg:pb-12 max-lg:pt-10 lg:pb-2",
+    imageFadeClass:
+      "pointer-events-none absolute inset-x-0 bottom-1 z-10 mx-auto h-28 w-[90%] bg-gradient-to-b from-transparent via-white to-white",
+    class: "relative max-lg:row-start-1",
+    wrapperClass: "max-lg:rounded-t-3xl",
+  },
+
+  {
+    title: "Smart analysis tools",
+    description:
+      "Let AI do the heavy lifting. Automatically detect patterns, spot anomalies, and get accurate forecasts from your historical data.",
+    image: image_3,
+    imageClass: "h-full object-cover",
+    imageContainerClass: "relative min-h-[30rem] w-full grow",
+    imageSecondaryContainerClass:
+      "absolute bottom-0 left-10 right-0 top-10 overflow-hidden rounded-tl-xl shadow-2xl",
+    class: "relative lg:row-span-2",
+    wrapperClass: "max-lg:rounded-b-3xl lg:rounded-r-3xl",
+  },
+  {
+    title: "And more...",
+    listItems: [
+      "Works seamlessly with all modern Excel versions (2013+) on both Windows and Mac",
+      "Access your insights anywhere through cloud integration with Google Sheets and OneDrive",
+    ],
+    class: "relative max-lg:row-start-3 lg:col-start-2 lg:row-start-2",
+    wrapperClass: "rounded-lg",
+    component: PlatformOrbit,
+  },
+];
+---
+
+<div class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20">
+  {/* Section container for the title and subtitle */}
+  <div class="mx-auto mb-10 max-w-2xl text-center lg:mb-14">
+    <h2
+      class="text-balance text-2xl font-semibold text-slate-800 md:text-3xl md:leading-tight"
+    >
+      <Fragment set:html={title} />
+    </h2>
+    <p class="mt-1 text-pretty text-slate-600">
+      <Fragment set:html={subTitle} />
+    </p>
+  </div>
+
+  <div class="mx-auto max-w-2xl px-6 lg:max-w-[85rem] lg:px-0">
+    <div class="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
+      {
+        features.map((feature) => (
+          <div class={feature.class}>
+            <div
+              class={`absolute inset-px rounded-lg bg-white ${feature.wrapperClass}`}
+            />
+            <div
+              class={`relative flex h-full flex-col overflow-hidden rounded-lg ${feature.wrapperClass}`}
+            >
+              <div class="px-8 pb-3 pt-8 sm:px-10 sm:pb-0 sm:pt-10">
+                <h3 class="mt-2 text-lg font-medium tracking-tight text-slate-800 max-lg:text-center">
+                  {feature.title}
+                </h3>
+
+                {/* Render descriptions as paragraphs if available */}
+                {feature.description && (
+                  <p
+                    class="mt-2 max-w-lg text-sm/6 text-slate-600 max-lg:text-center"
+                    set:html={feature.description}
+                  />
+                )}
+
+                {/* Render list items if available */}
+                {feature.listItems && (
+                  <ul class="mt-2 max-w-lg list-inside list-disc space-y-1 text-sm/6 text-slate-600 marker:text-teal-600 max-lg:text-center">
+                    {feature.listItems.map((item) => (
+                      <li set:html={item} />
+                    ))}
+                  </ul>
+                )}
+              </div>
+
+              {/* Render Image if available */}
+              {feature.image && (
+                <div class={`${feature.imageContainerClass}`}>
+                  {feature.imageSecondaryContainerClass ? (
+                    <div class={`${feature.imageSecondaryContainerClass}`}>
+                      <Image
+                        class={`${feature.imageClass}`}
+                        src={feature.image}
+                        alt=""
+                      />
+                    </div>
+                  ) : (
+                    <>
+                      <div class={`${feature.imageFadeClass}`} />
+                      <Image
+                        class={`${feature.imageClass}`}
+                        src={feature.image}
+                        alt=""
+                      />
+                    </>
+                  )}
+                </div>
+              )}
+
+              {/* Render component if available */}
+              {feature.component && (
+                <div>
+                  {feature.component}
+                </div>
+              )}
+
+              <div
+                class={`pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-black/5 ${feature.wrapperClass}`}
+              />
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>

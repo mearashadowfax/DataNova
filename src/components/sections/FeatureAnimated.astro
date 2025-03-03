@@ -1,0 +1,159 @@
+---
+import Icon from "@ui/icons/Icon.astro";
+import FeatureCard from "@common/FeatureCard.astro";
+import Button from "@ui/Button.astro";
+
+// Content for the section title and subtitle
+const title = "Turn Historical Data into Tomorrow's Decisions";
+const subTitle =
+  "Leverage advanced statistics and ML to uncover hidden patterns in your data. Make confident decisions backed by proven forecasting models. Our predictive engine analyzes thousands of data points to help you anticipate market changes and stay ahead of the competition.";
+
+// Call-to-action configuration for the tertiary button
+const tertiaryCTA = { text: "Learn More", href: "#" };
+---
+
+<section
+  class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20"
+>
+  <div
+    class="relative isolate overflow-hidden rounded-3xl bg-teal-400 px-6 pt-16 shadow-xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0"
+  >
+    {/* Background Circle SVG */}
+    <svg
+      viewBox="0 0 1024 1024"
+      class="absolute left-1/2 top-1/2 -z-10 size-[64rem] -translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] sm:left-full sm:-ml-80 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2 lg:translate-y-0"
+      aria-hidden="true"
+    >
+      <circle
+        cx="512"
+        cy="512"
+        r="512"
+        fill="url(#gradient_2)"
+        fill-opacity="0.7"></circle>
+      <defs>
+        <radialGradient id="gradient_2">
+          <stop offset="0" stop-color="#087F7F"></stop>
+          <stop offset="1" stop-color="#087F7F"></stop>
+        </radialGradient>
+      </defs>
+    </svg>
+
+    {/* Section content for title, subtitle, and button */}
+    <div
+      class="mx-auto my-auto max-w-md text-left sm:text-center lg:mx-0 lg:flex-auto lg:text-left"
+    >
+      <h2
+        class="text-balance text-2xl font-semibold tracking-tight text-slate-800 md:text-3xl md:leading-tight"
+      >
+        {title}
+      </h2>
+      <p class="mt-6 text-pretty text-lg/8 text-slate-700">
+        {subTitle}
+      </p>
+      <div
+        class="mt-10 flex items-center justify-start gap-x-6 sm:justify-center lg:justify-start"
+      >
+        <Button
+          href={tertiaryCTA.href}
+          variant="tertiary"
+          className="group inline-flex items-center justify-center gap-x-2 !py-2.5 pl-5 pr-4 text-slate-700"
+          >{tertiaryCTA.text}<Icon name="chevronRight" /></Button
+        >
+      </div>
+    </div>
+
+    {/* Section's feature cards and connecting animations */}
+
+    <div class="relative my-16 flex flex-col gap-y-7 lg:my-8 2xl:h-full">
+      {/* First Feature Card */}
+
+      <FeatureCard
+        icon="dataBase"
+        description="Clean, organize, and prepare raw data for analysis."
+        styleClass=""
+      />
+
+      {/* First beam line SVG connecting feature cards visually */}
+
+      <svg
+        class="line-connector absolute z-0 hidden w-1/2 xl:left-[10%] xl:top-[25%] xl:block"
+        viewBox="0 0 200 300"
+      >
+        <path
+          class="base-line"
+          d="M1 0.5V50C1 63.8071 12.1929 75 26 75H70"
+          stroke="#F4F9FF"
+          stroke-width="1"
+          fill="transparent"></path>
+
+        <path
+          class="beam-line"
+          d="M1 0.5V50C1 63.8071 12.1929 75 26 75H70"
+          stroke="#5AAEAE"
+          stroke-width="1"
+          fill="transparent"></path>
+      </svg>
+
+      {/* Second Feature Card */}
+      <FeatureCard
+        icon="brain"
+        description="Use statistical models to identify key patterns and trends."
+        styleClass="self-center"
+      />
+
+      {/* Second beam line SVG connecting feature cards visually */}
+
+      <svg
+        class="line-connector absolute hidden w-1/2 xl:left-[70%] xl:top-[55%] xl:block"
+        viewBox="0 0 200 300"
+      >
+        <path
+          class="base-line"
+          d="M0.5 1.5H56C69.8071 1.5 81 12.6929 81 26.5V73"
+          stroke="#F4F9FF"
+          stroke-width="1"
+          fill="transparent"></path>
+
+        <path
+          class="beam-line"
+          d="M0.5 1.5H56C69.8071 1.5 81 12.6929 81 26.5V73"
+          stroke="#5AAEAE"
+          stroke-width="1"
+          fill="transparent"></path>
+      </svg>
+
+      {/* Third Feature Card */}
+      <FeatureCard
+        icon="lightbulb"
+        description="Convert insights into visuals and actionable decisions."
+        styleClass="self-end"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Styling for animated beam line connecting feature cards */
+  .beam-line {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: beam-animation 5s ease-in-out infinite;
+  }
+
+  .line-connector:nth-of-type(2) .beam-line {
+    animation-delay: 2.5s;
+    animation-duration: 5s;
+  }
+
+  @keyframes beam-animation {
+    0% {
+      stroke-dashoffset: 200;
+    }
+    50% {
+      stroke-dashoffset: 0;
+    }
+    100% {
+      stroke-dashoffset: -200;
+    }
+  }
+</style>

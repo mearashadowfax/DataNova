@@ -1,0 +1,32 @@
+---
+import Button from "@ui/Button.astro";
+
+// Content for the section title and subtitle
+const title =
+  'Transform Your Business Today. <br /> Get started with <span class="font-medium text-teal-700">Data</span><span class="font-light text-slate-400">Nova</span>.';
+const subTitle =
+  "Begin your free trial and discover how DataNova's powerful analytics platform can revolutionize your data-driven decision making.";
+
+// Call-to-action configuration for the primary button
+const primaryCTA = { text: "Start Free Trial", href: "#" };
+---
+
+<section
+  class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20"
+>
+  <div class="mx-auto mb-10 max-w-3xl text-center lg:mb-14">
+    <h2
+      class="text-balance text-4xl text-slate-800 sm:text-5xl"
+    >
+      <Fragment set:html={title} />
+    </h2>
+    <p class="text-lg\/8 mt-5 text-pretty text-slate-600">
+      {subTitle}
+    </p>
+    <Button
+      href={primaryCTA.href}
+      variant="primary"
+      className="mt-7 inline-flex border-none !px-3.5">{primaryCTA.text}</Button
+    >
+  </div>
+</section>

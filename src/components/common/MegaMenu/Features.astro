@@ -1,0 +1,62 @@
+---
+import Icon from "@ui/icons/Icon.astro";
+import { featuresMenu } from "@utils/megaMenu/features";
+const sectionDescription = "Discover how DataNova can empower your business";
+---
+
+<div
+  class="hs-dropdown [--adaptive:none] [--is-collapse:true] [--strategy:static] xl:[--is-collapse:false] xl:[--strategy:absolute] xl:[--trigger:hover]"
+>
+  <button
+    id="mega-menu-features"
+    type="button"
+    class="hs-dropdown-toggle flex w-full items-center rounded-lg p-2 font-medium text-slate-800 hover:bg-slate-100 focus:bg-slate-100 focus:outline-none"
+    aria-haspopup="menu"
+    aria-expanded="false"
+    aria-label="Mega Menu"
+  >
+    Features <Icon name="arrowDownRight" />
+  </button>
+
+  <div
+    class="hs-dropdown-menu relative start-0 top-full z-10 mt-2 hidden w-full min-w-60 max-w-screen-md opacity-0 transition-[opacity,margin] duration-150 before:absolute before:-top-5 before:start-0 before:h-5 before:w-full hs-dropdown-open:opacity-100 xl:start-[20%] xl:duration-300"
+    role="menu"
+    aria-orientation="vertical"
+    aria-labelledby="mega-menu-features"
+  >
+    <div
+      class="from-teal-100 via-transparent to-white px-4 py-2 lg:mx-8 xl:mx-6 xl:rounded-lg xl:bg-white xl:bg-gradient-to-t xl:px-16 xl:py-10 xl:shadow-lg xl:ring-1 xl:ring-teal-950/5"
+    >
+      <p class="text-sm text-slate-600">
+        {sectionDescription}
+      </p>
+      <hr class="mb-5 border border-teal-300" />
+
+      <div class="gap-4 py-1 md:grid md:grid-cols-2 md:p-2">
+        {
+          featuresMenu.map((section) => (
+            <div class="flex flex-col">
+              <p class="text-slate-800">{section.sectionTitle}</p>
+
+              {section.items.map((item) => (
+                <a
+                  class="flex gap-x-4 rounded-lg p-3 hover:bg-slate-100 focus:bg-slate-100 focus:outline-none"
+                  href={item.href}
+                >
+                  <Icon name={item.icon} class="mt-1 size-5 shrink-0 text-slate-800" />
+
+                  <div class="grow">
+                    <p class="text-sm font-medium text-slate-800">
+                      {item.title}
+                    </p>
+                    <p class="text-sm text-slate-500">{item.description}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>

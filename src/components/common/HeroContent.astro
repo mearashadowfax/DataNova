@@ -1,0 +1,32 @@
+---
+import Button from "@ui/Button.astro";
+
+const title = "Turn Excel® into Your Data Intelligence Powerhouse";
+const subTitle =
+  "Get instant insights from your spreadsheets with advanced analytics and stunning visualizations. No coding required. Make confident decisions backed by data in minutes, not days.";
+const secondaryCTA = { text: "Start Free Trial", href: "#" };
+const primaryCTA = { text: "View Pricing", href: "#" };
+---
+
+{/* Hero Content */}
+<div class="mx-auto max-w-4xl select-none text-left sm:text-center">
+  <h1
+    class="block text-balance text-4xl text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
+  >
+    {title}
+  </h1>
+</div>
+
+<div class="mx-auto max-w-3xl text-left sm:text-center">
+  <p class="text-pretty text-lg text-slate-700">
+    {subTitle}
+  </p>
+</div>
+
+{/* CTA Buttons */}
+<div class="flex flex-col justify-center gap-5 sm:flex-row">
+  <Button href={secondaryCTA.href} variant="secondary"
+    >{secondaryCTA.text}</Button
+  >
+  <Button href={primaryCTA.href} variant="primary">{primaryCTA.text}</Button>
+</div>

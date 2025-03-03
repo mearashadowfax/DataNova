@@ -1,0 +1,5 @@
+{
+  "title": "Interest Rate Projections: Cox-Ingersoll-Ross Model",
+  "description": "A spreadsheet designed to model interest rate trends using the Cox-Ingersoll-Ross model, simulating changes over time across multiple discrete periods. The example is described in detail in <a class=\"text-slate-400 hover:text-slate-500 transition-colors duration-300\" href=\"https://example.com\" target=\"_blank\">this article</a>.",
+  "url": "#"
+}

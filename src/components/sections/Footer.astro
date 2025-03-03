@@ -1,0 +1,88 @@
+---
+import FooterForm from "@ui/forms/FooterForm.astro";
+import ContactInfo from "@common/ContactInfo.astro";
+
+// Props for customization
+const companyName = "DataNova Analytics Inc.";
+const companyDescription =
+  "DataNova Analytics Inc. is a leading business intelligence and analytics software company founded in 2018, with offices in Boston and Seattle.";
+
+// Contact information for the company
+const contactDetails = {
+  address: "Seattle, WA, 98104",
+  phone: "1 (833) 328-2669",
+  email: "info@datanova.com",
+  website: "www.datanova.com",
+};
+
+// Dynamic date for copyright display
+const copyrightYear = new Date().getFullYear();
+
+// Developer or team behind the website
+const craftedBy = { name: "gulamoff", url: "https://www.gulamoff.dev/" };
+
+// Trademark notice
+const trademarkNotice =
+  "Microsoft&reg; and Excel&reg; are registered trademarks or trademarks of Microsoft Corporation";
+---
+
+<footer
+  class="mt-auto w-full bg-gradient-to-t from-teal-200 via-transparent to-white pb-10"
+>
+  <div class="mx-auto mt-auto w-full max-w-[85rem] px-4 pb-10 sm:px-6 lg:px-8">
+    <hr class="mb-10 border-slate-200" />
+
+    <div class="grid grid-cols-2 gap-6 md:grid-cols-5">
+      {/* Company Information */}
+      <div class="col-span-full self-center xl:col-span-2">
+        <a
+          href="#"
+          class="flex-none text-xl font-semibold uppercase text-slate-700 focus:opacity-80 focus:outline-none"
+          aria-label="{companyName} Homepage"
+        >
+          {companyName}
+        </a>
+        <p class="mt-5 text-pretty text-slate-600 lg:w-5/12 xl:w-10/12">
+          {companyDescription}
+        </p>
+      </div>
+
+      {/* Contact Information Section */}
+      <div class="col-span-1 md:col-span-2 xl:col-span-1 xl:col-start-3">
+        <ContactInfo {...contactDetails} />
+      </div>
+
+      {/* Email Subscription Form */}
+      <div class="col-span-2 md:col-span-3 xl:col-span-2">
+        <h3 class="font-semibold text-slate-700">More information?</h3>
+        <FooterForm />
+      </div>
+    </div>
+
+    {/* Divider before footer's bottom section */}
+    <hr class="mb-5 mt-10 border-slate-200" />
+
+    <div
+      class="grid gap-y-2 sm:flex sm:items-center sm:justify-between sm:gap-y-0"
+    >
+      {/* Copyright and Crafted By Section */}
+      <p class="text-sm text-slate-400/50">
+        &copy; 2018-{copyrightYear}
+        {companyName} Crafted by
+        <a
+          href={craftedBy.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-medium underline underline-offset-2 outline-none ring-slate-400 transition duration-300 hover:text-slate-400 hover:decoration-dashed focus:outline-none focus-visible:ring"
+        >
+          {craftedBy.name}
+        </a>
+      </p>
+
+      {/* Trademark Notice */}
+      <p class="text-sm text-slate-400/50">
+        <Fragment set:html={trademarkNotice} />
+      </p>
+    </div>
+  </div>
+</footer>

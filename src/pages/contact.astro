@@ -1,0 +1,169 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+import Icon from "@ui/icons/Icon.astro";
+import ContactForm from "@ui/forms/ContactForm.astro";
+import type { WithContext, Thing } from "schema-dts";
+
+const addressHeading = "Our address:";
+const emailHeading = "Contact us by email:";
+const knowledgeBaseHeading = "Knowledge base";
+
+const contactDetails = {
+  addressLine1: "1234 1st Ave Ste 300",
+  addressLine2: "Seattle, WA 98104, USA",
+  phone: "1 (833) 328-2669",
+  email: "info@datanova.com",
+};
+
+const knowledgeBaseDetails = {
+  description: "Browse through all of our knowledge base articles.",
+  linkText: "Search the knowledge base",
+  linkUrl: "/support/knowledge-base",
+};
+
+// Content for the page title and subtitle
+const title = "Contact us";
+const subTitle = "Questions, Comments or Feedback.";
+
+// SEO metadata for the page
+const seo = {
+  title: "Contact DataNova",
+  description:
+    "Get in touch with DataNova for inquiries, support, and feedback. Reach out via email, phone, or visit our office.",
+};
+
+// Schema.org metadata for SEO
+const schema: WithContext<Thing> = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  inLanguage: "en-US",
+  "@id": Astro.url.href,
+  url: Astro.url.href,
+  name: "Contact DataNova",
+  description:
+    "Reach out to DataNova for any questions, support, or business inquiries. Our team is ready to assist you.",
+  isPartOf: {
+    "@type": "WebSite",
+    url: `${Astro.site}`,
+    name: "DataNova",
+    description:
+      "DataNova Analytics Inc. provides advanced analytics for Excel to help businesses unlock actionable insights quickly with no coding required.",
+  },
+};
+---
+
+<BaseLayout seo={seo} schema={schema}>
+  <div class="mx-auto max-w-[85rem] px-4 pb-28 pt-48 sm:px-6 lg:px-8">
+    <div class="mb-10 max-w-3xl lg:mb-14">
+      <h2
+        class="text-balance text-4xl text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
+      >
+        {title}
+      </h2>
+      <p class="ml-1 mt-1 text-slate-600">{subTitle}</p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-x-10 md:grid-cols-2 lg:gap-x-16">
+      <div
+        class="mb-10 rounded-xl bg-teal-400 pb-10 md:order-2 md:mb-0 md:pb-0"
+      >
+        <ContactForm />
+      </div>
+
+      <div class="space-y-14">
+        <div class="flex gap-x-5">
+          <Icon name="mapPin" />
+          <div class="grow">
+            <h4 class="font-semibold text-slate-600">{addressHeading}</h4>
+
+            <address class="mt-1 text-sm not-italic text-slate-500">
+              {contactDetails.addressLine1}
+              <br />
+              {contactDetails.addressLine2}
+            </address>
+          </div>
+        </div>
+
+        <div class="flex gap-x-5">
+          <Icon name="email" class="size-6 shrink-0 text-slate-600" />
+          <div class="grow">
+            <h4 class="font-semibold text-slate-600">{emailHeading}</h4>
+
+            <a
+              class="mt-1 text-sm text-slate-500 transition-colors duration-300 hover:text-slate-400 focus:text-slate-400 focus:outline-none"
+              href={`mailto:${contactDetails.email}`}
+            >
+              {contactDetails.email}
+            </a>
+          </div>
+        </div>
+
+        <div class="flex gap-x-5">
+          <Icon name="info" class="size-6 shrink-0 text-slate-600" />
+          <div class="grow">
+            <h4 class="font-semibold text-slate-600">{knowledgeBaseHeading}</h4>
+            <p class="mt-1 text-sm text-slate-500">
+              {knowledgeBaseDetails.description}
+            </p>
+            <p class="mt-2">
+              <a
+                class="group inline-flex items-center gap-x-2 text-sm font-medium text-slate-600 decoration-2 transition duration-300 hover:underline focus:underline focus:outline-none"
+                href={knowledgeBaseDetails.linkUrl}
+              >
+                {knowledgeBaseDetails.linkText}
+                <Icon name="chevronRight" />
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Automatically adjusting the height of the textarea
+    // based on its content. Triggers when the textarea content changes.
+    document.addEventListener("astro:page-load", () => {
+      function textareaAutoHeight(
+        el: HTMLTextAreaElement,
+        offsetTop: number = 0,
+      ): void {
+        el.style.height = "auto";
+        el.style.height = `${el.scrollHeight + offsetTop}px`;
+      }
+
+      (() => {
+        const textareas: string[] = ["#input-message"];
+
+        textareas.forEach((selector) => {
+          const textarea = document.querySelector(
+            selector,
+          ) as HTMLTextAreaElement;
+
+          if (!textarea) return;
+
+          const overlay = textarea.closest(".hs-overlay");
+
+          if (overlay) {
+            const instance = (window as any).HSOverlay.getInstance(
+              overlay,
+              true,
+            );
+
+            if (instance) {
+              instance.element.on("open", () =>
+                textareaAutoHeight(textarea, 3),
+              );
+            }
+          } else {
+            textareaAutoHeight(textarea, 3);
+          }
+
+          textarea.addEventListener("input", () => {
+            textareaAutoHeight(textarea, 3);
+          });
+        });
+      })();
+    });
+  </script>
+</BaseLayout>
