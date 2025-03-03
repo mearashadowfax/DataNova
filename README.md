@@ -200,6 +200,8 @@ DataNova uses Keystatic CMS for managing content. You can edit content through t
 >
 > let KEYSTATIC_STORAGE_MODE = "local";
 > ```
+>
+> 3. **Update your dynamic route to use `getStaticPaths()`. Refer to the [Astro documentation](https://docs.astro.build/en/guides/content-collections/#building-for-static-output-default) for details on generating static content from collections.**
 
 ### Content Collections
 The template includes content collections for:
