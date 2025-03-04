@@ -4,8 +4,8 @@ import Button from "@ui/Button.astro";
 const title = "Turn Excel® into Your Data Intelligence Powerhouse";
 const subTitle =
   "Get instant insights from your spreadsheets with advanced analytics and stunning visualizations. No coding required. Make confident decisions backed by data in minutes, not days.";
-const secondaryCTA = { text: "Start Free Trial", href: "#" };
-const primaryCTA = { text: "View Pricing", href: "#" };
+const secondaryCTA = { text: "Start Free Trial", href: "https://github.com/mearashadowfax/DataNova" };
+const primaryCTA = { text: "View Pricing", href: "/downloads/license-options" };
 ---
 
 {/* Hero Content */}
@@ -25,7 +25,7 @@ const primaryCTA = { text: "View Pricing", href: "#" };
 
 {/* CTA Buttons */}
 <div class="flex flex-col justify-center gap-5 sm:flex-row">
-  <Button href={secondaryCTA.href} variant="secondary"
+  <Button href={secondaryCTA.href} variant="secondary" target="_blank"
     >{secondaryCTA.text}</Button
   >
   <Button href={primaryCTA.href} variant="primary">{primaryCTA.text}</Button>

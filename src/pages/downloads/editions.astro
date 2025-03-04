@@ -115,7 +115,7 @@ const infoSection = {
 ---
 
 <BaseLayout>
-  <section class="bg-gradient-to-tl from-teal-200 via-transparent to-white">
+  <section class="bg-linear-to-tl from-teal-200 via-transparent to-white">
     <div class="mx-auto max-w-[85rem] px-4 pb-12 pt-40 sm:px-6 lg:px-8">
       <div class="max-w-7xl">
         <div class="mx-auto max-w-2xl lg:mx-0">
@@ -137,7 +137,7 @@ const infoSection = {
     </div>
   </section>
 
-  <section class="bg-gradient-to-bl from-teal-200 via-transparent to-white">
+  <section class="bg-linear-to-bl from-teal-200 via-transparent to-white">
     <div
       class="relative mx-auto max-w-[60rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14"
     >
@@ -246,7 +246,7 @@ const infoSection = {
             infoSection.buttons.map((button) => (
               <a
                 href={button.link}
-                class={`mx-auto flex w-full items-center justify-center rounded-lg px-3.5 py-2.5 text-center text-sm font-semibold transition duration-300 focus:outline-none sm:w-1/2 ${button.style}`}
+                class={`mx-auto flex w-full items-center justify-center rounded-lg px-3.5 py-2.5 text-center text-sm font-semibold transition duration-300 focus:outline-hidden sm:w-1/2 ${button.style}`}
               >
                 {button.text}
               </a>

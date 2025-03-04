@@ -3,17 +3,18 @@ import Icon from "@ui/icons/Icon.astro";
 
 const text = "Introducing DataNova";
 const linkText = "Now ready to try!";
-const linkHref = "#";
+const linkHref = "https://github.com/mearashadowfax/DataNova";
 ---
 <div class="flex justify-center">
   <div class="rounded-xl bg-slate-50 shadow-md">
     <a
       href={linkHref}
+      target="_blank"
       class="group flex h-9 w-fit items-center justify-center gap-0 rounded-xl transition duration-300"
       aria-label=`${text} - ${linkText}`
     >
       <div
-        class="to-teal-700 from-teal-800 flex h-full w-fit items-center gap-2 rounded-xl bg-gradient-to-tr px-3"
+        class="to-teal-700 from-teal-800 flex h-full w-fit items-center gap-2 rounded-xl bg-linear-to-tr px-3"
       >
         <span class="text-sm text-white">{text}</span>
       </div>

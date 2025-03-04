@@ -90,7 +90,7 @@ const schema: WithContext<Thing> = {
             <h4 class="font-semibold text-slate-600">{emailHeading}</h4>
 
             <a
-              class="mt-1 text-sm text-slate-500 transition-colors duration-300 hover:text-slate-400 focus:text-slate-400 focus:outline-none"
+              class="mt-1 text-sm text-slate-500 transition-colors duration-300 hover:text-slate-400 focus:text-slate-400 focus:outline-hidden"
               href={`mailto:${contactDetails.email}`}
             >
               {contactDetails.email}
@@ -107,7 +107,7 @@ const schema: WithContext<Thing> = {
             </p>
             <p class="mt-2">
               <a
-                class="group inline-flex items-center gap-x-2 text-sm font-medium text-slate-600 decoration-2 transition duration-300 hover:underline focus:underline focus:outline-none"
+                class="group inline-flex items-center gap-x-2 text-sm font-medium text-slate-600 decoration-2 transition duration-300 hover:underline focus:underline focus:outline-hidden"
                 href={knowledgeBaseDetails.linkUrl}
               >
                 {knowledgeBaseDetails.linkText}

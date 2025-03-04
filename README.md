@@ -4,7 +4,7 @@
 
 DataNova is an open-source, multi-page website template that empowers you to build a variety of websites and applications. From marketing sites to documentation hubs, DataNova provides the foundation you need with [Keystatic CMS](https://keystatic.com/), [Astro DB](https://docs.astro.build/en/guides/astro-db/), and a modern design built with [Astro](https://astro.build/), [Tailwind CSS](https://tailwindcss.com/), and [Preline UI](https://preline.co/).
 
-**[View Live Demo](https://datanova.com/)**
+**[View Live Demo](https://data-nova.vercel.app/)**
 
 ## Table of Contents
 
@@ -100,6 +100,7 @@ Click the button below to start deploying your project on Vercel:
 
 > [!NOTE]
 > SSR is used because Keystatic requires server-side execution for its API routes. If you only intend to use Keystatic for local development, you can configure the project for static output as described in the [Keystatic CMS section](#keystatic-cms).
+
 > [!TIP]  
 > If you're deploying to a different platform, you may need to install a different adapter.  Astro provides official adapters for various platforms, including Netlify, Cloudflare, and Node.js. You can find a list of adapters in the [Astro documentation](https://docs.astro.build/en/guides/on-demand-rendering/#server-adapters).
 >
@@ -200,7 +201,7 @@ The `currentPath` variable is used to highlight the active link in the navigatio
 
 #### Mega Menu Links
 
-The mega menu allows you to create dropdown menus with multiple sections and links. The mega menu links are stored in the `utils/megaMenu/*` files. For example, the downloads mega menu is stored in `utils/megaMenu/downloads.ts`:
+The mega menu allows you to create dropdown menus with multiple sections and links. The mega menu links are stored in the `utils/megaMenu/*` files. For example, the downloads mega menu is stored in [utils/megaMenu/downloads.ts](https://github.com/mearashadowfax/DataNova/blob/771087f60258ced93f7ad8ab38669c5ada1a65c6/src/utils/megaMenu/downloads.ts):
 
 ```ts
    export const downloadsMenu = [
@@ -339,9 +340,9 @@ DataNova leverages several Astro integrations to enhance its functionality and i
 
 ### Astro SEO
 
-The `astro-seo` integration helps manage SEO metadata and schema.org data, improving the website's visibility on search engines.
+The [astro-seo](https://github.com/jonasmerlin/astro-seo) integration helps manage SEO metadata and schema.org data, improving the website's visibility on search engines.
 
-In `BaseLayout.astro`, the `SEO` component from `astro-seo` is used to define global SEO settings like `title`, `description`, `openGraph`, and `twitter` metadata. Page-specific SEO settings can be overridden by passing `seo` props to the `BaseLayout` component, as shown in the example below:
+In [BaseLayout.astro](https://github.com/mearashadowfax/DataNova/blob/771087f60258ced93f7ad8ab38669c5ada1a65c6/src/layout/BaseLayout.astro#L43), the `SEO` component from `astro-seo` is used to define global SEO settings like `title`, `description`, `openGraph`, and `twitter` metadata. Page-specific SEO settings can be overridden by passing `seo` props to the `BaseLayout` component, as shown in the example below:
 
 ```astro
 ---
@@ -360,9 +361,9 @@ const seo = {
 
 ### Astro SEO Schema
 
-The `astro-seo-schema` integration provides a convenient way to add schema.org structured data to your pages, helping search engines understand the content better.
+The [astro-seo-schema](https://github.com/codiume/orbit/tree/main/packages/astro-seo-schema) integration provides a convenient way to add schema.org structured data to your pages, helping search engines understand the content better.
 
-In `BaseLayout.astro`, the Schema component from `astro-seo-schema` is used to define default schema.org data for the website. Page-specific schema.org data can be added by passing `schema` props to the `BaseLayout` component, as shown in the example below.
+In [BaseLayout.astro](https://github.com/mearashadowfax/DataNova/blob/771087f60258ced93f7ad8ab38669c5ada1a65c6/src/layout/BaseLayout.astro#L79), the Schema component from `astro-seo-schema` is used to define default schema.org data for the website. Page-specific schema.org data can be added by passing `schema` props to the `BaseLayout` component, as shown in the example below.
 
 ```astro
 ---
@@ -381,18 +382,18 @@ const schema: WithContext<Thing> = {
 
 ### Astro Font
 
-The `astro-font` integration optimizes font loading and preloading, improving website performance.
+The [astro-font](https://github.com/rishi-raj-jain/astro-font) integration optimizes font loading and preloading, improving website performance.
 
-In `BaseLayout.astro`, the `AstroFont` component is used to define font configurations, including `name`, `src`, `preload`, `display`, `selector`, and `fallback` options. This ensures fonts are loaded efficiently and applied to the correct elements.
+In [BaseLayout.astro](https://github.com/mearashadowfax/DataNova/blob/771087f60258ced93f7ad8ab38669c5ada1a65c6/src/layout/BaseLayout.astro#L85), the `AstroFont` component is used to define font configurations, including `name`, `src`, `preload`, `display`, `selector`, and `fallback` options. This ensures fonts are loaded efficiently and applied to the correct elements.
 
 ### Client-Side Router
 
-The `ClientRouter` component from `astro:transitions` enables client-side routing with page transitions, providing a smoother and more interactive user experience.
+The [ClientRouter](https://docs.astro.build/en/guides/view-transitions/) component from `astro:transitions` enables client-side routing with page transitions, providing a smoother and more interactive user experience.
 
-In `BaseLayout.astro`, the `ClientRouter` component is included to activate client-side routing. This allows for page transitions and improves navigation performance.
+In [BaseLayout.astro](https://github.com/mearashadowfax/DataNova/blob/771087f60258ced93f7ad8ab38669c5ada1a65c6/src/layout/BaseLayout.astro#L82), the `ClientRouter` component is included to activate client-side routing. This allows for page transitions and improves navigation performance.
 
 ### Sitemap Generation
 
-While DataNova doesn't include the official `@astrojs/sitemap` integration by default, you can easily add it if needed. However, please note that the official integration cannot generate sitemap entries for dynamic routes in SSR mode.
+While DataNova doesn't include the official [@astrojs/sitemap](https://docs.astro.build/en/guides/integrations-guide/sitemap/) integration by default, you can easily add it if needed. However, please note that the official integration cannot generate sitemap entries for dynamic routes in SSR mode.
 
 If you require more advanced sitemap generation capabilities, such as including dynamic routes or customizing sitemap entries, you can use the community-maintained [Sitemap Extensions](https://inox-tools.fryuni.dev/sitemap-ext) package.

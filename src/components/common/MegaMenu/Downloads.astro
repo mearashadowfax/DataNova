@@ -13,7 +13,7 @@ const currentPath = Astro.url.pathname;
   <button
     id="mega-menu-downloads"
     type="button"
-    class={`hs-dropdown-toggle flex w-full items-center rounded-lg p-2 font-medium text-slate-800 hover:bg-slate-100 focus:bg-slate-100 focus:outline-none text-nowrap ${
+    class={`hs-dropdown-toggle flex w-full items-center rounded-lg p-2 font-medium text-slate-800 hover:bg-slate-100 focus:bg-slate-100 focus:outline-hidden text-nowrap ${
       currentPath.startsWith("/downloads") ? "underline underline-offset-4" : ""
     }`}
     aria-haspopup="menu"
@@ -24,13 +24,13 @@ const currentPath = Astro.url.pathname;
   </button>
 
   <div
-    class="hs-dropdown-menu relative start-0 top-full z-10 mt-2 hidden w-full min-w-60 max-w-screen-md opacity-0 transition-[opacity,margin] duration-150 before:absolute before:-top-5 before:start-0 before:h-5 before:w-full hs-dropdown-open:opacity-100 xl:start-[20%] xl:duration-300"
+    class="hs-dropdown-menu relative start-0 top-full z-10 mt-2 hidden w-full min-w-60 max-w-(--breakpoint-md) opacity-0 transition-[opacity,margin] duration-150 before:absolute before:-top-5 before:start-0 before:h-5 before:w-full hs-dropdown-open:opacity-100 xl:start-[20%] xl:duration-300"
     role="menu"
     aria-orientation="vertical"
     aria-labelledby="mega-menu-downloads"
   >
     <div
-      class="from-teal-100 via-transparent to-white px-4 py-2 lg:mx-8 xl:mx-6 xl:rounded-lg xl:bg-white xl:bg-gradient-to-t xl:px-16 xl:py-10 xl:shadow-lg xl:ring-1 xl:ring-teal-950/5"
+      class="from-teal-100 via-transparent to-white px-4 py-2 lg:mx-8 xl:mx-6 xl:rounded-lg xl:bg-white xl:bg-linear-to-t xl:px-16 xl:py-10 xl:shadow-lg xl:ring-1 xl:ring-teal-950/5"
     >
       <p class="text-sm text-slate-600">
         {sectionDescription}
@@ -45,7 +45,7 @@ const currentPath = Astro.url.pathname;
 
               {section.items.map((item) => (
                 <a
-                  class="flex gap-x-4 rounded-lg p-3 hover:bg-slate-100 focus:bg-slate-100 focus:outline-none"
+                  class="flex gap-x-4 rounded-lg p-3 hover:bg-slate-100 focus:bg-slate-100 focus:outline-hidden"
                   href={item.href}
                 >
                   <Icon name={item.icon} class="mt-1 size-5 shrink-0 text-slate-800" />

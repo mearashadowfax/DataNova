@@ -1,6 +1,6 @@
 // @ts-check
 import { defineConfig } from "astro/config";
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 import vercel from "@astrojs/vercel";
 import react from "@astrojs/react";
 import markdoc from "@astrojs/markdoc";
@@ -10,20 +10,22 @@ import svelte from "@astrojs/svelte";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://datanova.vercel.app",
+  site: "https://data-nova.vercel.app",
   prefetch: true,
   trailingSlash: "never",
   experimental: {
     clientPrerender: true,
   },
   integrations: [
-    tailwind(),
     react(),
     markdoc(),
     ...(process.env.SKIP_KEYSTATIC ? [] : [keystatic()]),
     db(),
     svelte(),
   ],
+  vite: {
+    plugins: [tailwindcss()],
+  },
   output: "server",
   adapter: vercel(),
 });

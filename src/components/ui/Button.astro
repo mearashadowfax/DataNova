@@ -1,10 +1,12 @@
 ---
-const { type, href, rel, variant, className, id } = Astro.props;
+const { type, href, rel, target,
+  variant, className, id } = Astro.props;
 
 export interface Props {
   type?: "button" | "submit" | "reset";
   href?: string;
   rel?: string;
+  target?: "_self" | "_blank" | "_parent" | "_top";
   variant?: "primary" | "secondary" | "tertiary";
   className?: string;
   id?: string;
@@ -35,11 +37,12 @@ This component dynamically renders either a `<button>` element or an `<a>` (link
 */}
 
 {href ? (
-  <a id={id} href={href} rel={rel ? rel : undefined}  class={`px-6 py-2.5 text-center rounded-lg font-medium duration-300 focus:outline-none transition-colors ${variants[variant ?? "primary"]} ${className || ""}`}>
+  <a id={id} href={href} rel={rel ? rel : undefined} target={target ? target : undefined}
+     class={`px-6 py-2.5 text-center rounded-lg font-medium duration-300 focus:outline-hidden transition-colors ${variants[variant ?? "primary"]} ${className || ""}`}>
     <slot />
   </a>
 ) : (
-  <button id={id} type={type || "button"} class={`px-6 py-2.5 text-center rounded-lg font-medium duration-300 focus:outline-none transition-colors ${variants[variant ?? "primary"]} ${className || ""}`}>
+  <button id={id} type={type || "button"} class={`px-6 py-2.5 text-center rounded-lg font-medium duration-300 focus:outline-hidden transition-colors ${variants[variant ?? "primary"]} ${className || ""}`}>
     <slot />
   </button>
 )}

@@ -6,7 +6,7 @@ import { SEO, type Props as SEOProps } from "astro-seo";
 import { Schema } from "astro-seo-schema";
 import type { WithContext, Thing } from "schema-dts";
 import { AstroFont } from "astro-font";
-import "@styles/base.css";
+import "@styles/global.css";
 
 interface Props {
   seo?: SEOProps; // Optional SEO properties to customize meta tags
@@ -67,7 +67,6 @@ const defaultSchema: WithContext<Thing> = {
       extend={{
         link: [
           { rel: "icon", href: "/icon.svg", type: "image/svg+xml" },
-          { rel: "sitemap", href: "/sitemap-index.xml" },
         ],
         meta: [
           { name: "viewport", content: "width=device-width" },
@@ -85,28 +84,18 @@ const defaultSchema: WithContext<Thing> = {
     <AstroFont
       config={[
         {
+          src: [],
           name: "DM Sans",
-          src: [
-            {
-              style: "normal",
-              weight: "100 900",
-              path: "/fonts/DMSans.woff2",
-            },
-          ],
+          googleFontsURL: "https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap",
           preload: true,
           display: "swap",
           selector: "h1, h2, h3, h4",
           fallback: "sans-serif",
         },
         {
+          src: [],
           name: "Work Sans",
-          src: [
-            {
-              style: "normal",
-              weight: "100 900",
-              path: "/fonts/WorkSans.woff2",
-            },
-          ],
+          googleFontsURL: "https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap",
           preload: true,
           display: "swap",
           selector: "body",

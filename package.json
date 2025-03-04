@@ -15,11 +15,11 @@
     "@astrojs/markdoc": "^0.12.9",
     "@astrojs/react": "^4.2.0",
     "@astrojs/svelte": "^7.0.4",
-    "@astrojs/tailwind": "^6.0.0",
     "@astrojs/vercel": "^8.1.0",
     "@keystatic/astro": "^5.0.4",
     "@keystatic/core": "^0.5.43",
     "@popperjs/core": "^2.11.8",
+    "@tailwindcss/vite": "^4.0.9",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "astro": "^5.2.5",
@@ -27,13 +27,13 @@
     "astro-seo": "^0.8.4",
     "astro-seo-schema": "^5.0.0",
     "mdast-util-to-string": "^4.0.0",
-    "preline": "^2.5.1",
+    "preline": "^2.7.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "reading-time": "^1.5.0",
     "schema-dts": "^1.1.2",
     "svelte": "^5.19.10",
-    "tailwindcss": "^3.4.14",
+    "tailwindcss": "^4.0.9",
     "typescript": "^5.7.3"
   },
   "devDependencies": {
@@ -42,6 +42,6 @@
     "mdast-util-from-markdown": "^2.0.2",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.6.8"
+    "prettier-plugin-tailwindcss": "^0.6.11"
   }
 }
