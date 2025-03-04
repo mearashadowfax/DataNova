@@ -18,7 +18,6 @@
     "@astrojs/vercel": "^8.1.0",
     "@keystatic/astro": "^5.0.4",
     "@keystatic/core": "^0.5.43",
-    "@popperjs/core": "^2.11.8",
     "@tailwindcss/vite": "^4.0.9",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",

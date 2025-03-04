@@ -28,7 +28,8 @@
 
   --color-teal-50: oklch(99.48% 0.0032 197.11);
   --color-teal-100: oklch(98.28% 0.0074 197.04);
-  --color-teal-300: oklch(96.36% 0.0179 196.86);
+  --color-teal-200: oklch(96.36% 0.0179 196.86);
+  --color-teal-300: oklch(93.55% 0.0283 196.68);
   --color-teal-400: oklch(89.79% 0.0396 196.47);
   --color-teal-500: oklch(84.99% 0.0526 196.2);
   --color-teal-600: oklch(78.05% 0.0652 195.9);
@@ -78,5 +79,5 @@
 }
 
 @utility card {
-  @apply relative z-10 flex h-full flex-col border-dashed border-slate-300 p-4 before:absolute before:inset-0 before:-z-1 before:bg-linear-to-b before:via-80% before:opacity-0 hover:before:from-transparent hover:before:via-transparent hover:before:to-teal-500/20 hover:before:opacity-100 focus:outline-hidden focus:before:from-transparent focus:before:via-transparent focus:before:to-teal-500/20 focus:before:opacity-100 md:p-6;
+  @apply relative z-10 flex h-full flex-col border-dashed border-slate-300 p-4 before:absolute before:inset-0 before:-z-1 before:bg-linear-to-b/oklch before:via-80% before:opacity-0 hover:before:from-transparent hover:before:via-transparent hover:before:to-teal-500/20 hover:before:opacity-100 focus:outline-hidden focus:before:from-transparent focus:before:via-transparent focus:before:to-teal-500/20 focus:before:opacity-100 md:p-6;
 }
