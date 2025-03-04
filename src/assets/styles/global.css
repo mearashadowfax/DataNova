@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
-/*@import "preline/variants.css";*/
+@import "preline/variants.css";
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
@@ -14,29 +14,28 @@
   --color-white: #fff;
   --color-off-white: #fefefe;
 
-  --color-slate-50: #f8fafc;
-  --color-slate-100: #f1f5f9;
-  --color-slate-200: #e2e8f0;
-  --color-slate-300: #cbd5e1;
-  --color-slate-400: #94a3b8;
-  --color-slate-500: #64748b;
-  --color-slate-600: #475569;
-  --color-slate-700: #334155;
-  --color-slate-800: #1e293b;
-  --color-slate-900: #0f172a;
-  --color-slate-950: #020617;
+  --color-slate-50: oklch(0.984 0.003 247.858);
+  --color-slate-100: oklch(0.968 0.007 247.896);
+  --color-slate-200: oklch(0.929 0.013 255.508);
+  --color-slate-300: oklch(0.869 0.022 252.894);
+  --color-slate-400: oklch(0.704 0.04 256.788);
+  --color-slate-500: oklch(0.554 0.046 257.417);
+  --color-slate-600: oklch(0.446 0.043 257.281);
+  --color-slate-700: oklch(0.372 0.044 257.287);
+  --color-slate-800: oklch(0.279 0.041 260.031);
+  --color-slate-900: oklch(0.208 0.042 265.755);
+  --color-slate-950: oklch(0.129 0.042 264.695);
 
-  --color-teal-50: #fbfefe;
-  --color-teal-100: #f4fbfb;
-  --color-teal-200: #e6f7f7;
-  --color-teal-300: #d5f0f0;
-  --color-teal-400: #c0e6e6;
-  --color-teal-500: #a6d9d9;
-  --color-teal-600: #85c5c5;
-  --color-teal-700: #5aaeae;
-  --color-teal-800: #0a9191;
-  --color-teal-900: #087f7f;
-  --color-teal-950: #103c3c;
+  --color-teal-50: oklch(99.48% 0.0032 197.11);
+  --color-teal-100: oklch(98.28% 0.0074 197.04);
+  --color-teal-300: oklch(96.36% 0.0179 196.86);
+  --color-teal-400: oklch(89.79% 0.0396 196.47);
+  --color-teal-500: oklch(84.99% 0.0526 196.2);
+  --color-teal-600: oklch(78.05% 0.0652 195.9);
+  --color-teal-700: oklch(69.85% 0.0817 195.44);
+  --color-teal-800: oklch(59.53% 0.1 194.8);
+  --color-teal-900: oklch(54.08% 0.0908 194.8);
+  --color-teal-950: oklch(32.68% 0.047 195.1);
 
   /* https://tailwindcss.com/docs/font-family#customizing-your-theme */
   --font-dm-sans: "DM Sans", sans-serif;
@@ -59,13 +58,11 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
-}
 
-@utility card {
-  @apply relative z-10 flex h-full flex-col border-dashed border-slate-300 p-4 before:absolute before:inset-0 before:-z-1 before:bg-linear-to-b before:via-80% before:opacity-0 hover:before:from-transparent hover:before:via-transparent hover:before:to-teal-500/20 hover:before:opacity-100 focus:outline-hidden focus:before:from-transparent focus:before:via-transparent focus:before:to-teal-500/20 focus:before:opacity-100 md:p-6;
-}
+  body {
+    @apply font-work-sans;
+  }
 
-@layer base {
   h1,
   h2,
   h3,
@@ -73,10 +70,13 @@
   .dm-sans {
     @apply font-dm-sans;
   }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
 }
 
-@layer base {
-  body {
-    @apply font-work-sans;
-  }
+@utility card {
+  @apply relative z-10 flex h-full flex-col border-dashed border-slate-300 p-4 before:absolute before:inset-0 before:-z-1 before:bg-linear-to-b before:via-80% before:opacity-0 hover:before:from-transparent hover:before:via-transparent hover:before:to-teal-500/20 hover:before:opacity-100 focus:outline-hidden focus:before:from-transparent focus:before:via-transparent focus:before:to-teal-500/20 focus:before:opacity-100 md:p-6;
 }
