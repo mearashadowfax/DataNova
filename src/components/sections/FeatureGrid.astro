@@ -48,11 +48,13 @@ const features = [
       class="mx-auto max-w-lg pb-5 text-center md:col-span-2 lg:mx-0 lg:flex-auto lg:text-left"
     >
       <h2
-        class="text-balance text-2xl font-semibold tracking-tight text-slate-800 md:text-3xl md:leading-tight"
+        class="text-2xl font-semibold tracking-tight text-balance text-slate-800 md:text-3xl md:leading-tight"
       >
         <Fragment set:html={title} />
       </h2>
-      <p class="mt-6 text-pretty text-lg/8 text-slate-700">
+      <p
+        class="mt-6 text-start text-lg/8 text-pretty text-slate-700 sm:text-center md:text-start"
+      >
         {subTitle}
       </p>
     </div>
@@ -75,7 +77,7 @@ const features = [
                 {feature.heading}
               </span>
             </div>
-            <p class="z-10 max-w-sm text-pretty px-4 text-sm text-slate-700 sm:max-w-lg md:mx-auto">
+            <p class="z-10 max-w-sm px-4 text-sm text-pretty text-slate-700 sm:max-w-lg md:mx-auto">
               {feature.description}
             </p>
           </div>

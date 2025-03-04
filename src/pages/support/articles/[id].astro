@@ -1,40 +1,63 @@
----
-import BaseLayout from "@layout/BaseLayout.astro";
-import Icon from "@ui/icons/Icon.astro";
-import PostFeedback from "@common/PostFeedback.svelte";
-import { formatDate } from "@utils/utils";
-import { getReadingTime } from "@utils/reading-time";
-import { getEntry, render } from "astro:content";
+  ---
+  import BaseLayout from "@layout/BaseLayout.astro";
+  import Icon from "@ui/icons/Icon.astro";
+  import PostFeedback from "@common/PostFeedback.svelte";
+  import type { WithContext, Thing } from "schema-dts";
+  import { formatDate } from "@utils/utils";
+  import { getReadingTime } from "@utils/reading-time";
+  import { getEntry, render } from "astro:content";
 
-// 1. Get the slug from the incoming server request
-const { id } = Astro.params;
-if (id === undefined) {
-  return Astro.redirect("/404");
-}
+  // 1. Get the slug from the incoming server request
+  const { id } = Astro.params;
+  if (id === undefined) {
+    return Astro.redirect("/404");
+  }
 
-// 2. Query for the entry directly using the request slug
-const post = await getEntry("articles", id);
+  // 2. Query for the entry directly using the request slug
+  const post = await getEntry("articles", id);
 
-// 3. Redirect if the entry does not exist
-if (post === undefined) {
-  return Astro.redirect("/404");
-}
+  // 3. Redirect if the entry does not exist
+  if (post === undefined) {
+    return Astro.redirect("/404");
+  }
 
-// 4. Render the entry to HTML in the template
-const { Content, headings } = await render(post);
+  // 4. Render the entry to HTML in the template
+  const { Content, headings } = await render(post);
 
-const validHeadings = headings.filter((heading) => heading.depth === 2);
-const readingTime = getReadingTime(post.body ?? "");
-const slug = id;
----
+  const validHeadings = headings.filter((heading) => heading.depth === 2);
+  const readingTime = getReadingTime(post.body ?? "");
+  const slug = id;
 
-<BaseLayout>
+  // Prepare SEO metadata based on the article content
+  const seo = {
+    title: post.data.title,
+    description: post.data.description,
+  };
+
+  // Schema.org metadata for SEO
+  const schema: WithContext<Thing> = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "url": Astro.url.href,
+    "name": post.data.title,
+    "description": post.data.description,
+    "datePublished": post.data.date.toLocaleDateString('en-UK'),
+    "isPartOf": {
+      "@type": "WebSite",
+      "url": `${Astro.site}`,
+      "name": "DataNova",
+      "description": "DataNova Analytics Inc. provides advanced analytics for Excel to help businesses unlock actionable insights quickly with no coding required."
+    }
+  };
+  ---
+
+<BaseLayout seo={seo} schema={schema}>
   <section class="mx-auto max-w-[85rem] px-4 py-24 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-(--breakpoint-xl)">
       <div class="grid gap-8 md:grid-cols-4 lg:gap-12">
         {
           validHeadings.length > 0 && (
-            <div class="relative mt-10 rounded-lg border border-dashed p-5 md:mt-0 md:border-none md:p-0 md:pb-24">
+            <div class="relative mt-10 rounded-lg border border-slate-300 border-dashed p-5 md:mt-0 md:border-none md:p-0 md:pb-24">
               <nav class="sticky top-10 md:top-32">
                 <small class="font-semibold uppercase">On this page</small>
                 <ul class="mt-2 space-y-2">
