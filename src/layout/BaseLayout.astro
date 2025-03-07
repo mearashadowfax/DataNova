@@ -68,6 +68,7 @@ const defaultSchema: WithContext<Thing> = {
         link: [
           { rel: "icon", href: "/icon.svg", type: "image/svg+xml" },
           { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+          { rel: "manifest", href: "/manifest.webmanifest" },
         ],
         meta: [
           { name: "viewport", content: "width=device-width" },
@@ -87,7 +88,7 @@ const defaultSchema: WithContext<Thing> = {
         {
           src: [],
           name: "DM Sans",
-          googleFontsURL: "https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap",
+          googleFontsURL: "https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100..1000&display=swap",
           preload: true,
           display: "swap",
           selector: "h1, h2, h3, h4",
@@ -96,7 +97,7 @@ const defaultSchema: WithContext<Thing> = {
         {
           src: [],
           name: "Work Sans",
-          googleFontsURL: "https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap",
+          googleFontsURL: "https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap",
           preload: true,
           display: "swap",
           selector: "body",
