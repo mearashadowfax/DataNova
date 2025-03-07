@@ -116,6 +116,12 @@ Click the button below to start deploying your project on Vercel:
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmearashadowfax%2FDataNova)
 
+> [!IMPORTANT]
+> Before deploying, configure the required environment variables. See [Astro DB](#data-handling-with-astro-db) and [Keystatic CMS](#disable-admin-ui-routes-in-production) for details.
+> * `ASTRO_DB_REMOTE_URL` (database URL - required for feedback component)
+> * `ASTRO_DB_APP_TOKEN` (database token - required for feedback component)
+> * `SKIP_KEYSTATIC=true` (to disable Keystatic Admin UI in production if using local mode)
+
 > [!NOTE]
 > SSR is used because Keystatic requires server-side execution for its API routes. If you only intend to use Keystatic for local development, you can configure the project for static output as described in the [Keystatic CMS section](#keystatic-cms).
 
