@@ -285,7 +285,7 @@ The `MegaMenu/*.astro` components generate the mega menu. For example, the downl
 To use the mega menu in the navigation bar, import and add the `MegaMenu` components to the `Navbar.astro` component.
 
 > [!TIP]
->Key locations to customize
+>Key locations to customize:
 >
 > * [@utils/navigation.ts](https://github.com/mearashadowfax/DataNova/blob/c611b145c821aaac2df787df8848ebf5002a8ddd/src/utils/navigation.ts): Navigation bar links
 > * [@utils/megaMenu/*](https://github.com/mearashadowfax/DataNova/tree/c611b145c821aaac2df787df8848ebf5002a8ddd/src/utils/megaMenu): Mega menu configurations
@@ -334,7 +334,7 @@ const trademarkNotice = "Your trademark information";
 ```
 
 > [!TIP]
->Key locations to customize
+>Key locations to customize:
 >
 > * [Footer.astro](https://github.com/mearashadowfax/DataNova/blob/c611b145c821aaac2df787df8848ebf5002a8ddd/src/components/sections/Footer.astro): Main footer component
 > * [@ui/forms/FooterForm.astro](https://github.com/mearashadowfax/DataNova/blob/c611b145c821aaac2df787df8848ebf5002a8ddd/src/components/ui/forms/FooterForm.astro): Email subscription form
@@ -376,7 +376,7 @@ const title = "My New Title";
    * [Tailwind Utility Classes Guide](https://tailwindcss.com/docs/styling-with-utility-classes)
 
 > [!TIP]
-> Recommended resources
+> Recommended resources:
 >
 > * [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 > * [Tailwind Adding custom styles](https://tailwindcss.com/docs/adding-custom-styles)
@@ -470,7 +470,7 @@ export default defineConfig({
 > 3. **Update your dynamic route to use `getStaticPaths()`. Refer to the [Astro documentation](https://docs.astro.build/en/guides/content-collections/#building-for-static-output-default) for details on generating static content from collections.**
 
 > [!TIP]
-> Recommended Resources
+> Recommended Resources:
 >
 > * [Keystatic Docs](https://keystatic.com/docs/introduction)
 > * [Disable Admin UI Routes in Production](https://keystatic.com/docs/recipes/astro-disable-admin-ui-in-production)
@@ -537,13 +537,13 @@ tables: { Feedback },
 > Don't forget to add the environment variables when deploying your site.
 
 > [!TIP]
->Key locations
+>Key locations:
 >
 > * [/db/*](https://github.com/mearashadowfax/DataNova/tree/c611b145c821aaac2df787df8848ebf5002a8ddd/db): Database schema
 > * [@common/PostFeedback.svelte](https://github.com/mearashadowfax/DataNova/blob/c611b145c821aaac2df787df8848ebf5002a8ddd/src/components/common/PostFeedback.svelte): Feedback component
 > * [src/pages/api/feedback.ts](https://github.com/mearashadowfax/DataNova/blob/c611b145c821aaac2df787df8848ebf5002a8ddd/src/pages/api/feedback.ts): API
 >
-> Recommended resources
+> Recommended resources:
 >
 > * [Astro DB](https://docs.astro.build/en/guides/astro-db/)
 > * [Turso Docs](https://docs.turso.tech/introduction)
