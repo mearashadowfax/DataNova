@@ -4,9 +4,9 @@ export const downloadsMenu = [
     items: [
       {
         icon: "download",
-        title: "DataNova Core Tool",
+        title: "DataNova Core",
         description:
-          "Download the free trial version of the DataNova Core Tool.",
+          "Download the free trial version of the DataNova Core.",
         href: "/downloads/datanova-core",
       },
     ],
@@ -30,7 +30,7 @@ export const downloadsMenu = [
         icon: "arrowPath",
         title: "Subscription Licensing",
         description:
-          "Register the DataNova Core Tool with a subscription license for seamless updates.",
+          "Register the DataNova Core with a subscription license for seamless updates.",
         href: "/downloads/subscription-licensing",
       },
     ],

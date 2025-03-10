@@ -23,9 +23,8 @@ DataNova is an open-source, multi-page website template designed for flexibility
     * [Navigation Bar Links](#navigation-bar-links)
     * [Mega Menu Links](#mega-menu-links)
     * [Footer Links](#footer-links)
-      * [Company Information](#company-information)
-      * [Contact Details](#contact-details)
-      * [Copyright & Attribution](#copyright--attribution)
+      * [Footer](#footer)
+      * [Expanded Footer](#expanded-footer)
   * [Content Sections and Common Components](#content-sections-and-common-components)
     * [Tailwind CSS Customization](#tailwind-css-customization)
 * [Content Management](#content-management)
@@ -234,7 +233,7 @@ The mega menu allows you to create dropdown menus with multiple sections and lin
        items: [
          {
            icon: "download",
-           title: "DataNova Core Tool",
+           title: "DataNova Core",
            description: "Download the free trial version.",
            href: "/downloads/datanova-core",
          },
@@ -293,51 +292,71 @@ To use the mega menu in the navigation bar, import and add the `MegaMenu` compon
 
 #### Footer Links
 
-The footer is fully customizable, allowing you to modify various elements to match your website's branding and needs. These elements include:
+This project provides two distinct footer implementations, each offering different features and customization options.
 
-##### Company Information
+##### Footer
+
+The basic footer provides a simple layout with core company information, contact details, and a standard subscription form.
 
 ```astro
 ---
 // ...
+
+// Company Information
 const companyName = "Your Company Name";
 const companyDescription = "Brief company description";
----
-```
 
-##### Contact Details
-
-```astro
----
-// ...
+// Contact Details
 const contactDetails = {
   address: "City, State, ZIP",
   phone: "Phone Number",
   email: "contact@example.com",
-  website: "www.yourwebsite.com"
+  website: "[www.yourwebsite.com](https://www.google.com/search?q=https://www.yourwebsite.com)"
 };
----
-```
 
-##### Copyright & Attribution
-
-```astro
----
-// ...
+// Copyright & Attribution
 const craftedBy = { 
   name: "Your Name", 
-  url: "https://yourwebsite.com" 
+  url: "[https://yourwebsite.com](https://yourwebsite.com)" 
 };
 
 const trademarkNotice = "Your trademark information";
 ---
 ```
 
+##### Expanded Footer
+
+The expanded footer includes detailed navigation links and an alternative subscription form layout.
+
+```astro
+---
+// ...
+import FooterFormExpanded from "@ui/forms/FooterFormExpanded.astro";
+
+// Import data for dynamic rendering
+import { featuresMenu } from "@utils/megaMenu/features";
+import { platformMenu } from "@utils/megaMenu/platform";
+import { supportMenu } from "@utils/megaMenu/support";
+---
+```
+
+To switch between the basic and expanded footers, replace the import statement in `@layouts/BaseLayout.astro` with the desired footer component.
+
+```astro
+---
+// ...
+import Navbar from "@sections/Navbar.astro";
+import Footer from "@sections/Footer.astro"; // Replace with FooterExpanded.astro for the expanded version
+---
+```
+
 > [!TIP]
 >Key locations to customize:
 >
-> * [Footer.astro](https://github.com/mearashadowfax/DataNova/blob/c611b145c821aaac2df787df8848ebf5002a8ddd/src/components/sections/Footer.astro): Main footer component
-> * [@ui/forms/FooterForm.astro](https://github.com/mearashadowfax/DataNova/blob/c611b145c821aaac2df787df8848ebf5002a8ddd/src/components/ui/forms/FooterForm.astro): Email subscription form
+> * [Footer.astro](https://github.com/mearashadowfax/DataNova/blob/c611b145c821aaac2df787df8848ebf5002a8ddd/src/components/sections/Footer.astro): Main basic footer component
+> * FooterExpanded.astro: Expanded footer component
+> * [@ui/forms/FooterForm.astro](https://github.com/mearashadowfax/DataNova/blob/c611b145c821aaac2df787df8848ebf5002a8ddd/src/components/ui/forms/FooterForm.astro): Basic email subscription form
+> * @ui/forms/FooterFormExpanded.astro: Expanded email subscription form
 > * [@common/ContactInfo.astro](https://github.com/mearashadowfax/DataNova/blob/c611b145c821aaac2df787df8848ebf5002a8ddd/src/components/common/ContactInfo.astro): Contact information display
 
 ### Content Sections and Common Components

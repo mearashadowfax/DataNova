@@ -1,0 +1,152 @@
+---
+import FooterFormExpanded from "@ui/forms/FooterFormExpanded.astro";
+
+// Import data for dynamic rendering
+import { featuresMenu } from "@utils/megaMenu/features";
+import { platformMenu } from "@utils/megaMenu/platform";
+import { supportMenu } from "@utils/megaMenu/support";
+
+// Props for customization
+const companyName = "DataNova Analytics Inc.";
+const companyDescription =
+  "DataNova Analytics Inc. is a leading business intelligence and analytics software company founded in 2018, with offices in Boston and Seattle.";
+
+// Contact information for the company
+const contactFormDescription =
+  "Get all the information you need. Enter your email, and we'll be in touch.";
+
+// Dynamic date for copyright display
+const copyrightYear = new Date().getFullYear();
+
+// Developer or team behind the website
+const craftedBy = { name: "gulamoff", url: "https://www.gulamoff.dev/" };
+
+// Trademark notice
+const trademarkNotice =
+  "Microsoft&reg; and Excel&reg; are registered trademarks or trademarks of Microsoft Corporation";
+---
+
+<footer
+  class="mt-auto w-full bg-linear-to-t/oklch from-teal-200 via-transparent to-white pb-10"
+>
+  <div class="mx-auto mt-auto w-full max-w-[85rem] px-4 pb-10 sm:px-6 lg:px-8">
+    <hr class="mb-10 border-slate-200" />
+
+    <div class="mb-10 grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5">
+      
+      {/* Company Information */}
+      <div class="col-span-full self-center xl:col-span-2">
+        <a
+          href="#"
+          class="flex-none text-xl font-semibold text-slate-700 uppercase focus:opacity-80 focus:outline-hidden"
+          aria-label="{companyName} Homepage"
+        >
+          {companyName}
+        </a>
+        <p class="mt-5 text-pretty text-slate-600 lg:w-5/12 xl:w-10/12">
+          {companyDescription}
+        </p>
+      </div>
+
+      {/* Features Links */}
+      <div>
+        <h3 class="font-semibold text-slate-700">Features</h3>
+        <div class="mt-3 text-sm">
+          <ul class="space-y-3">
+            {
+              featuresMenu
+                .flatMap((feature) => feature.items)
+                .map((item) => (
+                  <li>
+                    <a class="text-sm text-slate-600" href={item.href}>
+                      {item.title}
+                    </a>
+                  </li>
+                ))
+            }
+          </ul>
+        </div>
+      </div>
+
+      {/* Products Links */}
+      <div>
+        <h3 class="font-semibold text-slate-700">Platform</h3>
+        <div class="mt-3 text-sm">
+          <ul class="space-y-3">
+            {
+              platformMenu.map((platform) => (
+                <li>
+                  <a class="text-sm text-slate-600" href={platform.href}>
+                    {platform.title}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+
+      {/* Support Links */}
+      <div>
+        <h3 class="font-semibold text-slate-700">Support</h3>
+        <div class="mt-3 text-sm">
+          <ul class="space-y-3">
+            {
+              supportMenu
+                .flatMap((support) => support.items)
+                .map((item) => (
+                  <li>
+                    <a class="text-sm text-slate-600" href={item.href}>
+                      {item.title}
+                    </a>
+                  </li>
+                ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    {/* Divider before subscription form section */}
+    <hr class="my-10 border-slate-200" />
+
+    {/* Email Subscription Form */}
+    <div
+      class="flex w-full flex-col items-start justify-between md:flex-row md:items-center md:gap-x-5"
+    >
+      <div class="mb-5 md:mb-0 md:w-1/2">
+        <h3 class="font-semibold text-slate-700">More information?</h3>
+        <p class="mt-3 text-sm text-slate-400">
+          {contactFormDescription}
+        </p>
+      </div>
+      <FooterFormExpanded />
+    </div>
+
+    {/* Divider before footer's bottom section */}
+    <hr class="mt-10 mb-5 border-slate-200" />
+
+    <div
+      class="grid gap-y-2 sm:flex sm:items-center sm:justify-between sm:gap-y-0"
+    >
+      {/* Copyright and Crafted By Section */}
+      <p class="text-sm text-slate-400/50">
+        &copy; 2018-{copyrightYear}
+        {companyName} Crafted by
+        <a
+          href={craftedBy.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-medium underline underline-offset-2 ring-slate-400 outline-hidden transition duration-300 hover:text-slate-400 hover:decoration-dashed focus:outline-hidden focus-visible:ring-3"
+        >
+          {craftedBy.name}
+        </a>
+      </p>
+
+      {/* Trademark Notice */}
+      <p class="text-sm text-slate-400/50">
+        <Fragment set:html={trademarkNotice} />
+      </p>
+    </div>
+  </div>
+</footer>

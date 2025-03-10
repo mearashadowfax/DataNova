@@ -1,7 +1,7 @@
-export const productsMenu = [
+export const platformMenu = [
   {
     href: "#",
-    title: "DataNova",
+    title: "DataNova Core",
     description: "AI-powered risk analysis and data modeling engine.",
     image: "datanova",
   },

@@ -1,14 +1,14 @@
 ---
 import Icon from "@ui/icons/Icon.astro";
 import { Image } from "astro:assets";
-import { productsMenu } from "@utils/megaMenu/products";
+import { platformMenu } from "@utils/megaMenu/platform";
 
 import datanova from "@images/datanova.webp";
 import if_cloud from "@images/if_cloud.webp";
 import if_planner from "@images/if_planner.webp";
 import if_visualizer from "@images/if_visualizer.webp";
 
-// Image names in '@utils/megaMenu/products' must match the keys in 'imagesMap' to ensure correct image mapping
+// Image names in '@utils/megaMenu/platform' must match the keys in 'imagesMap' to ensure correct image mapping
 const imagesMap: any = {
   datanova,
   if_cloud,
@@ -24,7 +24,7 @@ const sectionDescription =
   class="hs-dropdown [--adaptive:none] [--is-collapse:true] [--strategy:static] xl:[--is-collapse:false] xl:[--strategy:absolute] xl:[--trigger:hover]"
 >
   <button
-    id="mega-menu-products"
+    id="mega-menu-platform"
     type="button"
     class="hs-dropdown-toggle flex w-full items-center rounded-lg p-2 font-medium text-slate-800 hover:bg-slate-100 focus:bg-slate-100 focus:outline-hidden"
     aria-haspopup="menu"
@@ -38,7 +38,7 @@ const sectionDescription =
     class="hs-dropdown-menu relative start-0 top-full z-10 mt-2 hidden w-full min-w-60 max-w-(--breakpoint-md) opacity-0 transition-[opacity,margin] duration-150 before:absolute before:-top-5 before:start-0 before:h-5 before:w-full hs-dropdown-open:opacity-100 xl:start-[20%] xl:duration-300"
     role="menu"
     aria-orientation="vertical"
-    aria-labelledby="mega-menu-products"
+    aria-labelledby="mega-menu-platform"
   >
     <div
       class="from-teal-100 via-transparent to-white px-4 py-2 lg:mx-8 xl:mx-6 xl:rounded-lg xl:bg-white xl:bg-linear-to-t/oklch xl:px-16 xl:py-10 xl:shadow-lg xl:ring-1 xl:ring-teal-950/5"
@@ -52,24 +52,24 @@ const sectionDescription =
         class="grid grid-cols-1 gap-4 py-1 sm:grid-cols-2 xl:grid-cols-3 xl:p-2 2xl:grid-cols-2"
       >
         {
-          productsMenu.map((product) => (
+          platformMenu.map((platform) => (
             <div class="flex h-full flex-col">
               <a
                 class="group flex h-full flex-col rounded-lg p-3 transition hover:bg-slate-100 focus:bg-slate-100 focus:outline-hidden"
-                href={product.href}
+                href={platform.href}
               >
                 <Image
                   class="aspect-video w-full rounded-xl object-cover transition-transform duration-500 ease-in-out group-hover:scale-105 group-focus:scale-105"
-                  src={imagesMap[product.image]}
-                  alt={product.title}
+                  src={imagesMap[platform.image]}
+                  alt={platform.title}
                 />
 
                 <div class="mt-5 flex flex-1 flex-col">
                   <h3 class="text-sm font-medium text-slate-800">
-                    {product.title}
+                    {platform.title}
                   </h3>
                   <p class="mt-3 text-sm text-slate-500 xl:hidden 2xl:block">
-                    {product.description}
+                    {platform.description}
                   </p>
                 </div>
               </a>
