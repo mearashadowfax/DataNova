@@ -354,9 +354,9 @@ import Footer from "@sections/Footer.astro"; // Replace with FooterExpanded.astr
 >Key locations to customize:
 >
 > * [Footer.astro](https://github.com/mearashadowfax/DataNova/blob/c611b145c821aaac2df787df8848ebf5002a8ddd/src/components/sections/Footer.astro): Main basic footer component
-> * FooterExpanded.astro: Expanded footer component
+> * [FooterExpanded.astro](https://github.com/mearashadowfax/DataNova/blob/4ae0e6f486730066c9a38b2157363589bff479aa/src/components/sections/FooterExpanded.astro): Expanded footer component
 > * [@ui/forms/FooterForm.astro](https://github.com/mearashadowfax/DataNova/blob/c611b145c821aaac2df787df8848ebf5002a8ddd/src/components/ui/forms/FooterForm.astro): Basic email subscription form
-> * @ui/forms/FooterFormExpanded.astro: Expanded email subscription form
+> * [@ui/forms/FooterFormExpanded.astro](https://github.com/mearashadowfax/DataNova/blob/4ae0e6f486730066c9a38b2157363589bff479aa/src/components/ui/forms/FooterFormExpanded.astro): Expanded email subscription form
 > * [@common/ContactInfo.astro](https://github.com/mearashadowfax/DataNova/blob/c611b145c821aaac2df787df8848ebf5002a8ddd/src/components/common/ContactInfo.astro): Contact information display
 
 ### Content Sections and Common Components
