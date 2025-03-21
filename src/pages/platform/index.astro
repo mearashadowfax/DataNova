@@ -1,0 +1,368 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+import Diagram from "@common/Diagram.astro";
+import Icon from "@ui/icons/Icon.astro";
+import type { WithContext, Thing } from "schema-dts";
+import { Image } from "astro:assets";
+import image_1 from "@images/toolbar.webp";
+
+const platform = {
+  title: "Seamless Data Processing",
+  description:
+    "Leverage the power of AI-driven analytics without complex configurations. DataNova Core integrates seamlessly with your existing data sources, ensuring smooth data ingestion, transformation, and visualization.",
+};
+
+const video =
+  "https://vyclk3sx0z.ufs.sh/f/hv6ttNERWpXuOGj0KhIPk5MLw0bimBlYnq6Vd2NfSJW9gCQU";
+
+const automatedDataProcessing = {
+  title: "Automated Data Processing",
+  description:
+    "Effortlessly connect your spreadsheets, databases, or cloud storage to DataNova Core and streamline data operations. Automate cleaning, anomaly detection, and predictive modeling — without manual intervention.",
+  features: [
+    "Sync data from Excel, Google Sheets, and CSV files instantly",
+    "Connect to cloud storage providers like OneDrive, AWS, Google Cloud, and Snowflake",
+    "Leverage AI-powered analytics to detect trends, forecast outcomes, and mitigate risks",
+  ],
+};
+
+const smartAnalytics = {
+  title: "Smart Analytics & Decision-Making",
+  description:
+    "Gain deeper insights with intelligent analytics powered by advanced statistical models and machine learning.",
+};
+
+const securityCompliance = {
+  title: "Security & Compliance",
+  description:
+    "Your data remains protected with enterprise-grade security features and compliance standards.",
+};
+
+const ctaData = {
+  title: "Start Unlocking Insights Today",
+  description:
+    "Join thousands of data-driven professionals leveraging DataNova Core to make smarter business decisions.",
+  buttons: [
+    {
+      text: "Start Free Trial",
+      link: "#",
+      style:
+        "bg-teal-50 hover:bg-teal-50/70 text-slate-800 focus:bg-teal-50/70",
+    },
+    {
+      text: "View Pricing",
+      link: "#",
+      style: "bg-teal-600 text-white hover:bg-teal-600/80 focus:bg-teal-600/80",
+    },
+  ],
+};
+
+const cloudSecurity = [
+  "AWS Shield",
+  "Google Cloud Security",
+  "Azure Security Center",
+  "Cloudflare",
+  "Zscaler",
+  "Qualys",
+  "Bitdefender",
+];
+
+const identityAccessManagement = [
+  "Okta",
+  "Auth0",
+  "Cisco Secure",
+  "IBM Security",
+  "Norton Enterprise",
+];
+
+const threatDetection = [
+  "Splunk",
+  "Palo Alto Networks",
+  "FireEye",
+  "Tenable",
+  "Fortinet",
+  "CrowdStrike",
+  "McAfee",
+  "Trend Micro",
+];
+
+// SEO metadata for the page
+const seo = {
+  title: "DataNova Core - Seamless AI-Driven Data Processing",
+  description:
+    "Discover DataNova Core, an AI-powered platform that streamlines data processing and integrates effortlessly with your existing data sources, enabling businesses to unlock actionable insights with advanced analytics and predictive modeling.",
+};
+
+// Schema.org metadata for SEO
+const schema: WithContext<Thing> = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  inLanguage: "en-US",
+  "@id": Astro.url.href,
+  url: Astro.url.href,
+  name: "DataNova Core - Seamless AI-Driven Data Processing",
+  description:
+    "Explore DataNova Core, the powerful analytics platform that automates data processing, integrates seamlessly with cloud storage and spreadsheets, and empowers businesses to make smarter, data-driven decisions without complex configurations.",
+  isPartOf: {
+    "@type": "WebSite",
+    url: `${Astro.site}`,
+    name: "DataNova",
+    description:
+      "DataNova Analytics Inc. provides advanced analytics for Excel to help businesses unlock actionable insights quickly with no coding required.",
+  },
+};
+---
+
+<BaseLayout seo={seo} schema={schema}>
+  <section class="mx-auto max-w-[85rem] px-4 pt-48 pb-12 sm:px-6 lg:px-8">
+    <div class="max-w-7xl">
+      <div class="mx-auto max-w-2xl lg:mx-0">
+        <h1
+          class="text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
+        >
+          {platform.title}
+        </h1>
+        <p
+          class="mt-8 text-lg font-medium text-pretty text-slate-700 sm:text-xl/8"
+        >
+          {platform.description}
+        </p>
+      </div>
+
+      <div class="relative m-auto w-full pt-16 sm:w-[90%]">
+        <div
+          class="via-off-white to-off-white pointer-events-none absolute inset-x-0 -bottom-2 z-10 hidden h-1/3 w-full bg-linear-to-b/oklch from-transparent sm:block"
+        >
+        </div>
+        <div class="aspect-video">
+          <video
+            autoplay
+            loop
+            muted
+            playsinline
+            preload="metadata"
+            class="aspect-auto rounded-xl"
+          >
+            <source src={video} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="mx-auto max-w-[85rem] border-b border-dashed border-slate-400 px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20"
+  >
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div>
+        <h2
+          class="text-2xl font-semibold tracking-tight text-balance text-slate-800 md:text-3xl md:leading-tight"
+        >
+          {automatedDataProcessing.title}
+        </h2>
+        <p class="mt-6 max-w-3xl text-lg/8 text-pretty text-slate-700">
+          {automatedDataProcessing.description}
+        </p>
+        <div class="mt-8 flex flex-col gap-4">
+          {
+            automatedDataProcessing.features.map((feature) => (
+              <div class="flex items-center gap-2">
+                <Icon name="checkCircle" />
+                <p class="text-slate-600">{feature}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+      <div
+        class="relative flex flex-col items-center justify-center gap-8 rounded-xl p-6 md:flex-row lg:gap-16"
+      >
+        <Diagram />
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="mx-auto max-w-[85rem] border-b border-dashed border-slate-400 px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20"
+  >
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div class="order-last md:order-first">
+        <Image src={image_1} alt="Toolbar" class="rounded-xl shadow-lg" />
+      </div>
+      <div class="text-end">
+        <h2
+          class="text-2xl font-semibold tracking-tight text-balance text-slate-800 md:text-3xl md:leading-tight"
+        >
+          {smartAnalytics.title}
+        </h2>
+        <p class="mt-6 max-w-3xl text-lg/8 text-pretty text-slate-700">
+          {smartAnalytics.description}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20"
+  >
+    <div
+      class="mt-2 grid grid-cols-1 gap-4 md:grid-cols-2 md:justify-items-end"
+    >
+      <div>
+        <h2
+          class="text-2xl font-semibold tracking-tight text-balance text-slate-800 md:text-3xl md:leading-tight"
+        >
+          {securityCompliance.title}
+        </h2>
+        <p class="mt-6 max-w-3xl text-lg/8 text-pretty text-slate-700">
+          {securityCompliance.description}
+        </p>
+      </div>
+
+      <div class="h-full w-full">
+        <div
+          class="relative flex h-full flex-col justify-center rounded-lg py-8 ring-white/15"
+        >
+          <div class="group flex flex-row overflow-hidden p-2">
+            <div
+              class="animate-scroll flex w-max min-w-full shrink-0 flex-row flex-nowrap justify-around gap-5 [--duration:30s]"
+              aria-hidden="true"
+            >
+              {/* Original items */}
+              {
+                cloudSecurity.map((item) => (
+                  <div class="flex items-center gap-5 rounded-md bg-white px-4 py-2 text-slate-700 shadow-md ring-1 ring-white/15">
+                    {item}
+                  </div>
+                ))
+              }
+
+              {/* Duplicated items for seamless scroll */}
+              {
+                cloudSecurity.map((item) => (
+                  <div class="flex items-center gap-5 rounded-md bg-white px-4 py-2 text-slate-700 shadow-md ring-1 ring-white/15">
+                    {item}
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+
+          <div class="group flex flex-row overflow-hidden p-2">
+            <div
+              class="animate-scroll flex w-max min-w-full shrink-0 flex-row flex-nowrap justify-around gap-5 [--direction:reverse] [--duration:40s]"
+              aria-hidden="true"
+            >
+              {/* Original items */}
+              {
+                identityAccessManagement.map((item) => (
+                  <div class="flex items-center gap-5 rounded-md bg-white px-4 py-2 text-slate-700 shadow-md ring-1 ring-white/15">
+                    {item}
+                  </div>
+                ))
+              }
+
+              {/* Duplicated items for seamless scroll */}
+              {
+                identityAccessManagement.map((item) => (
+                  <div class="flex items-center gap-5 rounded-md bg-white px-4 py-2 text-slate-700 shadow-md ring-1 ring-white/15">
+                    {item}
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+          <div class="group flex flex-row overflow-hidden p-2">
+            <div
+              class="animate-scroll flex w-max min-w-full shrink-0 flex-row flex-nowrap justify-around gap-5 [--duration:20s]"
+              aria-hidden="true"
+            >
+              {/* Original items */}
+              {
+                threatDetection.map((item) => (
+                  <div class="flex items-center gap-5 rounded-md bg-white px-4 py-2 text-slate-700 shadow-md ring-1 ring-white/15">
+                    {item}
+                  </div>
+                ))
+              }
+
+              {/* Duplicated items for seamless scroll */}
+              {
+                threatDetection.map((item) => (
+                  <div class="flex items-center gap-5 rounded-md bg-white px-4 py-2 text-slate-700 shadow-md ring-1 ring-white/15">
+                    {item}
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+
+          <div
+            class="from-off-white pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r"
+          >
+          </div>
+          <div
+            class="from-off-white pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l"
+          >
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-[85rem] px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+    <div
+      class="group relative isolate overflow-hidden rounded-3xl bg-teal-200 p-5 sm:p-11"
+    >
+      <div
+        class="group to-off-white pointer-events-none absolute inset-0 -top-[10%] h-[120%] w-full rounded-xl bg-linear-to-r/oklch from-teal-200 opacity-0 transition duration-1000 group-hover:opacity-100"
+      >
+      </div>
+      <div class="svgBlock mx-auto max-w-7xl">
+        <div class="relative z-5 mx-auto text-center">
+          <h2
+            class="text-2xl font-semibold tracking-tight text-balance text-slate-800 md:text-3xl md:leading-tight"
+          >
+            {ctaData.title}
+          </h2>
+          <p
+            class="mx-auto mt-6 max-w-3xl text-lg/8 text-pretty text-slate-700"
+          >
+            {ctaData.description}
+          </p>
+          <div
+            class="mx-auto mt-8 flex max-w-3xl flex-col gap-4 sm:flex-row sm:justify-center"
+          >
+            {
+              ctaData.buttons.map((button) => (
+                <a
+                  href={button.link}
+                  class={`mx-auto flex w-full items-center justify-center rounded-lg px-3.5 py-2.5 text-center text-sm font-semibold transition duration-300 focus:outline-hidden sm:w-1/2 ${button.style}`}
+                >
+                  {button.text}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .svgBlock::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url(/guilloche.svg);
+      background-repeat: repeat;
+      background-position: right top;
+      background-size: 20px, 20px;
+      opacity: 0.075;
+      background-clip: padding-box;
+      mask-image: linear-gradient(270deg, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+      pointer-events: none;
+    }
+  </style>
+</BaseLayout>
