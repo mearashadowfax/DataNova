@@ -1,6 +1,6 @@
 <div class="flex flex-col gap-4">
   <div
-    class="z-10 flex items-center gap-2 rounded-md bg-white px-4 py-2 text-sm text-slate-700 shadow-lg"
+    class="z-10 flex items-center justify-center gap-2 rounded-md bg-white px-4 py-2 text-sm text-slate-700 shadow-lg"
   >
     <svg
       role="img"
@@ -16,7 +16,7 @@
     Google Sheets
   </div>
   <div
-    class="z-10 flex items-center gap-2 rounded-md bg-white px-4 py-2 text-sm text-slate-700 shadow-lg"
+    class="z-10 flex items-center justify-center gap-2 rounded-md bg-white px-4 py-2 text-sm text-slate-700 shadow-lg"
   >
     <svg
       role="img"
@@ -32,7 +32,7 @@
     Google Cloud
   </div>
   <div
-    class="z-10 flex items-center gap-2 rounded-md bg-white px-4 py-2 text-sm text-slate-700 shadow-lg"
+    class="z-10 flex items-center justify-center gap-2 rounded-md bg-white px-4 py-2 text-sm text-slate-700 shadow-lg"
   >
     <svg
       role="img"
@@ -48,7 +48,7 @@
     AWS
   </div>
   <div
-    class="z-10 flex items-center gap-2 rounded-md bg-white px-4 py-2 text-sm text-slate-700 shadow-lg"
+    class="z-10 flex items-center justify-center gap-2 rounded-md bg-white px-4 py-2 text-sm text-slate-700 shadow-lg"
   >
     <svg
       role="img"
@@ -66,7 +66,7 @@
   </div>
 </div>
 <div
-  class="z-10 flex items-center gap-2 rounded-md bg-white p-4 text-sm text-slate-700 shadow-lg"
+  class="z-10 flex items-center justify-center gap-2 rounded-md bg-white p-4 text-sm text-slate-700 shadow-lg"
 >
   <svg
     width="196"
@@ -164,7 +164,7 @@
   DataNova
 </div>
 <div
-  class="z-10 flex items-center gap-2 rounded-md bg-white px-4 py-2 text-sm text-slate-700 shadow-lg"
+  class="z-10 flex items-center justify-center gap-2 rounded-md bg-white px-4 py-2 text-sm text-slate-700 shadow-lg"
 >
   <svg
     role="img"
@@ -179,7 +179,7 @@
   </svg> Amazon EKS
 </div>
 <div
-  class="beam-container pointer-events-none absolute left-0 hidden h-full md:flex md:items-center"
+  class="beam-container pointer-events-none absolute top-1 left-[-15%] hidden h-full md:flex md:items-center lg:left-0 xl:top-0"
 >
   <svg
     class="transform-gpu stroke-2"
@@ -253,11 +253,7 @@
 <style>
   :root {
     --color-slate-200: oklch(0.929 0.013 255.508);
-    --color-teal-200: oklch(96.36% 0.0179 196.86);
-    --color-teal-300: oklch(93.55% 0.0283 196.68);
-    --color-teal-400: oklch(89.79% 0.0396 196.47);
     --color-teal-500: oklch(84.99% 0.0526 196.2);
-    --color-teal-600: oklch(78.05% 0.0652 195.9);
   }
 
   .path-base {
@@ -272,12 +268,12 @@
     stroke-width: 2.5px;
     stroke-linecap: round;
     fill: none;
-    filter: drop-shadow(0 0 2px rgba(245, 158, 11, 0.5));
+    filter: drop-shadow(0 0 2px rgba(11, 237, 245, 0.2));
   }
-  /* Animation for each beam */
 
+  /* Animation for each beam */
   .beam-1 {
-    stroke: var(--color-teal-600);
+    stroke: var(--color-teal-500);
     stroke-dasharray: 250;
     stroke-dashoffset: 250;
     animation: dash 4s ease-in-out infinite;
@@ -285,11 +281,11 @@
   }
 
   .beam-2 {
-    stroke: var(--color-teal-600);
+    stroke: var(--color-teal-500);
     stroke-dasharray: 200;
     stroke-dashoffset: 200;
     animation: dash 4.5s ease-in-out infinite;
-    animation-delay: 1.2s;
+    animation-delay: 2.3s;
   }
 
   .beam-3 {
@@ -297,7 +293,7 @@
     stroke-dasharray: 280;
     stroke-dashoffset: 280;
     animation: dash 5s ease-in-out infinite;
-    animation-delay: 2.3s;
+    animation-delay: 1.2s;
   }
 
   .beam-4 {
@@ -314,26 +310,6 @@
     stroke-dashoffset: 220;
     animation: dash 5.2s ease-in-out infinite;
     animation-delay: 0.7s;
-  }
-
-  /* Gradient overlay effect using pseudo-elements */
-  .beam-container::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      90deg,
-      color-mix(in oklch, var(--color-teal-200), transparent 100%) 0%,
-      color-mix(in oklch, var(--color-teal-300), transparent 30%) 25%,
-      var(--color-teal-500) 50%,
-      color-mix(in oklch, var(--color-teal-600), transparent 30%) 75%,
-      color-mix(in oklch, var(--color-teal-600), transparent 100%) 100%
-    );
-    mix-blend-mode: overlay;
-    pointer-events: none;
   }
 
   @keyframes dash {
