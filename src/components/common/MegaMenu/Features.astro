@@ -2,6 +2,7 @@
 import Icon from "@ui/icons/Icon.astro";
 import { featuresMenu } from "@utils/megaMenu/features";
 const sectionDescription = "Discover how DataNova can empower your business";
+const currentPath = Astro.url.pathname;
 ---
 
 <div
@@ -10,7 +11,9 @@ const sectionDescription = "Discover how DataNova can empower your business";
   <button
     id="mega-menu-features"
     type="button"
-    class="hs-dropdown-toggle flex w-full items-center rounded-lg p-2 font-medium text-slate-800 hover:bg-slate-100 focus:bg-slate-100 focus:outline-hidden"
+    class={`hs-dropdown-toggle flex w-full items-center rounded-lg p-2 font-medium text-slate-800 hover:bg-slate-100 focus:bg-slate-100 focus:outline-hidden ${
+      currentPath.startsWith("/features") ? "underline underline-offset-4" : ""
+    }`}
     aria-haspopup="menu"
     aria-expanded="false"
     aria-label="Mega Menu"
