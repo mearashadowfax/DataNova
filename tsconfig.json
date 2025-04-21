@@ -33,7 +33,5 @@
         "src/utils/*"
       ]
     },
-    "jsx": "react-jsx",
-    "jsxImportSource": "react"
   }
 }
