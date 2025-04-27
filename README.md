@@ -4,7 +4,11 @@
 
 DataNova is an open-source, multi-page website template designed for flexibility — perfect for marketing sites, documentation hubs, and dynamic applications. Built with [Astro](https://astro.build/), [Tailwind CSS](https://tailwindcss.com/), and [Preline UI](https://preline.co/), it seamlessly integrates with [Keystatic CMS](https://keystatic.com/) and [Astro DB](https://docs.astro.build/en/guides/astro-db/) for effortless content management and data handling.
 
-**[View Live Demo](https://data-nova.vercel.app/)**
+
+<p align="left">
+    <a href="https://data-nova.vercel.app/" target="_blank">
+      <img src="https://vyclk3sx0z.ufs.sh/f/hv6ttNERWpXuFpMc8iWiVYanQyjefSkKg7v2Mrbz806uxod1" alt="DataNova Demo" width="180"/></a>
+</p>
 
 ## Table of Contents
 
