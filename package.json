@@ -33,7 +33,7 @@
     "schema-dts": "^1.1.2",
     "svelte": "^5.31.0",
     "tailwind-merge": "^3.3.0",
-    "tailwindcss": "^4.1.7",
+    "tailwindcss": "^4.1.8",
     "typescript": "^5.8.3"
   },
   "devDependencies": {
