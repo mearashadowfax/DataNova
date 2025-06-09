@@ -42,6 +42,6 @@
     "mdast-util-from-markdown": "^2.0.2",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.6.11"
+    "prettier-plugin-tailwindcss": "^0.6.12"
   }
 }
