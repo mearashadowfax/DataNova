@@ -40,7 +40,7 @@
     "@tailwindcss/forms": "^0.5.9",
     "@tailwindcss/typography": "^0.5.15",
     "mdast-util-from-markdown": "^2.0.2",
-    "prettier": "^3.6.0",
+    "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.6.13"
   }
