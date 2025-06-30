@@ -18,7 +18,7 @@
     "@astrojs/vercel": "^8.2.0",
     "@keystatic/astro": "^5.0.4",
     "@keystatic/core": "^0.5.47",
-    "@tailwindcss/vite": "^4.1.10",
+    "@tailwindcss/vite": "^4.1.11",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "astro": "^5.10.1",
