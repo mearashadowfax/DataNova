@@ -14,7 +14,7 @@
     "@astrojs/db": "^0.17.1",
     "@astrojs/markdoc": "^0.15.6",
     "@astrojs/react": "^4.3.1",
-    "@astrojs/svelte": "^7.1.0",
+    "@astrojs/svelte": "^7.1.1",
     "@astrojs/vercel": "^8.2.7",
     "@keystatic/astro": "^5.0.4",
     "@keystatic/core": "^0.5.48",
