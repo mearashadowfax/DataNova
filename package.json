@@ -20,7 +20,7 @@
     "@keystatic/core": "^0.5.48",
     "@tailwindcss/vite": "^4.1.17",
     "@types/react": "^19.2.5",
-    "@types/react-dom": "^19.2.2",
+    "@types/react-dom": "^19.2.3",
     "astro": "^5.15.8",
     "astro-font": "^1.1.0",
     "astro-seo": "^0.8.4",
