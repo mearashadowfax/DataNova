@@ -12,7 +12,7 @@
   "dependencies": {
     "@astrojs/check": "^0.9.5",
     "@astrojs/db": "^0.18.2",
-    "@astrojs/markdoc": "^0.15.8",
+    "@astrojs/markdoc": "^0.15.9",
     "@astrojs/react": "^4.4.2",
     "@astrojs/svelte": "^7.2.2",
     "@astrojs/vercel": "^9.0.0",
