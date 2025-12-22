@@ -37,7 +37,7 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@tailwindcss/forms": "^0.5.9",
+    "@tailwindcss/forms": "^0.5.11",
     "@tailwindcss/typography": "^0.5.19",
     "mdast-util-from-markdown": "^2.0.2",
     "prettier": "^3.7.4",
