@@ -53,19 +53,19 @@ const schema: WithContext<Thing> = {
 ---
 
 <BaseLayout seo={seo} schema={schema}>
-  <div class="mx-auto max-w-[85rem] px-4 pb-28 pt-48 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-[85rem] px-4 pt-48 pb-28 sm:px-6 lg:px-8">
     <div class="mb-10 max-w-3xl lg:mb-14">
       <h2
-        class="text-balance text-4xl text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
+        class="text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
       >
         {title}
       </h2>
-      <p class="ml-1 mt-1 text-slate-600">{subTitle}</p>
+      <p class="mt-1 ml-1 text-slate-600">{subTitle}</p>
     </div>
 
     <div class="grid grid-cols-1 gap-x-10 md:grid-cols-2 lg:gap-x-16">
       <div
-        class="mb-10 rounded-xl bg-teal-400 pb-10 md:order-2 md:mb-0 md:pb-0"
+        class="mb-10 h-fit rounded-xl bg-teal-400 pb-10 md:order-2 md:mb-0 md:pb-0"
       >
         <ContactForm />
       </div>
@@ -76,7 +76,7 @@ const schema: WithContext<Thing> = {
           <div class="grow">
             <h4 class="font-semibold text-slate-600">{addressHeading}</h4>
 
-            <address class="mt-1 text-sm not-italic text-slate-500">
+            <address class="mt-1 text-sm text-slate-500 not-italic">
               {contactDetails.addressLine1}
               <br />
               {contactDetails.addressLine2}
