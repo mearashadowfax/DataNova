@@ -22,7 +22,7 @@ importers:
         version: 4.4.2(@types/node@25.0.3)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(jiti@2.6.1)(lightningcss@1.30.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(yaml@2.8.2)
       '@astrojs/svelte':
         specifier: ^7.2.5
-        version: 7.2.5(@types/node@25.0.3)(astro@5.16.6(@types/node@25.0.3)(@vercel/functions@2.2.13)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.54.0)(typescript@5.9.3)(yaml@2.8.2))(jiti@2.6.1)(lightningcss@1.30.2)(svelte@5.46.1)(typescript@5.9.3)(yaml@2.8.2)
+        version: 7.2.5(@types/node@25.0.3)(astro@5.16.9(@types/node@25.0.3)(@vercel/functions@2.2.13)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.55.1)(typescript@5.9.3)(yaml@2.8.2))(jiti@2.6.1)(lightningcss@1.30.2)(svelte@5.46.1)(typescript@5.9.3)(yaml@2.8.2)
       '@astrojs/vercel':
         specifier: ^9.0.3
         version: 9.0.3(astro@5.16.9(@types/node@25.0.3)(@vercel/functions@2.2.13)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.55.1)(typescript@5.9.3)(yaml@2.8.2))(react@19.2.3)(rollup@4.55.1)(svelte@5.46.1)
@@ -44,9 +44,6 @@ importers:
       astro:
         specifier: ^5.16.9
         version: 5.16.9(@types/node@25.0.3)(@vercel/functions@2.2.13)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.55.1)(typescript@5.9.3)(yaml@2.8.2)
-      astro-font:
-        specifier: ^1.1.0
-        version: 1.1.0
       astro-seo:
         specifier: ^0.8.4
         version: 0.8.4(prettier-plugin-astro@0.14.1)(prettier@3.7.4)(typescript@5.9.3)
@@ -1954,9 +1951,6 @@ packages:
 
   array-iterate@2.0.1:
     resolution: {integrity: sha512-I1jXZMjAgCMmxT4qxXfPXa6SthSoE8h6gkSI9BGGNv8mP8G/v0blc+qFnZu6K42vTOiuME596QaLO0TP3Lk0xg==}
-
-  astro-font@1.1.0:
-    resolution: {integrity: sha512-hj1A0MkaJTeaArBpf1m9s4Nxu1Bn9h0QiEPeR9Dfjle25pT4CH4higzuadWzCRSvhGO2SzbM11YwZEF+cmLDxg==}
 
   astro-seo-schema@5.1.0:
     resolution: {integrity: sha512-6qN6H7KlzSXNQ9Q+5eUMCYsHuzz+SRDEqQLjRlNaFG+0XE4UdOBSTVorRWHjd5I1LaTc5Btgz26V6RmWEXFfrA==}
@@ -4272,7 +4266,7 @@ snapshots:
       - tsx
       - yaml
 
-  '@astrojs/svelte@7.2.5(@types/node@25.0.3)(astro@5.16.6(@types/node@25.0.3)(@vercel/functions@2.2.13)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.54.0)(typescript@5.9.3)(yaml@2.8.2))(jiti@2.6.1)(lightningcss@1.30.2)(svelte@5.46.1)(typescript@5.9.3)(yaml@2.8.2)':
+  '@astrojs/svelte@7.2.5(@types/node@25.0.3)(astro@5.16.9(@types/node@25.0.3)(@vercel/functions@2.2.13)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.55.1)(typescript@5.9.3)(yaml@2.8.2))(jiti@2.6.1)(lightningcss@1.30.2)(svelte@5.46.1)(typescript@5.9.3)(yaml@2.8.2)':
     dependencies:
       '@sveltejs/vite-plugin-svelte': 5.1.1(svelte@5.46.1)(vite@6.4.1(@types/node@25.0.3)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))
       astro: 5.16.9(@types/node@25.0.3)(@vercel/functions@2.2.13)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.55.1)(typescript@5.9.3)(yaml@2.8.2)
@@ -6584,8 +6578,6 @@ snapshots:
   aria-query@5.3.2: {}
 
   array-iterate@2.0.1: {}
-
-  astro-font@1.1.0: {}
 
   astro-seo-schema@5.1.0(astro@5.16.9(@types/node@25.0.3)(@vercel/functions@2.2.13)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.55.1)(typescript@5.9.3)(yaml@2.8.2))(schema-dts@1.1.5):
     dependencies:

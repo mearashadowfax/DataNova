@@ -5,7 +5,7 @@ import { ClientRouter } from "astro:transitions";
 import { SEO, type Props as SEOProps } from "astro-seo";
 import { Schema } from "astro-seo-schema";
 import type { WithContext, Thing } from "schema-dts";
-import { AstroFont } from "astro-font";
+import { Font } from "astro:assets";
 import "@styles/global.css";
 
 interface Props {
@@ -83,29 +83,8 @@ const defaultSchema: WithContext<Thing> = {
     <ClientRouter />
 
     {/* Font Definitions */}
-    <AstroFont
-      config={[
-        {
-          src: [],
-          name: "DM Sans",
-          googleFontsURL: "https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100..1000&display=swap",
-          preload: true,
-          display: "swap",
-          selector: "h1, h2, h3, h4",
-          fallback: "sans-serif",
-        },
-        {
-          src: [],
-          name: "Work Sans",
-          googleFontsURL: "https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap",
-          preload: true,
-          display: "swap",
-          selector: "body",
-          fallback: "sans-serif",
-        },
-      ]}
-    />
-
+    <Font cssVariable='--font-dm-sans' preload />
+    <Font cssVariable='--font-work-sans' preload />
     {/* Remove duplicate font links during transitions */}
     <script>
       import type { TransitionBeforeSwapEvent } from "astro:transitions/client";
