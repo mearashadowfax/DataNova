@@ -78,6 +78,7 @@
 </script>
 
 <div class="mt-12 flex flex-col sm:flex-row gap-y-2 items-center justify-center gap-x-2 sm:gap-y-0">
+  <slot />
   <h3 class="text-slate-700">{title}</h3>
   <div>
     <button
