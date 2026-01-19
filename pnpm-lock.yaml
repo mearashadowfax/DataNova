@@ -24,8 +24,8 @@ importers:
         specifier: ^7.2.5
         version: 7.2.5(@types/node@25.0.3)(astro@5.16.11(@types/node@25.0.3)(@vercel/functions@2.2.13)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.55.2)(typescript@5.9.3)(yaml@2.8.2))(jiti@2.6.1)(lightningcss@1.30.2)(svelte@5.47.0)(typescript@5.9.3)(yaml@2.8.2)
       '@astrojs/vercel':
-        specifier: ^9.0.3
-        version: 9.0.3(astro@5.16.11(@types/node@25.0.3)(@vercel/functions@2.2.13)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.55.2)(typescript@5.9.3)(yaml@2.8.2))(react@19.2.3)(rollup@4.55.2)(svelte@5.47.0)
+        specifier: ^9.0.4
+        version: 9.0.4(astro@5.16.11(@types/node@25.0.3)(@vercel/functions@2.2.13)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.55.2)(typescript@5.9.3)(yaml@2.8.2))(react@19.2.3)(rollup@4.55.2)(svelte@5.47.0)
       '@keystatic/astro':
         specifier: ^5.0.4
         version: 5.0.6(@keystatic/core@0.5.48(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(astro@5.16.11(@types/node@25.0.3)(@vercel/functions@2.2.13)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.55.2)(typescript@5.9.3)(yaml@2.8.2))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -174,8 +174,8 @@ packages:
     resolution: {integrity: sha512-UFBgfeldP06qu6khs/yY+q1cDAaArM2/7AEIqQ9Cuvf7B1hNLq0xDrZkct+QoIGyjq56y8IaE2I3CTvG99mlhQ==}
     engines: {node: 18.20.8 || ^20.3.0 || >=22.0.0}
 
-  '@astrojs/vercel@9.0.3':
-    resolution: {integrity: sha512-GVGNjuRqBco2mTfvPRFNEdYZeDIviBIJoEpeWfCnWBvQf9h72cYZ0sd0QHCPGca9SRR+C4cE+TqhiOgJtSs7GQ==}
+  '@astrojs/vercel@9.0.4':
+    resolution: {integrity: sha512-Nn5c0CODcx69FnNUhAcAhlDQ/Je2lLrlPmbMMI77ZvLMfyZI5NZyKD7MiKEeaYK/VTnx6fNI5rFHm6seqEPRtQ==}
     peerDependencies:
       astro: ^5.0.0
 
@@ -1831,8 +1831,8 @@ packages:
     resolution: {integrity: sha512-59PBFx3T+k5hLTEWa3ggiMpGRz1OVvl9eN8SUai+A43IsqiOuAe7qPBf+cray/Fj6mkgnxm/D7IAtjc8zSHi7g==}
     engines: {node: '>= 18'}
 
-  '@vercel/routing-utils@5.3.1':
-    resolution: {integrity: sha512-HlqFRdB6Dm20xgEWtEatchf9X28NifweXPdDoEGyj5ItngaiqpywtkgkuiAk3xK9eAu2oXM36wEJbDDTxMblUg==}
+  '@vercel/routing-utils@5.3.2':
+    resolution: {integrity: sha512-OKKhHKAON4vcwuPQvtxFRv7Ney0IGlp9CTsScKGbUsYYutRValK2GVdj7y4RRqm7RgzhuUMT/fSoK0ENKwrx9A==}
 
   '@vitejs/plugin-react@4.7.0':
     resolution: {integrity: sha512-gUu9hwfWvvEDBBmgtAowQCojwZmJ5mcLn3aufeCsitijs3+f2NsrPtlAWIR6OPiqljl96GVCUbLe0HyqIpVaoA==}
@@ -4278,13 +4278,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/vercel@9.0.3(astro@5.16.11(@types/node@25.0.3)(@vercel/functions@2.2.13)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.55.2)(typescript@5.9.3)(yaml@2.8.2))(react@19.2.3)(rollup@4.55.2)(svelte@5.47.0)':
+  '@astrojs/vercel@9.0.4(astro@5.16.11(@types/node@25.0.3)(@vercel/functions@2.2.13)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.55.2)(typescript@5.9.3)(yaml@2.8.2))(react@19.2.3)(rollup@4.55.2)(svelte@5.47.0)':
     dependencies:
       '@astrojs/internal-helpers': 0.7.5
       '@vercel/analytics': 1.6.1(react@19.2.3)(svelte@5.47.0)
       '@vercel/functions': 2.2.13
       '@vercel/nft': 0.30.4(rollup@4.55.2)
-      '@vercel/routing-utils': 5.3.1
+      '@vercel/routing-utils': 5.3.2
       astro: 5.16.11(@types/node@25.0.3)(@vercel/functions@2.2.13)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.55.2)(typescript@5.9.3)(yaml@2.8.2)
       esbuild: 0.25.12
       tinyglobby: 0.2.15
@@ -6415,7 +6415,7 @@ snapshots:
       '@types/ms': 2.1.0
       ms: 2.1.3
 
-  '@vercel/routing-utils@5.3.1':
+  '@vercel/routing-utils@5.3.2':
     dependencies:
       path-to-regexp: 6.1.0
       path-to-regexp-updated: path-to-regexp@6.3.0
