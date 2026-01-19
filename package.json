@@ -22,7 +22,7 @@
     "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.3",
     "astro": "^5.16.11",
-    "astro-seo": "^0.8.4",
+    "astro-seo": "^1.1.0",
     "astro-seo-schema": "^5.1.0",
     "mdast-util-to-string": "^4.0.0",
     "preline": "^3.2.3",
