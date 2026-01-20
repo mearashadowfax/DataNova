@@ -85,17 +85,6 @@ const defaultSchema: WithContext<Thing> = {
     {/* Font Definitions */}
     <Font cssVariable='--font-dm-sans' preload />
     <Font cssVariable='--font-work-sans' preload />
-    {/* Remove duplicate font links during transitions */}
-    <script>
-      import type { TransitionBeforeSwapEvent } from "astro:transitions/client";
-      document.addEventListener("astro:before-swap", (e) =>
-        [
-          ...(e as TransitionBeforeSwapEvent).newDocument.head.querySelectorAll(
-            'link[as="font"]',
-          ),
-        ].forEach((link) => link.remove()),
-      );
-    </script>
   </head>
   <body class="bg-off-white selection:bg-teal-400 selection:text-slate-700">
     <Navbar />
