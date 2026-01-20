@@ -85,6 +85,26 @@ const defaultSchema: WithContext<Thing> = {
     {/* Font Definitions */}
     <Font cssVariable='--font-dm-sans' preload />
     <Font cssVariable='--font-work-sans' preload />
+
+    {/* Preserve fonts during view transitions to prevent FOUT */}
+    <script is:inline>
+      document.addEventListener("astro:before-swap", (event) => {
+        const newDoc = event.newDocument;
+
+        // Remove font preload links from new document to prevent duplicates
+        newDoc.head
+          .querySelectorAll('link[rel="preload"][as="font"]')
+          .forEach((link) => link.remove());
+
+        // Remove font style tags from new document (they contain @font-face rules)
+        // These are identified by having font-related CSS variables or @font-face
+        newDoc.head.querySelectorAll("style").forEach((style) => {
+          if (style.textContent?.includes("@font-face")) {
+            style.remove();
+          }
+        });
+      });
+    </script>
   </head>
   <body class="bg-off-white selection:bg-teal-400 selection:text-slate-700">
     <Navbar />

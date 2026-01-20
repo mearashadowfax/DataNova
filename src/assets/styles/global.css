@@ -10,7 +10,7 @@
   --color-current: currentColor;
   --color-black: #000;
   --color-white: #fff;
-  --color-off-white: #fefefe;
+  --color-off-white: oklch(0.997 0 0);
 
   --color-slate-50: oklch(0.984 0.003 247.858);
   --color-slate-100: oklch(0.968 0.007 247.896);
@@ -35,15 +35,15 @@
   --color-teal-800: oklch(59.53% 0.1 194.8);
   --color-teal-900: oklch(54.08% 0.0908 194.8);
   --color-teal-950: oklch(32.68% 0.047 195.1);
-
-  /* https://tailwindcss.com/docs/font-family#customizing-your-theme */
-  --font-dm-sans: var(--font-dm-sans), sans-serif;
-  --font-work-sans: var(--font-work-sans), sans-serif;
 }
 
 @theme inline {
   --animate-scroll: scroll var(--duration, 40s) var(--direction, forwards) linear infinite;
-  
+
+  /* https://tailwindcss.com/docs/font-family#customizing-your-theme */
+  --font-dm-sans: var(--font-dm-sans), sans-serif;
+  --font-work-sans: var(--font-work-sans), sans-serif;
+
   @keyframes scroll {
     to {
       transform: translate(calc(-50% - 0.5rem));
@@ -60,6 +60,7 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
+
   *,
   ::after,
   ::before,
@@ -89,4 +90,3 @@
 @utility card {
   @apply relative z-10 flex h-full flex-col border-dashed border-slate-300 p-4 before:absolute before:inset-0 before:-z-1 before:bg-linear-to-b/oklch before:via-80% before:opacity-0 hover:before:from-transparent hover:before:via-transparent hover:before:to-teal-500/20 hover:before:opacity-100 focus:outline-hidden focus:before:from-transparent focus:before:via-transparent focus:before:to-teal-500/20 focus:before:opacity-100 md:p-6;
 }
-
