@@ -88,34 +88,43 @@ const defaultSchema: WithContext<Thing> = {
 
     {/* Preserve fonts during view transitions to prevent FOUT */}
     <script is:inline>
+      // Mark font elements for persistence on initial load
+      function markFontsForPersistence() {
+        // Mark font preload links
+        document.head
+          .querySelectorAll('link[rel="preload"][as="font"]')
+          .forEach((link, index) => {
+            link.setAttribute("data-astro-transition-persist", `font-link-${index}`);
+          });
+
+        // Mark font style tags (containing @font-face rules)
+        document.head.querySelectorAll("style").forEach((style, index) => {
+          if (style.textContent?.includes("@font-face")) {
+            style.setAttribute("data-astro-transition-persist", `font-style-${index}`);
+          }
+        });
+      }
+
+      // Mark fonts on initial page load
+      markFontsForPersistence();
+
+      // Handle view transitions
       document.addEventListener("astro:before-swap", (event) => {
         const newDoc = event.newDocument;
 
-        // Remove font preload links from new document to prevent duplicates
+        // Remove font elements from new document (they'll be persisted from current doc)
         newDoc.head
           .querySelectorAll('link[rel="preload"][as="font"]')
           .forEach((link) => link.remove());
 
-        // Remove font style tags from new document (they contain @font-face rules)
         newDoc.head.querySelectorAll("style").forEach((style) => {
           if (style.textContent?.includes("@font-face")) {
             style.remove();
           }
         });
 
-        // Copy existing font styles from current document to new document
-        document.head.querySelectorAll("style").forEach((style) => {
-          if (style.textContent?.includes("@font-face")) {
-            newDoc.head.appendChild(style.cloneNode(true));
-          }
-        });
-
-        // Copy existing font preload links from current document
-        document.head
-          .querySelectorAll('link[rel="preload"][as="font"]')
-          .forEach((link) => {
-            newDoc.head.appendChild(link.cloneNode(true));
-          });
+        // Mark current document's font elements for persistence (if not already marked)
+        markFontsForPersistence();
       });
     </script>
   </head>
