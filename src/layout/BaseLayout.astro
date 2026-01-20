@@ -88,31 +88,26 @@ const defaultSchema: WithContext<Thing> = {
 
     {/* Preserve fonts during view transitions to prevent FOUT */}
     <script is:inline>
-      // Mark font elements for persistence on initial load
-      function markFontsForPersistence() {
-        // Mark font preload links
-        document.head
-          .querySelectorAll('link[rel="preload"][as="font"]')
-          .forEach((link, index) => {
-            link.setAttribute("data-astro-transition-persist", `font-link-${index}`);
-          });
+      document.addEventListener("astro:before-swap", (event) => {
+        // Store references to current font elements before swap
+        const currentFontStyles = [];
+        const currentFontLinks = [];
 
-        // Mark font style tags (containing @font-face rules)
-        document.head.querySelectorAll("style").forEach((style, index) => {
+        document.head.querySelectorAll("style").forEach((style) => {
           if (style.textContent?.includes("@font-face")) {
-            style.setAttribute("data-astro-transition-persist", `font-style-${index}`);
+            currentFontStyles.push(style);
           }
         });
-      }
 
-      // Mark fonts on initial page load
-      markFontsForPersistence();
+        document.head
+          .querySelectorAll('link[rel="preload"][as="font"]')
+          .forEach((link) => {
+            currentFontLinks.push(link);
+          });
 
-      // Handle view transitions
-      document.addEventListener("astro:before-swap", (event) => {
+        // Remove font elements from new document to prevent duplicates
         const newDoc = event.newDocument;
 
-        // Remove font elements from new document (they'll be persisted from current doc)
         newDoc.head
           .querySelectorAll('link[rel="preload"][as="font"]')
           .forEach((link) => link.remove());
@@ -123,8 +118,25 @@ const defaultSchema: WithContext<Thing> = {
           }
         });
 
-        // Mark current document's font elements for persistence (if not already marked)
-        markFontsForPersistence();
+        // Override the swap function to preserve fonts
+        const originalSwap = event.swap;
+        event.swap = () => {
+          // Run the original swap
+          originalSwap();
+
+          // Re-add font elements to the head after swap
+          currentFontStyles.forEach((style) => {
+            if (!style.parentNode) {
+              document.head.appendChild(style);
+            }
+          });
+
+          currentFontLinks.forEach((link) => {
+            if (!link.parentNode) {
+              document.head.appendChild(link);
+            }
+          });
+        };
       });
     </script>
   </head>
