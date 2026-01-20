@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap");
 @import "tailwindcss";
 @import "preline/variants.css";
 @plugin '@tailwindcss/forms';
@@ -35,13 +37,13 @@
   --color-teal-800: oklch(59.53% 0.1 194.8);
   --color-teal-900: oklch(54.08% 0.0908 194.8);
   --color-teal-950: oklch(32.68% 0.047 195.1);
+
+  --font-dm-sans: "DM Sans", sans-serif;
+  --font-work-sans: "Work Sans", sans-serif;
 }
 
 @theme inline {
   --animate-scroll: scroll var(--duration, 40s) var(--direction, forwards) linear infinite;
-
-  --font-work-sans: var(--font-work-sans);
-  --font-dm-sans: var(--font-dm-sans);
 
   @keyframes scroll {
     to {
@@ -68,15 +70,15 @@
   }
 
   body {
-    font-family:
-      var(--font-work-sans), ui-sans-serif, system-ui, sans-serif;
+    @apply font-work-sans;
   }
+
   h1,
   h2,
   h3,
   h4,
   .dm-sans {
-    font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+    @apply font-dm-sans;
   }
 
   button:not(:disabled),

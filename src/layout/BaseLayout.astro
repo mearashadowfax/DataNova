@@ -5,7 +5,7 @@ import { ClientRouter } from "astro:transitions";
 import { SEO, type Props as SEOProps } from "astro-seo";
 import { Schema } from "astro-seo-schema";
 import type { WithContext, Thing } from "schema-dts";
-import { Font } from "astro:assets";
+import { AstroFont } from "astro-font";
 import "@styles/global.css";
 
 interface Props {
@@ -80,43 +80,42 @@ const defaultSchema: WithContext<Thing> = {
     <Schema item={schema ?? defaultSchema} />
 
     {/* Font Definitions */}
-    <Font cssVariable="--font-dm-sans" preload />
-    <Font cssVariable="--font-work-sans" preload />
+     <AstroFont
+     config={[
+       {
+         src: [],
+         name: "DM Sans",
+         googleFontsURL: "https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100..1000&display=swap",
+         preload: true,
+         display: "swap",
+         selector: "h1, h2, h3, h4",
+         fallback: "sans-serif",
+       },
+       {
+         src: [],
+         name: "Work Sans",
+         googleFontsURL: "https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap",
+         preload: true,
+         display: "swap",
+         selector: "body",
+         fallback: "sans-serif",
+       },
+     ]}
+   />
 
     {/* Client-Side Router for page transitions */}
     <ClientRouter />
 
-    {/* Preserve fonts during view transitions to prevent FOUT */}
-    <script is:inline>
-      document.addEventListener("astro:before-swap", (event) => {
-        const newDoc = event.newDocument;
-
-        // Remove font preload links from new document to prevent duplicates
-        newDoc.head
-          .querySelectorAll('link[rel="preload"][as="font"]')
-          .forEach((link) => link.remove());
-
-        // Remove font style tags from new document (they contain @font-face rules)
-        newDoc.head.querySelectorAll("style").forEach((style) => {
-          if (style.textContent?.includes("@font-face")) {
-            style.remove();
-          }
-        });
-
-        // Copy existing font styles from current document to new document
-        document.head.querySelectorAll("style").forEach((style) => {
-          if (style.textContent?.includes("@font-face")) {
-            newDoc.head.appendChild(style.cloneNode(true));
-          }
-        });
-
-        // Copy existing font preload links from current document
-        document.head
-          .querySelectorAll('link[rel="preload"][as="font"]')
-          .forEach((link) => {
-            newDoc.head.appendChild(link.cloneNode(true));
-          });
-      });
+    {/* Remove duplicate font links during transitions */}
+    <script>
+      import type { TransitionBeforeSwapEvent } from "astro:transitions/client";
+      document.addEventListener("astro:before-swap", (e) =>
+        [
+          ...(e as TransitionBeforeSwapEvent).newDocument.head.querySelectorAll(
+            'link[as="font"]',
+          ),
+        ].forEach((link) => link.remove()),
+      );
     </script>
   </head>
   <body class="bg-off-white selection:bg-teal-400 selection:text-slate-700">
