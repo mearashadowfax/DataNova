@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap");
 @import "tailwindcss";
 @import "preline/variants.css";
 @plugin '@tailwindcss/forms';
@@ -41,8 +43,8 @@
   --animate-scroll: scroll var(--duration, 40s) var(--direction, forwards) linear infinite;
 
   /* https://tailwindcss.com/docs/font-family#customizing-your-theme */
-  --font-dm-sans: var(--font-dm-sans), sans-serif;
-  --font-work-sans: var(--font-work-sans), sans-serif;
+  --font-dm-sans: "DM Sans", sans-serif;
+  --font-work-sans: "Work Sans", sans-serif;
 
   @keyframes scroll {
     to {

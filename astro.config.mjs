@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig, fontProviders } from "astro/config";
+import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import vercel from "@astrojs/vercel";
 import react from "@astrojs/react";
@@ -17,20 +17,6 @@ export default defineConfig({
   trailingSlash: "never",
   experimental: {
     clientPrerender: true,
-    fonts: [
-      {
-        provider: fontProviders.google(),
-        name: "DM Sans",
-        cssVariable: "--font-dm-sans",
-        weights: ["300 700"],
-      },
-      {
-        provider: fontProviders.google(),
-        name: "Work Sans",
-        cssVariable: "--font-work-sans",
-        weights: ["400 700"],
-      },
-    ],
   },
   integrations: [
     react(),
