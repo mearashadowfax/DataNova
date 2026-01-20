@@ -40,6 +40,9 @@
 @theme inline {
   --animate-scroll: scroll var(--duration, 40s) var(--direction, forwards) linear infinite;
 
+  --font-work-sans: var(--font-work-sans);
+  --font-dm-sans: var(--font-dm-sans);
+
   @keyframes scroll {
     to {
       transform: translate(calc(-50% - 0.5rem));
@@ -62,6 +65,18 @@
   ::backdrop,
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
+  }
+
+  body {
+    font-family:
+      var(--font-work-sans), ui-sans-serif, system-ui, sans-serif;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  .dm-sans {
+    font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
   }
 
   button:not(:disabled),
