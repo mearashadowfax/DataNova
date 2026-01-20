@@ -17,11 +17,13 @@ export default defineConfig({
         provider: fontProviders.google(),
         name: "DM Sans",
         cssVariable: "--font-dm-sans",
+        weights: ["300 700"],
       },
       {
         provider: fontProviders.google(),
         name: "Work Sans",
         cssVariable: "--font-work-sans",
+        weights: ["400 700"],
       },
     ],
   },
