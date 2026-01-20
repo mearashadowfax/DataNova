@@ -39,10 +39,6 @@
 
 @theme inline {
   --animate-scroll: scroll var(--duration, 40s) var(--direction, forwards) linear infinite;
-  
-  /* https://tailwindcss.com/docs/font-family#customizing-your-theme */
-  --font-dm-sans: var(--font-dm-sans), sans-serif;
-  --font-work-sans: var(--font-work-sans), sans-serif;
 
   @keyframes scroll {
     to {
@@ -66,18 +62,6 @@
   ::backdrop,
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
-  }
-
-  body {
-    @apply font-work-sans;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  .dm-sans {
-    @apply font-dm-sans;
   }
 
   button:not(:disabled),

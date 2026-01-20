@@ -79,12 +79,31 @@ const defaultSchema: WithContext<Thing> = {
     {/* Schema.org JSON-LD */}
     <Schema item={schema ?? defaultSchema} />
 
-    {/* Client-Side Router for page transitions */}
-    <ClientRouter />
-
     {/* Font Definitions */}
     <Font cssVariable="--font-dm-sans" preload />
     <Font cssVariable="--font-work-sans" preload />
+
+    {
+      /* 
+      Ensure fonts are ready before view transitions by blocking on font loading.
+    */
+    }
+    <style is:inline data-astro-transition-persist="font-styles">
+      body {
+        font-family:
+          var(--font-work-sans), ui-sans-serif, system-ui, sans-serif;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      .dm-sans {
+        font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+      }
+    </style>
+
+    {/* Client-Side Router for page transitions */}
+    <ClientRouter />
   </head>
   <body class="bg-off-white selection:bg-teal-400 selection:text-slate-700">
     <Navbar />
