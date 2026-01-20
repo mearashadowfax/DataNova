@@ -92,15 +92,30 @@ const defaultSchema: WithContext<Thing> = {
         const newDoc = event.newDocument;
 
         // Remove font preload links from new document to prevent duplicates
-        newDoc.head.querySelectorAll('link[rel="preload"][as="font"]').forEach((link) => link.remove());
+        newDoc.head
+          .querySelectorAll('link[rel="preload"][as="font"]')
+          .forEach((link) => link.remove());
 
         // Remove font style tags from new document (they contain @font-face rules)
-        // These are identified by having font-related CSS variables or @font-face
         newDoc.head.querySelectorAll("style").forEach((style) => {
           if (style.textContent?.includes("@font-face")) {
             style.remove();
           }
         });
+
+        // Copy existing font styles from current document to new document
+        document.head.querySelectorAll("style").forEach((style) => {
+          if (style.textContent?.includes("@font-face")) {
+            newDoc.head.appendChild(style.cloneNode(true));
+          }
+        });
+
+        // Copy existing font preload links from current document
+        document.head
+          .querySelectorAll('link[rel="preload"][as="font"]')
+          .forEach((link) => {
+            newDoc.head.appendChild(link.cloneNode(true));
+          });
       });
     </script>
   </head>
