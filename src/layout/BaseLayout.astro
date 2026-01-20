@@ -83,12 +83,8 @@ const defaultSchema: WithContext<Thing> = {
     <Font cssVariable="--font-dm-sans" preload />
     <Font cssVariable="--font-work-sans" preload />
 
-    {
-      /* 
-      Ensure fonts are ready before view transitions by blocking on font loading.
-    */
-    }
-    <style is:inline data-astro-transition-persist="font-styles">
+    {/* Font family declarations */}
+    <style is:inline>
       body {
         font-family:
           var(--font-work-sans), ui-sans-serif, system-ui, sans-serif;
@@ -104,6 +100,36 @@ const defaultSchema: WithContext<Thing> = {
 
     {/* Client-Side Router for page transitions */}
     <ClientRouter />
+
+    {
+      /* 
+      Prevent FOUT during view transitions by ensuring fonts are ready 
+      before the page swap occurs.
+    */
+    }
+    <script is:inline>
+      // Wait for fonts on initial page load
+      document.fonts.ready.then(() => {
+        document.documentElement.classList.add("fonts-loaded");
+      });
+
+      // During view transitions, wait for fonts before swapping
+      document.addEventListener("astro:before-preparation", (event) => {
+        const originalLoader = event.loader;
+        event.loader = async function () {
+          await originalLoader();
+          // Ensure fonts are ready in current document before swap
+          await document.fonts.ready;
+        };
+      });
+
+      // After swap, ensure fonts are ready before showing content
+      document.addEventListener("astro:after-swap", () => {
+        document.fonts.ready.then(() => {
+          document.documentElement.classList.add("fonts-loaded");
+        });
+      });
+    </script>
   </head>
   <body class="bg-off-white selection:bg-teal-400 selection:text-slate-700">
     <Navbar />
