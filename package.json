@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
-    "@astrojs/db": "^0.18.3",
+    "@astrojs/db": "^0.19.0",
     "@astrojs/markdoc": "^0.15.10",
     "@astrojs/react": "^4.4.2",
     "@astrojs/svelte": "^7.2.5",
