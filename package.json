@@ -26,7 +26,7 @@
     "astro-seo": "^1.1.0",
     "astro-seo-schema": "^5.1.0",
     "mdast-util-to-string": "^4.0.0",
-    "preline": "^3.2.3",
+    "preline": "^4.0.1",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "reading-time": "^1.5.0",
