@@ -6,7 +6,7 @@ DataNova is an open-source, multi-page website template designed for flexibility
 
 <p align="left">
     <a href="https://data-nova.vercel.app/" target="_blank">
-      <img src="https://vyclk3sx0z.ufs.sh/f/hv6ttNERWpXuFpMc8iWiVYanQyjefSkKg7v2Mrbz806uxod1" alt="DataNova Demo" width="180"/></a>
+      <img src="https://vyclk3sx0z.ufs.sh/f/hv6ttNERWpXuqUIngOw7LPxRH0YaWDig162pXztwTZovEuJN" alt="DataNova Site" width="180"/></a>
 </p>
 
 ## Table of Contents
