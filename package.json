@@ -24,7 +24,7 @@
     "astro": "^5.17.1",
     "astro-font": "^1.1.0",
     "astro-seo": "^1.1.0",
-    "astro-seo-schema": "^5.1.0",
+    "astro-seo-schema": "^5.2.0",
     "mdast-util-to-string": "^4.0.0",
     "preline": "^4.0.1",
     "react": "^19.2.4",
