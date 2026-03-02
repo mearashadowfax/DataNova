@@ -12,25 +12,25 @@
   "dependencies": {
     "@astrojs/check": "^0.9.6",
     "@astrojs/markdoc": "^0.15.10",
-    "@tailwindcss/vite": "^4.1.18",
-    "astro": "^5.16.9",
+    "@tailwindcss/vite": "^4.2.1",
+    "astro": "^5.18.0",
     "astro-font": "^1.1.0",
     "astro-seo": "^0.8.4",
-    "astro-seo-schema": "^5.1.0",
+    "astro-seo-schema": "^5.2.0",
     "mdast-util-to-string": "^4.0.0",
     "preline": "^3.2.3",
     "reading-time": "^1.5.0",
     "schema-dts": "^1.1.5",
     "sharp": "^0.34.5",
-    "tailwind-merge": "^3.4.0",
-    "tailwindcss": "^4.1.18",
+    "tailwind-merge": "^3.5.0",
+    "tailwindcss": "^4.2.1",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.11",
     "@tailwindcss/typography": "^0.5.19",
-    "mdast-util-from-markdown": "^2.0.2",
-    "prettier": "^3.7.4",
+    "mdast-util-from-markdown": "^2.0.3",
+    "prettier": "^3.8.1",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.7.2"
   }
