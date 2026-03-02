@@ -1,51 +1,52 @@
-  ---
-  import BaseLayout from "@layout/BaseLayout.astro";
-  import type { WithContext, Thing } from "schema-dts";
-  import { formatDate } from "@utils/utils";
-  import { getReadingTime } from "@utils/reading-time";
-  import { getCollection, render } from "astro:content";
+---
+import BaseLayout from '@layout/BaseLayout.astro';
+import type { WithContext, Thing } from 'schema-dts';
+import { formatDate } from '@utils/utils';
+import { getReadingTime } from '@utils/reading-time';
+import { getCollection, render } from 'astro:content';
 
-  // 1. Generate a new path for every collection entry
-  export async function getStaticPaths() {
-    const posts = await getCollection('articles');
-    return posts.map(post => ({
-      params: { id: post.id },
-      props: { post },
-    }));
-  }
+// 1. Generate a new path for every collection entry
+export async function getStaticPaths() {
+  const posts = await getCollection('articles');
+  return posts.map(post => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
 
-  // 2. Get the entry directly from the `Astro.props` passed in by `getStaticPaths`
-  const { post } = Astro.props;
+// 2. Get the entry directly from the `Astro.props` passed in by `getStaticPaths`
+const { post } = Astro.props;
 
-  // 3. Render the entry to HTML in the template
-  const { Content, headings } = await render(post);
+// 3. Render the entry to HTML in the template
+const { Content, headings } = await render(post);
 
-  const validHeadings = headings.filter((heading) => heading.depth === 2);
-  const readingTime = getReadingTime(post.body ?? "");
-  const slug = post.id;
+const validHeadings = headings.filter(heading => heading.depth === 2);
+const readingTime = getReadingTime(post.body ?? '');
+const slug = post.id;
 
-  // Prepare SEO metadata based on the article content
-  const seo = {
-    title: post.data.title,
-    description: post.data.description,
-  };
+// Prepare SEO metadata based on the article content
+const seo = {
+  title: post.data.title,
+  description: post.data.description,
+};
 
-  // Schema.org metadata for SEO
-  const schema: WithContext<Thing> = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "url": Astro.url.href, // Astro.url.href should still work correctly here
-    "name": post.data.title,
-    "description": post.data.description,
-    "datePublished": post.data.date.toLocaleDateString('en-UK'),
-    "isPartOf": {
-      "@type": "WebSite",
-      "url": `${Astro.site}`,
-      "name": "DataNova",
-      "description": "DataNova Analytics Inc. provides advanced analytics for Excel to help businesses unlock actionable insights quickly with no coding required."
-    }
-  };
-  ---
+// Schema.org metadata for SEO
+const schema: WithContext<Thing> = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  url: Astro.url.href, // Astro.url.href should still work correctly here
+  name: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toLocaleDateString('en-UK'),
+  isPartOf: {
+    '@type': 'WebSite',
+    url: `${Astro.site}`,
+    name: 'DataNova',
+    description:
+      'DataNova Analytics Inc. provides advanced analytics for Excel to help businesses unlock actionable insights quickly with no coding required.',
+  },
+};
+---
 
 <BaseLayout seo={seo} schema={schema}>
   <section class="mx-auto max-w-[85rem] px-4 py-24 sm:px-6 lg:px-8">
@@ -53,11 +54,11 @@
       <div class="grid gap-8 md:grid-cols-4 lg:gap-12">
         {
           validHeadings.length > 0 && (
-            <div class="relative mt-10 rounded-lg border border-slate-300 border-dashed p-5 md:mt-0 md:border-none md:p-0 md:pb-24">
+            <div class="relative mt-10 rounded-lg border border-dashed border-slate-300 p-5 md:mt-0 md:border-none md:p-0 md:pb-24">
               <nav class="sticky top-10 md:top-32">
                 <small class="font-semibold uppercase">On this page</small>
                 <ul class="mt-2 space-y-2">
-                  {validHeadings.map((heading) => (
+                  {validHeadings.map(heading => (
                     <li>
                       <a
                         href={`#${heading.slug}`}
@@ -88,7 +89,7 @@
           </ul>
 
           <h1
-            class="mb-4 text-balance text-center text-2xl text-slate-800 sm:text-3xl md:mb-6 md:text-left xl:text-5xl"
+            class="mb-4 text-center text-2xl text-balance text-slate-800 sm:text-3xl md:mb-6 md:text-left xl:text-5xl"
           >
             {post.data.title}
           </h1>
@@ -108,7 +109,7 @@
     let intersectionObserver: IntersectionObserver | null = null;
 
     function safeInitTOC() {
-      if ("requestIdleCallback" in window) {
+      if ('requestIdleCallback' in window) {
         requestIdleCallback(initTOC);
       } else {
         setTimeout(initTOC, 200);
@@ -116,41 +117,41 @@
     }
 
     function initTOC() {
-      const tocLinks = document.querySelectorAll("[data-toc-link]");
-      const sections = document.querySelectorAll("h2[id]");
+      const tocLinks = document.querySelectorAll('[data-toc-link]');
+      const sections = document.querySelectorAll('h2[id]');
 
       if (!tocLinks.length || !sections.length) return;
 
-      tocLinks.forEach((link) =>
-        link.classList.remove("text-slate-600", "font-medium"),
+      tocLinks.forEach(link =>
+        link.classList.remove('text-slate-600', 'font-medium')
       );
 
       intersectionObserver = new IntersectionObserver(
-        (entries) => {
+        entries => {
           let activeSection = null;
 
-          entries.forEach((entry) => {
+          entries.forEach(entry => {
             if (entry.target instanceof HTMLElement && entry.isIntersecting) {
               activeSection = entry.target;
             }
           });
 
           if (activeSection) {
-            const sectionId = (activeSection as HTMLElement).getAttribute("id");
+            const sectionId = (activeSection as HTMLElement).getAttribute('id');
             if (sectionId) {
               document
                 .querySelector(`[data-toc-link][href="#${sectionId}"]`)
-                ?.classList.add("text-slate-600", "font-medium");
+                ?.classList.add('text-slate-600', 'font-medium');
             }
           }
         },
         {
           threshold: 0.3,
-          rootMargin: "-20% 0px -55% 0px",
-        },
+          rootMargin: '-20% 0px -55% 0px',
+        }
       );
 
-      sections.forEach((section) => intersectionObserver?.observe(section));
+      sections.forEach(section => intersectionObserver?.observe(section));
     }
 
     function cleanup() {
@@ -160,7 +161,7 @@
 
     safeInitTOC();
 
-    document.addEventListener("astro:page-load", safeInitTOC);
-    document.addEventListener("astro:before-swap", cleanup);
+    document.addEventListener('astro:page-load', safeInitTOC);
+    document.addEventListener('astro:before-swap', cleanup);
   </script>
 </BaseLayout>

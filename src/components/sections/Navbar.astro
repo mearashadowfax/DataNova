@@ -1,15 +1,18 @@
 ---
-import Downloads from "@megaMenu/Downloads.astro";
-import Support from "@megaMenu/Support.astro";
-import Platform from "@megaMenu/Platform.astro";
-import Features from "@megaMenu/Features.astro";
-import Button from "@ui/Button.astro";
-import { navigationLinks } from "@utils/navigation";
+import Downloads from '@megaMenu/Downloads.astro';
+import Support from '@megaMenu/Support.astro';
+import Platform from '@megaMenu/Platform.astro';
+import Features from '@megaMenu/Features.astro';
+import Button from '@ui/Button.astro';
+import { navigationLinks } from '@utils/navigation';
 
 const currentPath = Astro.url.pathname;
 
 // Call-to-action configuration for the primary button
-const primaryCTA = { text: "Try Free", href: "https://github.com/mearashadowfax/DataNova" };
+const primaryCTA = {
+  text: 'Try Free',
+  href: 'https://github.com/mearashadowfax/DataNova',
+};
 ---
 
 <header
@@ -37,7 +40,7 @@ const primaryCTA = { text: "Try Free", href: "https://github.com/mearashadowfax/
         data-hs-collapse="#hs-header-base"
       >
         <svg
-          class="size-4 hs-collapse-open:hidden"
+          class="hs-collapse-open:hidden size-4"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -54,7 +57,7 @@ const primaryCTA = { text: "Try Free", href: "https://github.com/mearashadowfax/
             y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg
         >
         <svg
-          class="hidden size-4 shrink-0 hs-collapse-open:block"
+          class="hs-collapse-open:block hidden size-4 shrink-0"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -76,7 +79,7 @@ const primaryCTA = { text: "Try Free", href: "https://github.com/mearashadowfax/
       aria-labelledby="hs-header-base-collapse"
     >
       <div
-        class="max-h-[75vh] overflow-hidden overflow-y-auto [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-300 [&::-webkit-scrollbar-track]:bg-slate-100 [&::-webkit-scrollbar]:w-2"
+        class="max-h-[75vh] overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-300 [&::-webkit-scrollbar-track]:bg-slate-100"
       >
         <div
           class="flex flex-col gap-0.5 py-2 xl:flex-row xl:items-center xl:gap-1 xl:py-0"
@@ -88,9 +91,9 @@ const primaryCTA = { text: "Try Free", href: "https://github.com/mearashadowfax/
               <a
                 href="/"
                 class={`flex items-center rounded-lg p-2 font-medium text-slate-800 hover:bg-slate-100 focus:bg-slate-100 focus:outline-hidden ${
-                  currentPath === "/" ? "underline underline-offset-4" : ""
+                  currentPath === '/' ? 'underline underline-offset-4' : ''
                 }`}
-                aria-current={currentPath === "/" ? "page" : undefined}
+                aria-current={currentPath === '/' ? 'page' : undefined}
               >
                 Home
               </a>
@@ -104,16 +107,16 @@ const primaryCTA = { text: "Try Free", href: "https://github.com/mearashadowfax/
               <Support />
 
               {
-                navigationLinks.map((link) => (
+                navigationLinks.map(link => (
                   <a
                     href={link.href}
                     class={`flex items-center rounded-lg p-2 font-medium text-slate-800 hover:bg-slate-100 focus:bg-slate-100 focus:outline-hidden ${
                       currentPath === link.href
-                        ? "underline underline-offset-4"
-                        : ""
+                        ? 'underline underline-offset-4'
+                        : ''
                     }`}
                     aria-current={
-                      currentPath === link.href ? "page" : undefined
+                      currentPath === link.href ? 'page' : undefined
                     }
                   >
                     {link.label}
@@ -124,13 +127,13 @@ const primaryCTA = { text: "Try Free", href: "https://github.com/mearashadowfax/
           </div>
 
           <div
-            class="mt-5 flex flex-wrap items-center gap-x-1.5 xl:ml-6 xl:mt-0"
+            class="mt-5 flex flex-wrap items-center gap-x-1.5 xl:mt-0 xl:ml-6"
           >
             <Button
               href={primaryCTA.href}
               variant="primary"
               target="_blank"
-              className="inline-flex text-nowrap border-none py-2!"
+              className="inline-flex border-none py-2! text-nowrap"
               >{primaryCTA.text}</Button
             >
           </div>
@@ -141,8 +144,8 @@ const primaryCTA = { text: "Try Free", href: "https://github.com/mearashadowfax/
 </header>
 
 <script>
-  document.addEventListener("astro:page-load", async () => {
-    const preline = await import("preline/preline.js");
-    preline.HSStaticMethods.autoInit();
+  document.addEventListener('astro:page-load', async () => {
+    const { HSStaticMethods } = await import('preline');
+    HSStaticMethods.autoInit();
   });
 </script>

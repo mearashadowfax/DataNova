@@ -1,5 +1,5 @@
 ---
-import Icon from "@ui/icons/Icon.astro";
+import Icon from '@ui/icons/Icon.astro';
 const { address, phone, email, website } = Astro.props;
 ---
 
@@ -11,21 +11,21 @@ const { address, phone, email, website } = Astro.props;
     <li class="flex items-center gap-x-2">
       <Icon name="mobile" />
       <a
-        href={"tel:+" + phone.replace(/[^+\d]/g, "")}
+        href={'tel:+' + phone.replace(/[^+\d]/g, '')}
         class="transition-colors duration-300 hover:text-slate-500">{phone}</a
       >
     </li>
     <li class="flex items-center gap-x-2">
       <Icon name="email" />
       <a
-        href={"mailto:" + email}
+        href={'mailto:' + email}
         class="transition-colors duration-300 hover:text-slate-500">{email}</a
       >
     </li>
     <li class="flex items-center gap-x-2">
       <Icon name="world" />
       <a
-        href={"https://" + website}
+        href={'https://' + website}
         class="transition-colors duration-300 hover:text-slate-500">{website}</a
       >
     </li>

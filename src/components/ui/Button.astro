@@ -1,13 +1,13 @@
 ---
-import { twMerge } from "tailwind-merge";
+import { twMerge } from 'tailwind-merge';
 const { type, href, rel, target, variant, className, id } = Astro.props;
 
 export interface Props {
-  type?: "button" | "submit" | "reset";
+  type?: 'button' | 'submit' | 'reset';
   href?: string;
   rel?: string;
-  target?: "_self" | "_blank" | "_parent" | "_top";
-  variant?: "primary" | "secondary" | "tertiary";
+  target?: '_self' | '_blank' | '_parent' | '_top';
+  variant?: 'primary' | 'secondary' | 'tertiary';
   className?: string;
   id?: string;
 }
@@ -21,10 +21,10 @@ export interface Props {
 
 const variants = {
   primary:
-    "bg-teal-800 hover:bg-teal-800/80 focus:bg-teal-800/80 border border-transparent text-white",
+    'bg-teal-800 hover:bg-teal-800/80 focus:bg-teal-800/80 border border-transparent text-white',
   secondary:
-    "hover:border-teal-700 hover:bg-teal-700 border-teal-800 border-2 text-slate-800 hover:text-white",
-  tertiary: "bg-teal-50 hover:bg-teal-50/80",
+    'hover:border-teal-700 hover:bg-teal-700 border-teal-800 border-2 text-slate-800 hover:text-white',
+  tertiary: 'bg-teal-50 hover:bg-teal-50/80',
 };
 ---
 
@@ -48,7 +48,7 @@ This component dynamically renders either a `<button>` element or an `<a>` (link
       rel={rel ? rel : undefined}
       target={target ? target : undefined}
       class={twMerge(
-        `rounded-lg px-6 py-2.5 text-center font-medium transition-colors duration-300 focus:outline-hidden ${variants[variant ?? "primary"]} ${className || ""}`,
+        `rounded-lg px-6 py-2.5 text-center font-medium transition-colors duration-300 focus:outline-hidden ${variants[variant ?? 'primary']} ${className || ''}`
       )}
     >
       <slot />
@@ -56,9 +56,9 @@ This component dynamically renders either a `<button>` element or an `<a>` (link
   ) : (
     <button
       id={id}
-      type={type || "button"}
+      type={type || 'button'}
       class={twMerge(
-        `rounded-lg px-6 py-2.5 text-center font-medium transition-colors duration-300 focus:outline-hidden ${variants[variant ?? "primary"]} ${className || ""}`,
+        `rounded-lg px-6 py-2.5 text-center font-medium transition-colors duration-300 focus:outline-hidden ${variants[variant ?? 'primary']} ${className || ''}`
       )}
     >
       <slot />

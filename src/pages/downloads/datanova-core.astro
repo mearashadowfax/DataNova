@@ -1,55 +1,55 @@
 ---
-import BaseLayout from "@layout/BaseLayout.astro";
-import Icon from "@ui/icons/Icon.astro";
+import BaseLayout from '@layout/BaseLayout.astro';
+import Icon from '@ui/icons/Icon.astro';
 
 // Hero
-const preTitle = "Download";
-const title = "Download a fully functional trial version of the DataNova Core";
+const preTitle = 'Download';
+const title = 'Download a fully functional trial version of the DataNova Core';
 const subTitle =
   "The DataNova Core comes in two editions: Essential and Advanced. Choose the one that fits your goals to unlock your data's full potential. Upgrading is simple when you're ready to grow.";
 
 // Comparison Table Link
-const compareLinkTitle = "Compare editions & features";
-const compareLink = "editions";
+const compareLinkTitle = 'Compare editions & features';
+const compareLink = 'editions';
 const compareLinkAriaLabel =
-  "Explore the detailed feature comparison of the Essential and Advanced Editions of DataNova Core.";
+  'Explore the detailed feature comparison of the Essential and Advanced Editions of DataNova Core.';
 
 // Version options
 const essentialTier = {
-  title: "Essential Edition",
+  title: 'Essential Edition',
   description:
-    "Unlock your data’s potential with robust analytics tools, including 30+ statistical models and 25+ visualization templates to turn insights into action.",
+    'Unlock your data’s potential with robust analytics tools, including 30+ statistical models and 25+ visualization templates to turn insights into action.',
   cta: {
-    text: "Download Essential",
-    link: "#",
+    text: 'Download Essential',
+    link: '#',
   },
 };
 
 const advancedTier = {
-  title: "Advanced Edition",
+  title: 'Advanced Edition',
   description:
-    "Experience unparalleled AI-powered analytics with automated pattern recognition, anomaly detection, and advanced forecasting tools to stay ahead.",
+    'Experience unparalleled AI-powered analytics with automated pattern recognition, anomaly detection, and advanced forecasting tools to stay ahead.',
   cta: {
-    text: "Download Advanced",
-    link: "#",
+    text: 'Download Advanced',
+    link: '#',
   },
 };
 
 // Small Info Section
 const smallInfoSection = {
   intro: {
-    text: "Try both editions free for 30 days — no commitment or personal info required.",
+    text: 'Try both editions free for 30 days — no commitment or personal info required.',
   },
   links: [
     {
-      text: "View the end-user license agreement (EULA)",
-      href: "#",
-      ariaLabel: "View the end-user license agreement (EULA)",
+      text: 'View the end-user license agreement (EULA)',
+      href: '#',
+      ariaLabel: 'View the end-user license agreement (EULA)',
     },
     {
-      text: "Install / uninstall instructions",
-      href: "editions",
-      ariaLabel: "Install & uninstall instructions",
+      text: 'Install / uninstall instructions',
+      href: 'editions',
+      ariaLabel: 'Install & uninstall instructions',
     },
   ],
 };
@@ -58,52 +58,52 @@ const smallInfoSection = {
 
 const largeInfoSection = {
   olderReleases: {
-    title: "Older Releases",
-    content: "Access older versions of DataNova Core below:",
+    title: 'Older Releases',
+    content: 'Access older versions of DataNova Core below:',
     versions: [
       {
-        version: "5.x - Essential Edition",
-        href: "#",
+        version: '5.x - Essential Edition',
+        href: '#',
       },
       {
-        version: "5.x - Advanced Edition",
-        href: "#",
+        version: '5.x - Advanced Edition',
+        href: '#',
       },
       {
-        version: "4.x - Essential Edition",
-        href: "#",
+        version: '4.x - Essential Edition',
+        href: '#',
       },
       {
-        version: "4.x - Advanced Edition",
-        href: "#",
+        version: '4.x - Advanced Edition',
+        href: '#',
       },
       {
-        version: "3.x - Essential Edition",
-        href: "#",
+        version: '3.x - Essential Edition',
+        href: '#',
       },
       {
-        version: "3.x - Advanced Edition",
-        href: "#",
+        version: '3.x - Advanced Edition',
+        href: '#',
       },
     ],
   },
   systemRequirements: {
-    title: "System Requirements",
+    title: 'System Requirements',
     content:
-      "Requires Windows 10/11 with Excel 2016, 2019, 2021, or Office 365 (32-bit, 64-bit, or Arm) or macOS 11 (Big Sur) or later.",
+      'Requires Windows 10/11 with Excel 2016, 2019, 2021, or Office 365 (32-bit, 64-bit, or Arm) or macOS 11 (Big Sur) or later.',
   },
   excel2003: {
-    title: "Excel 2003",
+    title: 'Excel 2003',
     content:
-      "Excel 2003 isn’t supported. Use version 3 links below for compatibility.",
+      'Excel 2003 isn’t supported. Use version 3 links below for compatibility.',
     versions: [
       {
-        version: "3.x - Essential Edition",
-        href: "#",
+        version: '3.x - Essential Edition',
+        href: '#',
       },
       {
-        version: "3.x - Advanced Edition",
-        href: "#",
+        version: '3.x - Advanced Edition',
+        href: '#',
       },
     ],
   },
@@ -111,17 +111,17 @@ const largeInfoSection = {
 ---
 
 <BaseLayout>
-  <section class="mx-auto max-w-[85rem] px-4 pb-12 pt-40 sm:px-6 lg:px-8">
+  <section class="mx-auto max-w-[85rem] px-4 pt-40 pb-12 sm:px-6 lg:px-8">
     <div class="max-w-7xl">
       <div class="mx-auto max-w-2xl lg:mx-0">
         <p class="text-base/7 font-medium text-slate-400">{preTitle}</p>
         <h1
-          class="mt-1 text-balance text-4xl text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
+          class="mt-1 text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
         >
           {title}
         </h1>
         <p
-          class="mt-8 max-w-xl text-pretty text-lg font-medium text-slate-700 sm:text-xl/8"
+          class="mt-8 max-w-xl text-lg font-medium text-pretty text-slate-700 sm:text-xl/8"
         >
           {subTitle}
         </p>
@@ -142,7 +142,7 @@ const largeInfoSection = {
     class="mx-auto mt-16 grid max-w-lg grid-cols-1 items-center gap-y-6 px-4 sm:mt-20 md:px-0 lg:max-w-4xl lg:grid-cols-2 lg:gap-y-0"
   >
     <div
-      class="rounded-3xl rounded-t-3xl bg-white/60 p-8 ring-1 ring-slate-900/10 sm:p-10 lg:rounded-b-none lg:rounded-bl-3xl lg:rounded-tr-none"
+      class="rounded-3xl rounded-t-3xl bg-white/60 p-8 ring-1 ring-slate-900/10 sm:p-10 lg:rounded-tr-none lg:rounded-b-none lg:rounded-bl-3xl"
     >
       <h3 class="text-3xl font-semibold text-slate-600">
         {essentialTier.title}
@@ -154,7 +154,7 @@ const largeInfoSection = {
       <a
         href={essentialTier.cta.link}
         aria-describedby={essentialTier.title}
-        class="mt-8 block rounded-lg px-3.5 py-2.5 text-center text-sm font-semibold ring-1 ring-inset ring-teal-700 transition duration-300 hover:bg-teal-700/80 hover:text-white focus:bg-teal-700 focus:text-white focus:outline-hidden sm:mt-10"
+        class="mt-8 block rounded-lg px-3.5 py-2.5 text-center text-sm font-semibold ring-1 ring-teal-700 transition duration-300 ring-inset hover:bg-teal-700/80 hover:text-white focus:bg-teal-700 focus:text-white focus:outline-hidden sm:mt-10"
         >{essentialTier.cta.text}</a
       >
     </div>
@@ -179,13 +179,13 @@ const largeInfoSection = {
     </div>
   </section>
 
-  <section class="mx-auto max-w-[85rem] px-4 pb-16 pt-32 sm:px-6 lg:px-8">
+  <section class="mx-auto max-w-[85rem] px-4 pt-32 pb-16 sm:px-6 lg:px-8">
     <div
       class="mx-auto grid grid-rows-1 content-center divide-y divide-dashed divide-slate-300 lg:mx-0 lg:grid-cols-2 lg:divide-x lg:divide-y-0"
     >
       <div class="py-5 sm:p-5">
         <p
-          class="inline-flex gap-x-4 text-pretty font-medium text-slate-700 sm:text-lg/8"
+          class="inline-flex gap-x-4 font-medium text-pretty text-slate-700 sm:text-lg/8"
         >
           <Icon name="info" class="size-8" />
           {smallInfoSection.intro.text}
@@ -195,9 +195,9 @@ const largeInfoSection = {
         {
           smallInfoSection.links.map((link, index) => (
             <a
-              class={`${index === 1 ? "mt-5" : ""} group inline-flex w-fit items-center gap-x-2 font-medium text-slate-700 transition duration-300 hover:text-slate-400 focus:outline-hidden`}
+              class={`${index === 1 ? 'mt-5' : ''} group inline-flex w-fit items-center gap-x-2 font-medium text-slate-700 transition duration-300 hover:text-slate-400 focus:outline-hidden`}
               href={link.href}
-              download={index === 0 ? link.href.split("/").pop() : undefined}
+              download={index === 0 ? link.href.split('/').pop() : undefined}
               aria-label={link.ariaLabel}
             >
               {link.text}
@@ -217,19 +217,19 @@ const largeInfoSection = {
     >
       <div class="py-5 sm:p-5 md:row-span-2 md:content-center">
         <h3
-          class="text-balance text-2xl font-bold tracking-tight text-slate-800"
+          class="text-2xl font-bold tracking-tight text-balance text-slate-800"
         >
           {largeInfoSection.olderReleases.title}
         </h3>
 
-        <p class="mt-6 text-pretty text-lg/8 text-slate-700">
+        <p class="mt-6 text-lg/8 text-pretty text-slate-700">
           {largeInfoSection.olderReleases.content}
         </p>
 
         <ul class="mt-6 list-inside list-none px-5 text-slate-700">
           {
             largeInfoSection.olderReleases.versions.map((release, index) => (
-              <li class={`${index % 2 === 1 ? "mb-6" : ""}`}>
+              <li class={`${index % 2 === 1 ? 'mb-6' : ''}`}>
                 <a
                   href={release.href}
                   class="transition duration-300 hover:text-slate-400 hover:underline"
@@ -243,14 +243,14 @@ const largeInfoSection = {
       </div>
 
       <div
-        class="border-t border-dashed border-slate-400 py-5 sm:p-5 md:content-center md:border-l md:border-t-0"
+        class="border-t border-dashed border-slate-400 py-5 sm:p-5 md:content-center md:border-t-0 md:border-l"
       >
         <h3
-          class="text-balance text-2xl font-bold tracking-tight text-slate-800"
+          class="text-2xl font-bold tracking-tight text-balance text-slate-800"
         >
           {largeInfoSection.systemRequirements.title}
         </h3>
-        <p class="mt-6 text-pretty text-lg/8 text-slate-700">
+        <p class="mt-6 text-lg/8 text-pretty text-slate-700">
           {largeInfoSection.systemRequirements.content}
         </p>
       </div>
@@ -258,18 +258,18 @@ const largeInfoSection = {
         class="border-t border-dashed border-slate-400 py-5 sm:p-5 md:col-start-2 md:row-start-2 md:content-center md:border-l"
       >
         <h3
-          class="text-balance text-2xl font-bold tracking-tight text-slate-800"
+          class="text-2xl font-bold tracking-tight text-balance text-slate-800"
         >
           {largeInfoSection.excel2003.title}
         </h3>
 
-        <p class="mt-6 text-pretty text-lg/8 text-slate-700">
+        <p class="mt-6 text-lg/8 text-pretty text-slate-700">
           {largeInfoSection.excel2003.content}
         </p>
 
         <ul class="mt-6 list-inside list-none px-5 text-slate-700">
           {
-            largeInfoSection.excel2003.versions.map((version) => (
+            largeInfoSection.excel2003.versions.map(version => (
               <li>
                 <a
                   href={version.href}
@@ -287,7 +287,7 @@ const largeInfoSection = {
 
   <style>
     .svgBlock::after {
-      content: "";
+      content: '';
       position: absolute;
       inset: 0;
       background-image: url(/guilloche.svg);

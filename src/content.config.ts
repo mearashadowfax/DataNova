@@ -1,9 +1,12 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection, z } from 'astro:content';
 
-import { glob } from "astro/loaders";
+import { glob } from 'astro/loaders';
 
 const articles = defineCollection({
-  loader: glob({ pattern: ['**/*.md', '**/*.mdx', '**/*.mdoc'], base: "./src/content/articles" }),
+  loader: glob({
+    pattern: ['**/*.md', '**/*.mdx', '**/*.mdoc'],
+    base: './src/content/articles',
+  }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -12,7 +15,10 @@ const articles = defineCollection({
 });
 
 const reference = defineCollection({
-  loader: glob({ pattern: ['**/*.md', '**/*.mdx', '**/*.mdoc'], base: "./src/content/reference" }),
+  loader: glob({
+    pattern: ['**/*.md', '**/*.mdx', '**/*.mdoc'],
+    base: './src/content/reference',
+  }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -21,7 +27,7 @@ const reference = defineCollection({
 });
 
 const spreadsheets = defineCollection({
-  loader: glob({ pattern: "**/*.json", base: "./src/data/spreadsheets" }),
+  loader: glob({ pattern: '**/*.json', base: './src/data/spreadsheets' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -30,7 +36,7 @@ const spreadsheets = defineCollection({
 });
 
 const whitepapers = defineCollection({
-  loader: glob({ pattern: "**/*.json", base: "./src/data/whitepapers" }),
+  loader: glob({ pattern: '**/*.json', base: './src/data/whitepapers' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),

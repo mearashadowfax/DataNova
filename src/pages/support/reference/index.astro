@@ -1,26 +1,26 @@
 ---
-import BaseLayout from "@layout/BaseLayout.astro";
+import BaseLayout from '@layout/BaseLayout.astro';
 
-import { getCollection } from "astro:content";
+import { getCollection } from 'astro:content';
 
-const reference = (await getCollection("reference")).toSorted(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+const reference = (await getCollection('reference')).toSorted(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
 
 const urlPath = Astro.url;
 
 export const pageContent = {
-  pageTitle: "Reference",
-  actionLabel: "Read more",
+  pageTitle: 'Reference',
+  actionLabel: 'Read more',
 };
 ---
 
 <BaseLayout>
-  <section class="mx-auto max-w-[85rem] px-4 pb-12 pt-48 sm:px-6 lg:px-8">
+  <section class="mx-auto max-w-[85rem] px-4 pt-48 pb-12 sm:px-6 lg:px-8">
     <div class="max-w-7xl">
       <div class="mx-auto max-w-3xl lg:mx-0">
         <h1
-          class="text-balance text-4xl text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
+          class="text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
         >
           {pageContent.pageTitle}
         </h1>
@@ -42,15 +42,15 @@ export const pageContent = {
 
           const borderClasses = isLastRow
             ? index % 3 === 0
-              ? "border-none"
+              ? 'border-none'
               : index % 3 === 1
-                ? "lg:border-x"
-                : ""
+                ? 'lg:border-x'
+                : ''
             : index % 3 === 0
-              ? "border-b"
+              ? 'border-b'
               : index % 3 === 1
-                ? "border-b lg:border-x "
-                : "border-b";
+                ? 'border-b lg:border-x '
+                : 'border-b';
 
           return (
             <a
@@ -66,7 +66,7 @@ export const pageContent = {
                 </div>
               </div>
               <p class="mt-auto">
-                <span class="border-b-2 border-slate-500 pb-1 text-sm font-medium text-slate-700 transition duration-300 focus:outline-hidden group-hover:border-teal-500 group-focus:border-teal-500">
+                <span class="border-b-2 border-slate-500 pb-1 text-sm font-medium text-slate-700 transition duration-300 group-hover:border-teal-500 group-focus:border-teal-500 focus:outline-hidden">
                   {pageContent.actionLabel}
                 </span>
               </p>

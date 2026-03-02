@@ -1,12 +1,12 @@
 ---
-import Navbar from "@sections/Navbar.astro";
-import Footer from "@sections/Footer.astro";
-import { ClientRouter } from "astro:transitions";
-import { SEO, type Props as SEOProps } from "astro-seo";
-import { Schema } from "astro-seo-schema";
-import type { WithContext, Thing } from "schema-dts";
-import { AstroFont } from "astro-font";
-import "@styles/global.css";
+import Navbar from '@sections/Navbar.astro';
+import Footer from '@sections/Footer.astro';
+import { ClientRouter } from 'astro:transitions';
+import { SEO, type Props as SEOProps } from 'astro-seo';
+import { Schema } from 'astro-seo-schema';
+import type { WithContext, Thing } from 'schema-dts';
+import { AstroFont } from 'astro-font';
+import '@styles/global.css';
 
 interface Props {
   seo?: SEOProps; // Optional SEO properties to customize meta tags
@@ -19,20 +19,20 @@ const socialImage = `${Astro.site}social.png`; // Path to the default social sha
 
 // Define default JSON-LD Schema.org data if no schema is passed
 const defaultSchema: WithContext<Thing> = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  inLanguage: "en-US",
-  "@id": Astro.url.href,
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  inLanguage: 'en-US',
+  '@id': Astro.url.href,
   url: Astro.url.href,
-  name: "DataNova",
+  name: 'DataNova',
   description:
     "Unlock powerful data insights with DataNova's advanced analytics suite for Excel. Visualize, analyze, and make data-driven decisions in minutes with seamless Excel integration, AI-powered analysis, and predictive forecasting models.",
   isPartOf: {
-    "@type": "WebSite",
+    '@type': 'WebSite',
     url: `${Astro.site}`,
-    name: "DataNova",
+    name: 'DataNova',
     description:
-      "DataNova Analytics Inc. provides advanced analytics for Excel to help businesses unlock actionable insights quickly with no coding required.",
+      'DataNova Analytics Inc. provides advanced analytics for Excel to help businesses unlock actionable insights quickly with no coding required.',
   },
 };
 ---
@@ -42,13 +42,13 @@ const defaultSchema: WithContext<Thing> = {
     {/* SEO Meta Tags */}
     <SEO
       charset="utf-8"
-      title={seo?.title ?? "DataNova"}
+      title={seo?.title ?? 'DataNova'}
       description={seo?.description ??
         "Unlock powerful data insights with DataNova's advanced analytics suite for Excel. Visualize, analyze, and make data-driven decisions in minutes with seamless Excel integration, AI-powered analysis, and predictive forecasting models."}
       openGraph={{
         basic: {
-          title: "DataNova - Unlock Insights from Your Excel Data",
-          type: "website",
+          title: 'DataNova - Unlock Insights from Your Excel Data',
+          type: 'website',
           image: socialImage,
         },
         optional: {
@@ -57,22 +57,22 @@ const defaultSchema: WithContext<Thing> = {
         },
       }}
       twitter={{
-        card: "summary_large_image",
-        title: "DataNova - Unlock Insights from Your Excel Data",
+        card: 'summary_large_image',
+        title: 'DataNova - Unlock Insights from Your Excel Data',
         description:
           "Transform your Excel workspace with DataNova's powerful analytics suite. Visualize and analyze data quickly with no coding required.",
         image: socialImage,
-        imageAlt: "DataNova Logo.",
+        imageAlt: 'DataNova Logo.',
       }}
       extend={{
         link: [
-          { rel: "icon", href: "/icon.svg", type: "image/svg+xml" },
-          { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
-          { rel: "manifest", href: "/manifest.webmanifest" },
+          { rel: 'icon', href: '/icon.svg', type: 'image/svg+xml' },
+          { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+          { rel: 'manifest', href: '/manifest.webmanifest' },
         ],
         meta: [
-          { name: "viewport", content: "width=device-width" },
-          { name: "generator", content: `${Astro.generator}` },
+          { name: 'viewport', content: 'width=device-width' },
+          { name: 'generator', content: `${Astro.generator}` },
         ],
       }}
     />
@@ -80,41 +80,43 @@ const defaultSchema: WithContext<Thing> = {
     <Schema item={schema ?? defaultSchema} />
 
     {/* Font Definitions */}
-     <AstroFont
-     config={[
-       {
-         src: [],
-         name: "DM Sans",
-         googleFontsURL: "https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100..1000&display=swap",
-         preload: true,
-         display: "swap",
-         selector: "h1, h2, h3, h4",
-         fallback: "sans-serif",
-       },
-       {
-         src: [],
-         name: "Work Sans",
-         googleFontsURL: "https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap",
-         preload: true,
-         display: "swap",
-         selector: "body",
-         fallback: "sans-serif",
-       },
-     ]}
-   />
+    <AstroFont
+      config={[
+        {
+          src: [],
+          name: 'DM Sans',
+          googleFontsURL:
+            'https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100..1000&display=swap',
+          preload: true,
+          display: 'swap',
+          selector: 'h1, h2, h3, h4',
+          fallback: 'sans-serif',
+        },
+        {
+          src: [],
+          name: 'Work Sans',
+          googleFontsURL:
+            'https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap',
+          preload: true,
+          display: 'swap',
+          selector: 'body',
+          fallback: 'sans-serif',
+        },
+      ]}
+    />
 
     {/* Client-Side Router for page transitions */}
     <ClientRouter />
 
     {/* Remove duplicate font links during transitions */}
     <script>
-      import type { TransitionBeforeSwapEvent } from "astro:transitions/client";
-      document.addEventListener("astro:before-swap", (e) =>
+      import type { TransitionBeforeSwapEvent } from 'astro:transitions/client';
+      document.addEventListener('astro:before-swap', e =>
         [
           ...(e as TransitionBeforeSwapEvent).newDocument.head.querySelectorAll(
-            'link[as="font"]',
+            'link[as="font"]'
           ),
-        ].forEach((link) => link.remove()),
+        ].forEach(link => link.remove())
       );
     </script>
   </head>

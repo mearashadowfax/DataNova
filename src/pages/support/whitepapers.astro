@@ -1,22 +1,22 @@
 ---
-import BaseLayout from "@layout/BaseLayout.astro";
-import Icon from "@ui/icons/Icon.astro";
-import { getCollection } from "astro:content";
+import BaseLayout from '@layout/BaseLayout.astro';
+import Icon from '@ui/icons/Icon.astro';
+import { getCollection } from 'astro:content';
 
-const whitepapers = await getCollection("whitepapers");
+const whitepapers = await getCollection('whitepapers');
 
 export const pageContent = {
-  pageTitle: "Whitepapers",
-  actionLabel: "Read more",
+  pageTitle: 'Whitepapers',
+  actionLabel: 'Read more',
 };
 ---
 
 <BaseLayout>
-  <section class="mx-auto max-w-[85rem] px-4 pb-12 pt-48 sm:px-6 lg:px-8">
+  <section class="mx-auto max-w-[85rem] px-4 pt-48 pb-12 sm:px-6 lg:px-8">
     <div class="max-w-7xl">
       <div class="mx-auto max-w-3xl lg:mx-0">
         <h1
-          class="text-balance text-4xl text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
+          class="text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
         >
           {pageContent.pageTitle}
         </h1>
@@ -38,8 +38,8 @@ export const pageContent = {
 
           const isFirstInRow = index % itemsPerRow === 0;
 
-          const borderRight = isFirstInRow ? "sm:border-r" : "";
-          const borderBottom = isLastRow ? "" : "border-b";
+          const borderRight = isFirstInRow ? 'sm:border-r' : '';
+          const borderBottom = isLastRow ? '' : 'border-b';
 
           return (
             <div
@@ -56,7 +56,7 @@ export const pageContent = {
                   <a
                     href={paper.data.readLink}
                     target="_blank"
-                    class="group mr-6 mt-6 inline-flex items-center border-b-2 border-slate-500 pb-1 text-sm font-medium text-slate-700 transition-colors duration-300 hover:border-teal-500 hover:text-slate-500 focus:outline-hidden focus:ring-2 focus:ring-teal-400"
+                    class="group mt-6 mr-6 inline-flex items-center border-b-2 border-slate-500 pb-1 text-sm font-medium text-slate-700 transition-colors duration-300 hover:border-teal-500 hover:text-slate-500 focus:ring-2 focus:ring-teal-400 focus:outline-hidden"
                   >
                     {pageContent.actionLabel}
                     <Icon
@@ -69,7 +69,7 @@ export const pageContent = {
                   <a
                     href={paper.data.btnLink}
                     download
-                    class="mt-6 inline-flex items-center rounded-md bg-teal-700 px-4 py-2 text-sm font-medium text-white shadow-xs transition-colors duration-300 hover:bg-teal-700/80 focus:outline-hidden focus:ring-2 focus:ring-teal-400"
+                    class="mt-6 inline-flex items-center rounded-md bg-teal-700 px-4 py-2 text-sm font-medium text-white shadow-xs transition-colors duration-300 hover:bg-teal-700/80 focus:ring-2 focus:ring-teal-400 focus:outline-hidden"
                   >
                     {paper.data.btnTitle}
                   </a>

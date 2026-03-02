@@ -1,10 +1,11 @@
 ---
-import Icon from "@ui/icons/Icon.astro";
+import Icon from '@ui/icons/Icon.astro';
 
-const text = "Introducing DataNova";
-const linkText = "Now ready to try!";
-const linkHref = "https://github.com/mearashadowfax/DataNova";
+const text = 'Introducing DataNova';
+const linkText = 'Now ready to try!';
+const linkHref = 'https://github.com/mearashadowfax/DataNova';
 ---
+
 <div class="flex justify-center">
   <div class="rounded-xl bg-slate-50 shadow-md">
     <a
@@ -14,7 +15,7 @@ const linkHref = "https://github.com/mearashadowfax/DataNova";
       aria-label=`${text} - ${linkText}`
     >
       <div
-        class="to-teal-700 from-teal-800 flex h-full w-fit items-center gap-2 rounded-xl bg-linear-to-tr/oklch px-3"
+        class="flex h-full w-fit items-center gap-2 rounded-xl bg-linear-to-tr/oklch from-teal-800 to-teal-700 px-3"
       >
         <span class="text-sm text-white">{text}</span>
       </div>
