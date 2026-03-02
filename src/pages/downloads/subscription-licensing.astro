@@ -1,86 +1,86 @@
 ---
 export const prerender = true;
-import BaseLayout from "@layout/BaseLayout.astro";
-import Icon from "@ui/icons/Icon.astro";
+import BaseLayout from '@layout/BaseLayout.astro';
+import Icon from '@ui/icons/Icon.astro';
 
 // Hero
-const preTitle = "Subscription Licensing";
-const title = "Subscribe to the Advanced Edition of the DataNova Core";
+const preTitle = 'Subscription Licensing';
+const title = 'Subscribe to the Advanced Edition of the DataNova Core';
 const subTitle =
-  "Access the full Advanced Edition for just $14.40/month with <i>no upfront costs</i> or <i>minimum license period</i>. Subscribe for as long as you need — even for <i>just one user</i>.";
+  'Access the full Advanced Edition for just $14.40/month with <i>no upfront costs</i> or <i>minimum license period</i>. Subscribe for as long as you need — even for <i>just one user</i>.';
 
 //Features
 const features = [
-  { text: "Full Advanced Edition of DataNova Core" },
-  { text: "Low upfront cost" },
-  { text: "No minimum subscription period" },
-  { text: "Flexible for any number of users" },
+  { text: 'Full Advanced Edition of DataNova Core' },
+  { text: 'Low upfront cost' },
+  { text: 'No minimum subscription period' },
+  { text: 'Flexible for any number of users' },
 ];
 
 // Subscribe Link
-const subscribeLinkTitle = "Subscribe Now";
-const subscribeLink = "#";
+const subscribeLinkTitle = 'Subscribe Now';
+const subscribeLink = '#';
 
 // Info Section
 const infoSection = {
   systemRequirements: {
-    title: "System Requirements",
+    title: 'System Requirements',
     description:
-      "The DataNova Core works with Windows 10 or Windows 11 and Excel 2016, 2019, 2021, or Office 365. Compatible with 32-bit, 64-bit, and 64-bit Arm versions of Office and Windows. An internet connection is required for activation and subscription verification.",
+      'The DataNova Core works with Windows 10 or Windows 11 and Excel 2016, 2019, 2021, or Office 365. Compatible with 32-bit, 64-bit, and 64-bit Arm versions of Office and Windows. An internet connection is required for activation and subscription verification.',
   },
   subscriptionInfo: {
     description:
-      "Your subscription is renewed automatically each month, but you can cancel anytime before the next renewal date. Please note that uninstalling the Core won’t cancel your subscription — this must be done separately through your account.",
+      'Your subscription is renewed automatically each month, but you can cancel anytime before the next renewal date. Please note that uninstalling the Core won’t cancel your subscription — this must be done separately through your account.',
   },
 };
 
 // FAQ Section
 const faqSection = {
-  title: "Frequently Asked Questions",
+  title: 'Frequently Asked Questions',
   faqs: [
     {
-      question: "Can I Pause My Subscription?",
+      question: 'Can I Pause My Subscription?',
       answer:
-        "Currently, subscriptions cannot be paused. You can cancel at any time and resubscribe whenever you’re ready without losing access to updates or support.",
+        'Currently, subscriptions cannot be paused. You can cancel at any time and resubscribe whenever you’re ready without losing access to updates or support.',
     },
     {
-      question: "Is My Data Secure?",
+      question: 'Is My Data Secure?',
       answer:
-        "Yes, the Core does not collect or store your data. All operations are performed locally on your machine, ensuring full data privacy for your files.",
+        'Yes, the Core does not collect or store your data. All operations are performed locally on your machine, ensuring full data privacy for your files.',
     },
     {
-      question: "Can I Get a Refund?",
+      question: 'Can I Get a Refund?',
       answer:
-        "We currently offer refunds only under certain conditions, such as technical issues that prevent the Core from functioning as expected. Please contact us for more information.",
+        'We currently offer refunds only under certain conditions, such as technical issues that prevent the Core from functioning as expected. Please contact us for more information.',
     },
     {
-      question: "Can I Share My Subscription with Team Members?",
+      question: 'Can I Share My Subscription with Team Members?',
       answer:
-        "Each subscription is for a single-user license. If you need licenses for multiple users, we offer volume discounts — contact us for a quote.",
+        'Each subscription is for a single-user license. If you need licenses for multiple users, we offer volume discounts — contact us for a quote.',
     },
     {
-      question: "Can I try the DataNova Core before subscribing?",
+      question: 'Can I try the DataNova Core before subscribing?',
       answer:
-        "Yes, we offer a free trial so you can explore the features of the Advanced Edition before committing to a subscription. Contact us to get started.",
+        'Yes, we offer a free trial so you can explore the features of the Advanced Edition before committing to a subscription. Contact us to get started.',
     },
   ],
 };
 ---
 
 <BaseLayout>
-  <section class="mx-auto max-w-[85rem] px-4 pb-12 pt-40 sm:px-6 lg:px-8">
+  <section class="mx-auto max-w-[85rem] px-4 pt-40 pb-12 sm:px-6 lg:px-8">
     <div class="max-w-7xl">
       <div class="mx-auto max-w-2xl lg:mx-0">
         <p class="text-base/7 font-medium text-slate-400">
           {preTitle}
         </p>
         <h1
-          class="mt-1 text-balance text-4xl text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
+          class="mt-1 text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
         >
           {title}
         </h1>
         <p
-          class="mt-8 text-pretty text-lg font-medium text-slate-700 sm:text-xl/8"
+          class="mt-8 text-lg font-medium text-pretty text-slate-700 sm:text-xl/8"
         >
           <Fragment set:html={subTitle} />
         </p>
@@ -89,7 +89,7 @@ const faqSection = {
           class="mt-10 grid auto-rows-fr grid-rows-2 gap-2 sm:gap-6 md:grid-cols-2"
         >
           {
-            features.map((feature) => (
+            features.map(feature => (
               <div class="flex gap-x-2">
                 <Icon name="checkCircle" />
                 <div class="grow">
@@ -118,18 +118,18 @@ const faqSection = {
     >
       <div class="content-center py-5 sm:p-5">
         <h3
-          class="text-balance text-2xl font-bold tracking-tight text-slate-800"
+          class="text-2xl font-bold tracking-tight text-balance text-slate-800"
         >
           {infoSection.systemRequirements.title}
         </h3>
-        <p class="mt-6 text-pretty text-lg/8 text-slate-700">
+        <p class="mt-6 text-lg/8 text-pretty text-slate-700">
           {infoSection.systemRequirements.description}
         </p>
       </div>
 
       <div class="svgBlock py-5 sm:p-5">
         <Icon name="info" class="size-8" />
-        <p class="mt-6 text-pretty text-lg/8 text-slate-700">
+        <p class="mt-6 text-lg/8 text-pretty text-slate-700">
           {infoSection.subscriptionInfo.description}
         </p>
       </div>
@@ -141,7 +141,7 @@ const faqSection = {
   >
     <div class="mx-auto mb-10 max-w-2xl lg:mb-14">
       <h2
-        class="text-balance text-2xl font-semibold tracking-tight text-slate-800 md:text-3xl md:leading-tight"
+        class="text-2xl font-semibold tracking-tight text-balance text-slate-800 md:text-3xl md:leading-tight"
       >
         {faqSection.title}
       </h2>
@@ -149,7 +149,7 @@ const faqSection = {
 
     <div class="mx-auto max-w-2xl divide-y divide-slate-200">
       {
-        faqSection.faqs.map((faq) => (
+        faqSection.faqs.map(faq => (
           <div class="py-8 first:pt-0 last:pb-0">
             <div class="flex gap-x-5">
               <Icon name="questionMark" />
@@ -171,7 +171,7 @@ const faqSection = {
 
   <style>
     .svgBlock::after {
-      content: "";
+      content: '';
       position: absolute;
       inset: 0;
       background-image: url(/guilloche.svg);

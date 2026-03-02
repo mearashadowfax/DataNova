@@ -1,12 +1,12 @@
 ---
-import Icon from "@ui/icons/Icon.astro";
-import { Image } from "astro:assets";
-import { platformMenu } from "@utils/megaMenu/platform";
+import Icon from '@ui/icons/Icon.astro';
+import { Image } from 'astro:assets';
+import { platformMenu } from '@utils/megaMenu/platform';
 
-import datanova from "@images/datanova.webp";
-import if_cloud from "@images/if_cloud.webp";
-import if_planner from "@images/if_planner.webp";
-import if_visualizer from "@images/if_visualizer.webp";
+import datanova from '@images/datanova.webp';
+import if_cloud from '@images/if_cloud.webp';
+import if_planner from '@images/if_planner.webp';
+import if_visualizer from '@images/if_visualizer.webp';
 
 // Image names in '@utils/megaMenu/platform' must match the keys in 'imagesMap' to ensure correct image mapping
 const imagesMap: any = {
@@ -17,7 +17,7 @@ const imagesMap: any = {
 };
 
 const sectionDescription =
-  "Transform data into strategies with predictive analytics";
+  'Transform data into strategies with predictive analytics';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -28,7 +28,7 @@ const currentPath = Astro.url.pathname;
     id="mega-menu-platform"
     type="button"
     class={`hs-dropdown-toggle flex w-full items-center rounded-lg p-2 font-medium text-slate-800 hover:bg-slate-100 focus:bg-slate-100 focus:outline-hidden ${
-      currentPath.startsWith("/platform") ? "underline underline-offset-4" : ""
+      currentPath.startsWith('/platform') ? 'underline underline-offset-4' : ''
     }`}
     aria-haspopup="menu"
     aria-expanded="false"
@@ -38,7 +38,7 @@ const currentPath = Astro.url.pathname;
   </button>
 
   <div
-    class="hs-dropdown-menu relative start-0 top-full z-10 mt-2 hidden w-full min-w-60 max-w-(--breakpoint-md) opacity-0 transition-[opacity,margin] duration-150 before:absolute before:-top-5 before:start-0 before:h-5 before:w-full hs-dropdown-open:opacity-100 xl:left-1/2 xl:-translate-x-1/2 xl:duration-300"
+    class="hs-dropdown-menu hs-dropdown-open:opacity-100 relative start-0 top-full z-10 mt-2 hidden w-full max-w-(--breakpoint-md) min-w-60 opacity-0 transition-[opacity,margin] duration-150 before:absolute before:start-0 before:-top-5 before:h-5 before:w-full xl:left-1/2 xl:-translate-x-1/2 xl:duration-300"
     role="menu"
     aria-orientation="vertical"
     aria-labelledby="mega-menu-platform"
@@ -55,7 +55,7 @@ const currentPath = Astro.url.pathname;
         class="grid grid-cols-1 gap-4 py-1 sm:grid-cols-2 xl:grid-cols-3 xl:p-2 2xl:grid-cols-2"
       >
         {
-          platformMenu.map((platform) => (
+          platformMenu.map(platform => (
             <div class="flex h-full flex-col">
               <a
                 class="group flex h-full flex-col rounded-lg p-3 transition hover:bg-slate-100 focus:bg-slate-100 focus:outline-hidden"

@@ -1,5 +1,5 @@
-import type { APIRoute } from "astro";
-import { db, Feedback, eq, sql } from "astro:db";
+import type { APIRoute } from 'astro';
+import { db, Feedback, eq, sql } from 'astro:db';
 
 /**
  * Handles POST requests to submit or retrieve feedback data for a specific `slug`.
@@ -17,19 +17,19 @@ export const POST: APIRoute = async ({ request }) => {
     const data = await request.json();
     const { slug, type } = data;
 
-    if (!slug || (type && type !== "helpful" && type !== "notHelpful")) {
+    if (!slug || (type && type !== 'helpful' && type !== 'notHelpful')) {
       // If there is no 'type', return feedback data instead of submitting
       const feedback = await db
         .select()
         .from(Feedback)
         .where(eq(Feedback.slug, slug))
-        .then((rows) => rows[0] || { helpful: 0, notHelpful: 0 });
+        .then(rows => rows[0] || { helpful: 0, notHelpful: 0 });
 
       return new Response(JSON.stringify(feedback), {
         status: 200,
         headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
         },
       });
     }
@@ -37,7 +37,7 @@ export const POST: APIRoute = async ({ request }) => {
     // If type exists, handle feedback submission as before
     let updatedFeedback;
 
-    if (type === "helpful") {
+    if (type === 'helpful') {
       updatedFeedback = await db
         .insert(Feedback)
         .values({ slug, helpful: 1 })
@@ -49,7 +49,7 @@ export const POST: APIRoute = async ({ request }) => {
           helpful: Feedback.helpful,
           notHelpful: Feedback.notHelpful,
         })
-        .then((res) => res[0]);
+        .then(res => res[0]);
     } else {
       updatedFeedback = await db
         .insert(Feedback)
@@ -62,18 +62,18 @@ export const POST: APIRoute = async ({ request }) => {
           helpful: Feedback.helpful,
           notHelpful: Feedback.notHelpful,
         })
-        .then((res) => res[0]);
+        .then(res => res[0]);
     }
 
     return new Response(JSON.stringify(updatedFeedback), {
       status: 200,
       headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
     });
   } catch (error) {
-    console.error("Error handling feedback:", error);
-    return new Response("Internal server error", { status: 500 });
+    console.error('Error handling feedback:', error);
+    return new Response('Internal server error', { status: 500 });
   }
 };

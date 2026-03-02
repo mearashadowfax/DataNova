@@ -1,7 +1,7 @@
 ---
-import Icon from "@ui/icons/Icon.astro";
-import { featuresMenu } from "@utils/megaMenu/features";
-const sectionDescription = "Discover how DataNova can empower your business";
+import Icon from '@ui/icons/Icon.astro';
+import { featuresMenu } from '@utils/megaMenu/features';
+const sectionDescription = 'Discover how DataNova can empower your business';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -12,7 +12,7 @@ const currentPath = Astro.url.pathname;
     id="mega-menu-features"
     type="button"
     class={`hs-dropdown-toggle flex w-full items-center rounded-lg p-2 font-medium text-slate-800 hover:bg-slate-100 focus:bg-slate-100 focus:outline-hidden ${
-      currentPath.startsWith("/features") ? "underline underline-offset-4" : ""
+      currentPath.startsWith('/features') ? 'underline underline-offset-4' : ''
     }`}
     aria-haspopup="menu"
     aria-expanded="false"
@@ -22,7 +22,7 @@ const currentPath = Astro.url.pathname;
   </button>
 
   <div
-    class="hs-dropdown-menu relative start-0 top-full z-10 mt-2 hidden w-full min-w-60 max-w-(--breakpoint-md) opacity-0 transition-[opacity,margin] duration-150 before:absolute before:-top-5 before:start-0 before:h-5 before:w-full hs-dropdown-open:opacity-100 xl:left-1/2 xl:-translate-x-1/2 xl:duration-300"
+    class="hs-dropdown-menu hs-dropdown-open:opacity-100 relative start-0 top-full z-10 mt-2 hidden w-full max-w-(--breakpoint-md) min-w-60 opacity-0 transition-[opacity,margin] duration-150 before:absolute before:start-0 before:-top-5 before:h-5 before:w-full xl:left-1/2 xl:-translate-x-1/2 xl:duration-300"
     role="menu"
     aria-orientation="vertical"
     aria-labelledby="mega-menu-features"
@@ -37,16 +37,19 @@ const currentPath = Astro.url.pathname;
 
       <div class="gap-4 py-1 md:grid md:grid-cols-2 md:p-2">
         {
-          featuresMenu.map((section) => (
+          featuresMenu.map(section => (
             <div class="flex flex-col">
               <p class="text-sm text-slate-600">{section.sectionTitle}</p>
 
-              {section.items.map((item) => (
+              {section.items.map(item => (
                 <a
                   class="flex gap-x-4 rounded-lg p-3 hover:bg-slate-100 focus:bg-slate-100 focus:outline-hidden"
                   href={item.href}
                 >
-                  <Icon name={item.icon} class="mt-1 size-5 shrink-0 text-slate-800" />
+                  <Icon
+                    name={item.icon}
+                    class="mt-1 size-5 shrink-0 text-slate-800"
+                  />
 
                   <div class="grow">
                     <p class="text-sm font-medium text-slate-800">

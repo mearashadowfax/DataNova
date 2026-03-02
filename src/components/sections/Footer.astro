@@ -1,29 +1,29 @@
 ---
-import FooterForm from "@ui/forms/FooterForm.astro";
-import ContactInfo from "@common/ContactInfo.astro";
+import FooterForm from '@ui/forms/FooterForm.astro';
+import ContactInfo from '@common/ContactInfo.astro';
 
 // Props for customization
-const companyName = "DataNova Analytics Inc.";
+const companyName = 'DataNova Analytics Inc.';
 const companyDescription =
-  "DataNova Analytics Inc. is a leading business intelligence and analytics software company founded in 2018, with offices in Boston and Seattle.";
+  'DataNova Analytics Inc. is a leading business intelligence and analytics software company founded in 2018, with offices in Boston and Seattle.';
 
 // Contact information for the company
 const contactDetails = {
-  address: "Seattle, WA, 98104",
-  phone: "1 (833) 328-2669",
-  email: "info@datanova.com",
-  website: "www.datanova.com",
+  address: 'Seattle, WA, 98104',
+  phone: '1 (833) 328-2669',
+  email: 'info@datanova.com',
+  website: 'www.datanova.com',
 };
 
 // Dynamic date for copyright display
 const copyrightYear = new Date().getFullYear();
 
 // Developer or team behind the website
-const craftedBy = { name: "gulamoff", url: "https://www.gulamoff.dev/" };
+const craftedBy = { name: 'gulamoff', url: 'https://www.gulamoff.dev/' };
 
 // Trademark notice
 const trademarkNotice =
-  "Microsoft&reg; and Excel&reg; are registered trademarks or trademarks of Microsoft Corporation";
+  'Microsoft&reg; and Excel&reg; are registered trademarks or trademarks of Microsoft Corporation';
 ---
 
 <footer
@@ -37,7 +37,7 @@ const trademarkNotice =
       <div class="col-span-full self-center xl:col-span-2">
         <a
           href="#"
-          class="flex-none text-xl font-semibold uppercase text-slate-700 focus:opacity-80 focus:outline-hidden"
+          class="flex-none text-xl font-semibold text-slate-700 uppercase focus:opacity-80 focus:outline-hidden"
           aria-label="{companyName} Homepage"
         >
           {companyName}
@@ -60,7 +60,7 @@ const trademarkNotice =
     </div>
 
     {/* Divider before footer's bottom section */}
-    <hr class="mb-5 mt-10 border-slate-200" />
+    <hr class="mt-10 mb-5 border-slate-200" />
 
     <div
       class="grid gap-y-2 sm:flex sm:items-center sm:justify-between sm:gap-y-0"
@@ -73,7 +73,7 @@ const trademarkNotice =
           href={craftedBy.url}
           target="_blank"
           rel="noopener noreferrer"
-          class="font-medium underline underline-offset-2 outline-hidden ring-slate-400 transition duration-300 hover:text-slate-400 hover:decoration-dashed focus:outline-hidden focus-visible:ring-3"
+          class="font-medium underline underline-offset-2 ring-slate-400 outline-hidden transition duration-300 hover:text-slate-400 hover:decoration-dashed focus:outline-hidden focus-visible:ring-3"
         >
           {craftedBy.name}
         </a>

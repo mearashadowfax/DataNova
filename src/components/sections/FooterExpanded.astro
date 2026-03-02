@@ -1,15 +1,15 @@
 ---
-import FooterFormExpanded from "@ui/forms/FooterFormExpanded.astro";
+import FooterFormExpanded from '@ui/forms/FooterFormExpanded.astro';
 
 // Import data for dynamic rendering
-import { featuresMenu } from "@utils/megaMenu/features";
-import { platformMenu } from "@utils/megaMenu/platform";
-import { supportMenu } from "@utils/megaMenu/support";
+import { featuresMenu } from '@utils/megaMenu/features';
+import { platformMenu } from '@utils/megaMenu/platform';
+import { supportMenu } from '@utils/megaMenu/support';
 
 // Props for customization
-const companyName = "DataNova Analytics Inc.";
+const companyName = 'DataNova Analytics Inc.';
 const companyDescription =
-  "DataNova Analytics Inc. is a leading business intelligence and analytics software company founded in 2018, with offices in Boston and Seattle.";
+  'DataNova Analytics Inc. is a leading business intelligence and analytics software company founded in 2018, with offices in Boston and Seattle.';
 
 // Contact information for the company
 const contactFormDescription =
@@ -19,11 +19,11 @@ const contactFormDescription =
 const copyrightYear = new Date().getFullYear();
 
 // Developer or team behind the website
-const craftedBy = { name: "gulamoff", url: "https://www.gulamoff.dev/" };
+const craftedBy = { name: 'gulamoff', url: 'https://www.gulamoff.dev/' };
 
 // Trademark notice
 const trademarkNotice =
-  "Microsoft&reg; and Excel&reg; are registered trademarks or trademarks of Microsoft Corporation";
+  'Microsoft&reg; and Excel&reg; are registered trademarks or trademarks of Microsoft Corporation';
 ---
 
 <footer
@@ -33,7 +33,6 @@ const trademarkNotice =
     <hr class="mb-10 border-slate-200" />
 
     <div class="mb-10 grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5">
-      
       {/* Company Information */}
       <div class="col-span-full self-center xl:col-span-2">
         <a
@@ -55,8 +54,8 @@ const trademarkNotice =
           <ul class="space-y-3">
             {
               featuresMenu
-                .flatMap((feature) => feature.items)
-                .map((item) => (
+                .flatMap(feature => feature.items)
+                .map(item => (
                   <li>
                     <a class="text-sm text-slate-600" href={item.href}>
                       {item.title}
@@ -74,7 +73,7 @@ const trademarkNotice =
         <div class="mt-3 text-sm">
           <ul class="space-y-3">
             {
-              platformMenu.map((platform) => (
+              platformMenu.map(platform => (
                 <li>
                   <a class="text-sm text-slate-600" href={platform.href}>
                     {platform.title}
@@ -93,8 +92,8 @@ const trademarkNotice =
           <ul class="space-y-3">
             {
               supportMenu
-                .flatMap((support) => support.items)
-                .map((item) => (
+                .flatMap(support => support.items)
+                .map(item => (
                   <li>
                     <a class="text-sm text-slate-600" href={item.href}>
                       {item.title}

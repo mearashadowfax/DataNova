@@ -1,7 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100..1000&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap");
-@import "tailwindcss";
-@import "preline/variants.css";
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap');
+@import 'tailwindcss';
+
+/* Preline UI */
+@source 'preline/dist/*.js';
+@import 'preline/variants.css';
+
+/* Plugins */
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
@@ -40,11 +45,12 @@
 }
 
 @theme inline {
-  --animate-scroll: scroll var(--duration, 40s) var(--direction, forwards) linear infinite;
+  --animate-scroll: scroll var(--duration, 40s) var(--direction, forwards)
+    linear infinite;
 
   /* https://tailwindcss.com/docs/font-family#customizing-your-theme */
-  --font-dm-sans: "DM Sans", sans-serif;
-  --font-work-sans: "Work Sans", sans-serif;
+  --font-dm-sans: 'DM Sans', sans-serif;
+  --font-work-sans: 'Work Sans', sans-serif;
 
   @keyframes scroll {
     to {
@@ -62,7 +68,6 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
-
   *,
   ::after,
   ::before,
@@ -84,7 +89,7 @@
   }
 
   button:not(:disabled),
-  [role="button"]:not(:disabled) {
+  [role='button']:not(:disabled) {
     cursor: pointer;
   }
 }

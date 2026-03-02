@@ -1,30 +1,30 @@
 ---
-import BaseLayout from "@layout/BaseLayout.astro";
-import Icon from "@ui/icons/Icon.astro";
-import PostFeedback from "@common/PostFeedback.svelte";
-import { formatDate } from "@utils/utils";
-import { getReadingTime } from "@utils/reading-time";
-import { getEntry, render } from "astro:content";
+import BaseLayout from '@layout/BaseLayout.astro';
+import Icon from '@ui/icons/Icon.astro';
+import PostFeedback from '@common/PostFeedback.svelte';
+import { formatDate } from '@utils/utils';
+import { getReadingTime } from '@utils/reading-time';
+import { getEntry, render } from 'astro:content';
 
 // 1. Get the slug from the incoming server request
 const { id } = Astro.params;
 if (id === undefined) {
-  return Astro.redirect("/404");
+  return Astro.redirect('/404');
 }
 
 // 2. Query for the entry directly using the request slug
-const post = await getEntry("reference", id);
+const post = await getEntry('reference', id);
 
 // 3. Redirect if the entry does not exist
 if (post === undefined) {
-  return Astro.redirect("/404");
+  return Astro.redirect('/404');
 }
 
 // 4. Render the entry to HTML in the template
 const { Content, headings } = await render(post);
 
-const validHeadings = headings.filter((heading) => heading.depth === 2);
-const readingTime = getReadingTime(post.body ?? "");
+const validHeadings = headings.filter(heading => heading.depth === 2);
+const readingTime = getReadingTime(post.body ?? '');
 const slug = id;
 ---
 
@@ -34,11 +34,11 @@ const slug = id;
       <div class="grid gap-8 md:grid-cols-4 lg:gap-12">
         {
           validHeadings.length > 0 && (
-            <div class="relative mt-10 rounded-lg border border-slate-300 border-dashed p-5 md:mt-0 md:border-none md:p-0 md:pb-24">
+            <div class="relative mt-10 rounded-lg border border-dashed border-slate-300 p-5 md:mt-0 md:border-none md:p-0 md:pb-24">
               <nav class="sticky top-10 md:top-32">
                 <small class="font-semibold uppercase">On this page</small>
                 <ul class="mt-2 space-y-2">
-                  {validHeadings.map((heading) => (
+                  {validHeadings.map(heading => (
                     <li>
                       <a
                         href={`#${heading.slug}`}
@@ -69,7 +69,7 @@ const slug = id;
           </ul>
 
           <h1
-            class="mb-4 text-balance text-center text-2xl text-slate-800 sm:text-3xl md:mb-6 md:text-left xl:text-5xl"
+            class="mb-4 text-center text-2xl text-balance text-slate-800 sm:text-3xl md:mb-6 md:text-left xl:text-5xl"
           >
             {post.data.title}
           </h1>
@@ -109,7 +109,7 @@ const slug = id;
     let intersectionObserver: IntersectionObserver | null = null;
 
     function safeInitTOC() {
-      if ("requestIdleCallback" in window) {
+      if ('requestIdleCallback' in window) {
         requestIdleCallback(initTOC);
       } else {
         setTimeout(initTOC, 200);
@@ -117,41 +117,41 @@ const slug = id;
     }
 
     function initTOC() {
-      const tocLinks = document.querySelectorAll("[data-toc-link]");
-      const sections = document.querySelectorAll("h2[id]");
+      const tocLinks = document.querySelectorAll('[data-toc-link]');
+      const sections = document.querySelectorAll('h2[id]');
 
       if (!tocLinks.length || !sections.length) return;
 
-      tocLinks.forEach((link) =>
-        link.classList.remove("text-slate-600", "font-medium"),
+      tocLinks.forEach(link =>
+        link.classList.remove('text-slate-600', 'font-medium')
       );
 
       intersectionObserver = new IntersectionObserver(
-        (entries) => {
+        entries => {
           let activeSection = null;
 
-          entries.forEach((entry) => {
+          entries.forEach(entry => {
             if (entry.target instanceof HTMLElement && entry.isIntersecting) {
               activeSection = entry.target;
             }
           });
 
           if (activeSection) {
-            const sectionId = (activeSection as HTMLElement).getAttribute("id");
+            const sectionId = (activeSection as HTMLElement).getAttribute('id');
             if (sectionId) {
               document
                 .querySelector(`[data-toc-link][href="#${sectionId}"]`)
-                ?.classList.add("text-slate-600", "font-medium");
+                ?.classList.add('text-slate-600', 'font-medium');
             }
           }
         },
         {
           threshold: 0.3,
-          rootMargin: "-20% 0px -55% 0px",
-        },
+          rootMargin: '-20% 0px -55% 0px',
+        }
       );
 
-      sections.forEach((section) => intersectionObserver?.observe(section));
+      sections.forEach(section => intersectionObserver?.observe(section));
     }
 
     function cleanup() {
@@ -162,7 +162,7 @@ const slug = id;
     // Run immediately on first page load
     safeInitTOC();
 
-    document.addEventListener("astro:page-load", safeInitTOC);
-    document.addEventListener("astro:before-swap", cleanup);
+    document.addEventListener('astro:page-load', safeInitTOC);
+    document.addEventListener('astro:before-swap', cleanup);
   </script>
 </BaseLayout>
