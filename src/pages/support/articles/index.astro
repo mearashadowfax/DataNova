@@ -7,7 +7,7 @@ const articles = (await getCollection('articles')).toSorted(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
 
-const urlPath = Astro.url;
+const urlPath = Astro.url.pathname;
 
 export const pageContent = {
   pageTitle: 'Articles',
