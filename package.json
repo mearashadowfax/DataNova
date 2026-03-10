@@ -12,7 +12,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.6",
+    "@astrojs/check": "^0.9.7",
     "@astrojs/db": "^0.19.0",
     "@astrojs/markdoc": "^0.15.11",
     "@astrojs/react": "^4.4.2",
