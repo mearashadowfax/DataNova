@@ -22,7 +22,7 @@
     "@astrojs/check": "^0.9.8",
     "@astrojs/db": "^0.20.1",
     "@astrojs/markdoc": "^1.0.3",
-    "@astrojs/react": "5.0.2",
+    "@astrojs/react": "5.0.3",
     "@astrojs/svelte": "^8.0.4",
     "@astrojs/vercel": "10.0.3",
     "@keystatic/astro": "^5.0.6",
