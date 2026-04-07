@@ -24,7 +24,7 @@
     "@astrojs/markdoc": "^1.0.3",
     "@astrojs/react": "5.0.3",
     "@astrojs/svelte": "^8.0.4",
-    "@astrojs/vercel": "10.0.3",
+    "@astrojs/vercel": "10.0.4",
     "@keystatic/astro": "^5.0.6",
     "@keystatic/core": "^0.5.50",
     "@tailwindcss/vite": "^4.2.2",
