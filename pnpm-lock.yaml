@@ -16,19 +16,19 @@ importers:
         version: 0.20.1
       '@astrojs/markdoc':
         specifier: ^1.0.3
-        version: 1.0.3(@types/react@19.2.14)(astro@6.1.4(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))(react@19.2.4)
+        version: 1.0.3(@types/react@19.2.14)(astro@6.1.6(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))(react@19.2.4)
       '@astrojs/react':
         specifier: 5.0.3
         version: 5.0.3(@types/node@25.5.0)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(jiti@2.6.1)(lightningcss@1.32.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(yaml@2.8.3)
       '@astrojs/svelte':
         specifier: ^8.0.5
-        version: 8.0.5(@types/node@25.5.0)(astro@6.1.4(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))(jiti@2.6.1)(lightningcss@1.32.0)(svelte@5.55.4(@typescript-eslint/types@8.58.0))(typescript@5.9.3)(yaml@2.8.3)
+        version: 8.0.5(@types/node@25.5.0)(astro@6.1.6(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))(jiti@2.6.1)(lightningcss@1.32.0)(svelte@5.55.4(@typescript-eslint/types@8.58.0))(typescript@5.9.3)(yaml@2.8.3)
       '@astrojs/vercel':
         specifier: 10.0.4
-        version: 10.0.4(astro@6.1.4(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))(react@19.2.4)(rollup@4.60.1)(svelte@5.55.4(@typescript-eslint/types@8.58.0))
+        version: 10.0.4(astro@6.1.6(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))(react@19.2.4)(rollup@4.60.1)(svelte@5.55.4(@typescript-eslint/types@8.58.0))
       '@keystatic/astro':
         specifier: ^5.0.6
-        version: 5.0.6(@keystatic/core@0.5.50(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(astro@6.1.4(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        version: 5.0.6(@keystatic/core@0.5.50(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(astro@6.1.6(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@keystatic/core':
         specifier: ^0.5.50
         version: 0.5.50(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -42,8 +42,8 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.14)
       astro:
-        specifier: ^6.1.4
-        version: 6.1.4(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)
+        specifier: ^6.1.6
+        version: 6.1.6(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)
       astro-font:
         specifier: ^1.1.0
         version: 1.1.0
@@ -52,7 +52,7 @@ importers:
         version: 1.1.0(prettier-plugin-astro@0.14.1)(prettier@3.8.2)(typescript@5.9.3)
       astro-seo-schema:
         specifier: ^6.0.0
-        version: 6.0.0(astro@6.1.4(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))(schema-dts@1.1.5)
+        version: 6.0.0(astro@6.1.6(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))(schema-dts@1.1.5)
       mdast-util-to-string:
         specifier: ^4.0.0
         version: 4.0.0
@@ -2127,8 +2127,8 @@ packages:
   astro-seo@1.1.0:
     resolution: {integrity: sha512-G6LDNDyga30o+52v58jU7C35n3cORUzk7RSuY+xf/ZRbW6JiNplyaOO1VoYVKO+xzYNaBcxqNln2RFRR/wgJNQ==}
 
-  astro@6.1.4:
-    resolution: {integrity: sha512-SRy1bONuCHkGWhI5JiWCQKVDVbeaXOikjAVZs/Nz+lvUvubtdLoZfnacmuZHQ9RL2IOkU54M8/qZYm9ypJDKrg==}
+  astro@6.1.6:
+    resolution: {integrity: sha512-pRsz+kYriwCV/AUcY/I9OVKtVHuYFs2DtCszAxprXded/kTE53nMwxfnK0Nf6FPfaX9vcUiLnigcSIhuFoKntA==}
     engines: {node: '>=22.12.0', npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -2944,8 +2944,8 @@ packages:
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
 
-  lru-cache@11.3.2:
-    resolution: {integrity: sha512-wgWa6FWQ3QRRJbIjbsldRJZxdxYngT/dO0I5Ynmlnin8qy7tC6xYzbcJjtN4wHLXtkbVwHzk0C+OejVw1XM+DQ==}
+  lru-cache@11.3.5:
+    resolution: {integrity: sha512-NxVFwLAnrd9i7KUBxC4DrUhmgjzOs+1Qm50D3oF1/oL+r1NpZ4gA7xvG0/zJ8evR7zIKn4vLf7qTNduWFtCrRw==}
     engines: {node: 20 || >=22}
 
   lru-cache@5.1.1:
@@ -4228,13 +4228,13 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@astrojs/markdoc@1.0.3(@types/react@19.2.14)(astro@6.1.4(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))(react@19.2.4)':
+  '@astrojs/markdoc@1.0.3(@types/react@19.2.14)(astro@6.1.6(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))(react@19.2.4)':
     dependencies:
       '@astrojs/internal-helpers': 0.8.0
       '@astrojs/markdown-remark': 7.1.0
       '@astrojs/prism': 4.0.1
       '@markdoc/markdoc': 0.5.7(@types/react@19.2.14)(react@19.2.4)
-      astro: 6.1.4(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)
+      astro: 6.1.6(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)
       esbuild: 0.27.4
       github-slugger: 2.0.0
       htmlparser2: 10.1.0
@@ -4298,10 +4298,10 @@ snapshots:
       - tsx
       - yaml
 
-  '@astrojs/svelte@8.0.5(@types/node@25.5.0)(astro@6.1.4(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))(jiti@2.6.1)(lightningcss@1.32.0)(svelte@5.55.4(@typescript-eslint/types@8.58.0))(typescript@5.9.3)(yaml@2.8.3)':
+  '@astrojs/svelte@8.0.5(@types/node@25.5.0)(astro@6.1.6(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))(jiti@2.6.1)(lightningcss@1.32.0)(svelte@5.55.4(@typescript-eslint/types@8.58.0))(typescript@5.9.3)(yaml@2.8.3)':
     dependencies:
       '@sveltejs/vite-plugin-svelte': 6.2.4(svelte@5.55.4(@typescript-eslint/types@8.58.0))(vite@7.3.2(@types/node@25.5.0)(jiti@2.6.1)(lightningcss@1.32.0)(yaml@2.8.3))
-      astro: 6.1.4(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)
+      astro: 6.1.6(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)
       svelte: 5.55.4(@typescript-eslint/types@8.58.0)
       svelte2tsx: 0.7.53(svelte@5.55.4(@typescript-eslint/types@8.58.0))(typescript@5.9.3)
       typescript: 5.9.3
@@ -4332,14 +4332,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/vercel@10.0.4(astro@6.1.4(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))(react@19.2.4)(rollup@4.60.1)(svelte@5.55.4(@typescript-eslint/types@8.58.0))':
+  '@astrojs/vercel@10.0.4(astro@6.1.6(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))(react@19.2.4)(rollup@4.60.1)(svelte@5.55.4(@typescript-eslint/types@8.58.0))':
     dependencies:
       '@astrojs/internal-helpers': 0.8.0
       '@vercel/analytics': 1.6.1(react@19.2.4)(svelte@5.55.4(@typescript-eslint/types@8.58.0))
       '@vercel/functions': 3.4.3
       '@vercel/nft': 1.5.0(rollup@4.60.1)
       '@vercel/routing-utils': 5.3.3
-      astro: 6.1.4(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)
+      astro: 6.1.6(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)
       esbuild: 0.27.7
       tinyglobby: 0.2.15
     transitivePeerDependencies:
@@ -5028,12 +5028,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@keystatic/astro@5.0.6(@keystatic/core@0.5.50(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(astro@6.1.4(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@keystatic/astro@5.0.6(@keystatic/core@0.5.50(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(astro@6.1.6(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@babel/runtime': 7.29.2
       '@keystatic/core': 0.5.50(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@types/react': 19.2.14
-      astro: 6.1.4(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)
+      astro: 6.1.6(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
       set-cookie-parser: 2.7.2
@@ -6695,9 +6695,9 @@ snapshots:
 
   astro-font@1.1.0: {}
 
-  astro-seo-schema@6.0.0(astro@6.1.4(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))(schema-dts@1.1.5):
+  astro-seo-schema@6.0.0(astro@6.1.6(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))(schema-dts@1.1.5):
     dependencies:
-      astro: 6.1.4(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)
+      astro: 6.1.6(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)
       schema-dts: 1.1.5
 
   astro-seo@1.1.0(prettier-plugin-astro@0.14.1)(prettier@3.8.2)(typescript@5.9.3):
@@ -6708,7 +6708,7 @@ snapshots:
       - prettier-plugin-astro
       - typescript
 
-  astro@6.1.4(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3):
+  astro@6.1.6(@types/node@25.5.0)(@vercel/functions@3.4.3)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3):
     dependencies:
       '@astrojs/compiler': 3.0.1
       '@astrojs/internal-helpers': 0.8.0
@@ -6724,9 +6724,8 @@ snapshots:
       clsx: 2.1.1
       common-ancestor-path: 2.0.0
       cookie: 1.1.1
-      devalue: 5.7.0
+      devalue: 5.7.1
       diff: 8.0.4
-      dlv: 1.1.3
       dset: 3.1.4
       es-module-lexer: 2.0.0
       esbuild: 0.27.7
@@ -6753,7 +6752,7 @@ snapshots:
       svgo: 4.0.1
       tinyclip: 0.1.12
       tinyexec: 1.1.1
-      tinyglobby: 0.2.15
+      tinyglobby: 0.2.16
       tsconfck: 3.1.6(typescript@5.9.3)
       ultrahtml: 1.6.0
       unifont: 0.7.4
@@ -7516,7 +7515,7 @@ snapshots:
 
   lru-cache@10.4.3: {}
 
-  lru-cache@11.3.2: {}
+  lru-cache@11.3.5: {}
 
   lru-cache@5.1.1:
     dependencies:
@@ -8119,7 +8118,7 @@ snapshots:
 
   path-scurry@2.0.2:
     dependencies:
-      lru-cache: 11.3.2
+      lru-cache: 11.3.5
       minipass: 7.1.3
 
   path-to-regexp@6.1.0: {}
@@ -8699,7 +8698,7 @@ snapshots:
       chokidar: 5.0.0
       destr: 2.0.5
       h3: 1.15.11
-      lru-cache: 11.3.2
+      lru-cache: 11.3.5
       node-fetch-native: 1.6.7
       ofetch: 1.5.1
       ufo: 1.6.3
