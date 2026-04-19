@@ -30,7 +30,7 @@
     "@tailwindcss/vite": "^4.2.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "astro": "^6.1.6",
+    "astro": "^6.1.8",
     "astro-font": "^1.1.0",
     "astro-seo": "^1.1.0",
     "astro-seo-schema": "^6.0.0",
@@ -51,7 +51,7 @@
     "@tailwindcss/forms": "^0.5.11",
     "@tailwindcss/typography": "^0.5.19",
     "mdast-util-from-markdown": "^2.0.3",
-    "prettier": "^3.8.2",
+    "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.7.2"
   }

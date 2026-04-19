@@ -17,6 +17,11 @@ interface Props {
 const { seo, schema } = Astro.props;
 const socialImage = `${Astro.site}social.png`; // Path to the default social sharing image
 
+const ogTitle = seo?.title ?? 'DataNova - Unlock Insights from Your Excel Data';
+const ogDescription =
+  seo?.description ??
+  "Transform your Excel workspace with DataNova's powerful analytics suite. Get insights, predictive models, and visualizations in minutes with no coding required.";
+
 // Define default JSON-LD Schema.org data if no schema is passed
 const defaultSchema: WithContext<Thing> = {
   '@context': 'https://schema.org',
@@ -47,20 +52,18 @@ const defaultSchema: WithContext<Thing> = {
         "Unlock powerful data insights with DataNova's advanced analytics suite for Excel. Visualize, analyze, and make data-driven decisions in minutes with seamless Excel integration, AI-powered analysis, and predictive forecasting models."}
       openGraph={{
         basic: {
-          title: 'DataNova - Unlock Insights from Your Excel Data',
+          title: ogTitle,
           type: 'website',
           image: socialImage,
         },
         optional: {
-          description:
-            "Transform your Excel workspace with DataNova's powerful analytics suite. Get insights, predictive models, and visualizations in minutes with no coding required.",
+          description: ogDescription,
         },
       }}
       twitter={{
         card: 'summary_large_image',
-        title: 'DataNova - Unlock Insights from Your Excel Data',
-        description:
-          "Transform your Excel workspace with DataNova's powerful analytics suite. Visualize and analyze data quickly with no coding required.",
+        title: ogTitle,
+        description: ogDescription,
         image: socialImage,
         imageAlt: 'DataNova Logo.',
       }}

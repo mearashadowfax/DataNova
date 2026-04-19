@@ -1,22 +1,25 @@
 import { config, fields, collection } from '@keystatic/core';
 
 // https://keystatic.com/docs/local-mode
-// Set storage mode: "local" or "github"
-let KEYSTATIC_STORAGE_MODE = 'local';
+// Set storage mode via environment variable: KEYSTATIC_STORAGE_MODE=github or leave unset for local
+const KEYSTATIC_STORAGE_MODE =
+  import.meta.env.KEYSTATIC_STORAGE_MODE ?? 'local';
 
-// GitHub repository details (required for GitHub mode)
-const GITHUB_REPO_OWNER = 'REPO_OWNER';
-const GITHUB_REPO_NAME = 'REPO_NAME';
+// GitHub repository details — set these in your .env file for GitHub mode:
+// KEYSTATIC_GITHUB_REPO_OWNER=your-org
+// KEYSTATIC_GITHUB_REPO_NAME=your-repo
+const GITHUB_REPO_OWNER = import.meta.env.KEYSTATIC_GITHUB_REPO_OWNER ?? '';
+const GITHUB_REPO_NAME = import.meta.env.KEYSTATIC_GITHUB_REPO_NAME ?? '';
 
 export default config({
   storage:
-    (KEYSTATIC_STORAGE_MODE as 'github') === 'github'
+    KEYSTATIC_STORAGE_MODE === 'github'
       ? {
-          kind: 'github',
-          repo: `${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}`,
+          kind: 'github' as const,
+          repo: `${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}` as `${string}/${string}`,
         }
       : {
-          kind: 'local',
+          kind: 'local' as const,
         },
 
   collections: {

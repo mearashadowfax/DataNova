@@ -5,11 +5,11 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; base-uri 'self'; form-action 'self'; frame-src 'self'; frame-ancestors 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self'; connect-src 'self'; object-src 'none'; media-src 'self' https://vyclk3sx0z.ufs.sh; upgrade-insecure-requests; block-all-mixed-content"
+          "value": "default-src 'self'; base-uri 'self'; form-action 'self'; frame-src 'self'; frame-ancestors 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self'; connect-src 'self'; object-src 'none'; media-src 'self' https://vyclk3sx0z.ufs.sh; upgrade-insecure-requests; block-all-mixed-content"
         },
         {
           "key": "Permissions-Policy",
-          "value": "interest-cohort=()"
+          "value": "camera=(), microphone=(), geolocation=(), payment=()"
         },
         {
           "key": "Referrer-Policy",
@@ -25,7 +25,7 @@
         },
         {
           "key": "X-XSS-Protection",
-          "value": "1; mode=block"
+          "value": "0"
         },
         {
           "key": "Cache-Control",
@@ -34,6 +34,15 @@
         {
           "key": "Strict-Transport-Security",
           "value": "max-age=31536000; includeSubDomains; preload"
+        }
+      ]
+    },
+    {
+      "source": "/_astro/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
         }
       ]
     }

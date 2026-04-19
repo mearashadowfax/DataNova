@@ -29,7 +29,6 @@ export const POST: APIRoute = async ({ request }) => {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
         },
       });
     }
@@ -69,7 +68,6 @@ export const POST: APIRoute = async ({ request }) => {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
       },
     });
   } catch (error) {

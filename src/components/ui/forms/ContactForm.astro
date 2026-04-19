@@ -7,6 +7,11 @@ const formStrings = {
 };
 ---
 
+<!-- TODO: Wire up form submission. Options:
+  1. Set action="/api/contact" method="POST" and create src/pages/api/contact.ts
+  2. Use a third-party form service (e.g. Formspree: action="https://formspree.io/f/YOUR_ID" method="POST")
+  3. Add a fetch-based JS submit handler for a fully custom solution.
+-->
 <form class="p-4" aria-labelledby="form-title">
   {/* Fieldset and legend for grouping form elements */}
   <fieldset class="space-y-4">
