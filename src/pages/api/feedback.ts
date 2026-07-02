@@ -1,5 +1,7 @@
 import type { APIRoute } from 'astro';
-import { db, Feedback, eq, sql } from 'astro:db';
+import { eq, sql } from 'drizzle-orm';
+import { db } from '@/db/client';
+import { feedback } from '@/db/schema';
 
 /**
  * Handles POST requests to submit or retrieve feedback data for a specific `slug`.
@@ -19,13 +21,13 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (!slug || (type && type !== 'helpful' && type !== 'notHelpful')) {
       // If there is no 'type', return feedback data instead of submitting
-      const feedback = await db
+      const row = await db
         .select()
-        .from(Feedback)
-        .where(eq(Feedback.slug, slug))
+        .from(feedback)
+        .where(eq(feedback.slug, slug))
         .then(rows => rows[0] || { helpful: 0, notHelpful: 0 });
 
-      return new Response(JSON.stringify(feedback), {
+      return new Response(JSON.stringify(row), {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
@@ -38,28 +40,28 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (type === 'helpful') {
       updatedFeedback = await db
-        .insert(Feedback)
+        .insert(feedback)
         .values({ slug, helpful: 1 })
         .onConflictDoUpdate({
-          target: Feedback.slug,
-          set: { helpful: sql`helpful + 1` },
+          target: feedback.slug,
+          set: { helpful: sql`${feedback.helpful} + 1` },
         })
         .returning({
-          helpful: Feedback.helpful,
-          notHelpful: Feedback.notHelpful,
+          helpful: feedback.helpful,
+          notHelpful: feedback.notHelpful,
         })
         .then(res => res[0]);
     } else {
       updatedFeedback = await db
-        .insert(Feedback)
+        .insert(feedback)
         .values({ slug, notHelpful: 1 })
         .onConflictDoUpdate({
-          target: Feedback.slug,
-          set: { notHelpful: sql`notHelpful + 1` },
+          target: feedback.slug,
+          set: { notHelpful: sql`${feedback.notHelpful} + 1` },
         })
         .returning({
-          helpful: Feedback.helpful,
-          notHelpful: Feedback.notHelpful,
+          helpful: feedback.helpful,
+          notHelpful: feedback.notHelpful,
         })
         .then(res => res[0]);
     }

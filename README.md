@@ -2,7 +2,7 @@
 
 ![DataNova](https://github.com/user-attachments/assets/b2ca99ee-8161-4755-9b66-205993ef2910)
 
-DataNova is an open-source, multi-page website template designed for flexibility — perfect for marketing sites, documentation hubs, and dynamic applications. Built with [Astro](https://astro.build/), [Tailwind CSS](https://tailwindcss.com/), and [Preline UI](https://preline.co/), it seamlessly integrates with [Keystatic CMS](https://keystatic.com/) and [Astro DB](https://docs.astro.build/en/guides/astro-db/) for effortless content management and data handling.
+DataNova is an open-source, multi-page website template designed for flexibility — perfect for marketing sites, documentation hubs, and dynamic applications. Built with [Astro](https://astro.build/), [Tailwind CSS](https://tailwindcss.com/), and [Preline UI](https://preline.co/), it seamlessly integrates with [Keystatic CMS](https://keystatic.com/) and [Drizzle ORM](https://orm.drizzle.team/) with [Turso](https://turso.tech/) for effortless content management and data handling.
 
 <p align="left">
     <a href="https://data-nova.vercel.app/" target="_blank">
@@ -35,7 +35,7 @@ DataNova is an open-source, multi-page website template designed for flexibility
     - [Storage Mode Configuration](#storage-mode-configuration)
     - [Accessing Keystatic Admin UI](#accessing-keystatic-admin-ui)
     - [Disable Admin UI Routes in Production](#disable-admin-ui-routes-in-production)
-- [Data Handling with Astro DB](#data-handling-with-astro-db)
+- [Data Handling with Drizzle and Turso](#data-handling-with-drizzle-and-turso)
   - [Create a Turso Database](#create-a-turso-database)
     - [Database Configuration](#database-configuration)
 - [Integrations and Enhancements](#integrations-and-enhancements)
@@ -59,8 +59,8 @@ DataNova is an open-source, multi-page website template designed for flexibility
 - **Multi-page structure:** Suitable for websites with various sections and content types.
 - **Content collections:** Organize and manage different types of content efficiently.
 - **Keystatic CMS:** Streamlined content management for easy editing and updates.
-- **Astro DB integration:** Facilitates data handling and feedback collection.
-- **Feedback component:** Allows users to provide feedback, stored in Astro DB with Turso.
+- **Drizzle ORM + Turso:** Facilitates data handling and feedback collection.
+- **Feedback component:** Allows users to provide feedback, stored in Turso via Drizzle ORM.
 - **Tailwind CSS:** Utility-first styling for rapid UI development and customization.
 - **Preline UI:** Interactive components like navbars and modals for enhanced user experience.
 - **Astro SEO:** Manage SEO metadata and schema.org data for improved search engine visibility.
@@ -106,6 +106,7 @@ With dependencies installed, you can utilize the following pnpm scripts to manag
 - `pnpm dev`: Runs Astro's development server.
 - `pnpm preview`: The [Node adapter](https://docs.astro.build/en/guides/integrations-guide/node/) supports `preview` for builds generated with on-demand rendering.
 - `pnpm build`: Generates the required server files for deployment.
+- `pnpm db:push`: Pushes the database schema to your local or remote Turso database.
 
 > [!TIP]  
 > Need more details? Check out the [Astro's documentation](https://docs.astro.build/en/reference/cli-reference/).
@@ -119,10 +120,10 @@ Click the button below to start deploying your project on Vercel:
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmearashadowfax%2FDataNova)
 
 > [!IMPORTANT]
-> Before deploying, configure the required environment variables. See [Astro DB](#data-handling-with-astro-db) and [Keystatic CMS](#disable-admin-ui-routes-in-production) for details.
+> Before deploying, configure the required environment variables. See [Drizzle and Turso](#data-handling-with-drizzle-and-turso) and [Keystatic CMS](#disable-admin-ui-routes-in-production) for details.
 >
-> - `ASTRO_DB_REMOTE_URL` (database URL - required for feedback component)
-> - `ASTRO_DB_APP_TOKEN` (database token - required for feedback component)
+> - `TURSO_DATABASE_URL` (database URL - required for feedback component)
+> - `TURSO_AUTH_TOKEN` (database token - required for feedback component)
 > - `SKIP_KEYSTATIC=true` (to disable Keystatic Admin UI in production if using local mode)
 
 > [!NOTE]
@@ -149,12 +150,12 @@ Click the button below to start deploying your project on Vercel:
 DataNova organizes modular sections, components, content, and layout to streamline development and content management.
 
 ```md
-├── db/ # Contains the database schema and migrations
+├── drizzle.config.ts # Drizzle Kit configuration
 ├── public/ # Static assets that are served directly
 └── src/
 ├── assets/
 │ ├── images/  
- │ └── styles/ # CSS styles and Tailwind configuration
+│ └── styles/ # CSS styles and Tailwind configuration
 ├── components/
 │ ├── common/ # Commonly used components across the site
 │ ├── sections/ # Components for specific website sections
@@ -165,6 +166,9 @@ DataNova organizes modular sections, components, content, and layout to streamli
 ├── data/ # The spreadsheets and whitepapers collection of JSON files
 │ ├── spreadsheets/
 │ └── whitepapers/
+├── db/ # Database schema and client (Drizzle ORM)
+│ ├── client.ts
+│ └── schema.ts
 ├── layout/
 │ └── BaseLayout.astro # A site-wide wrapping page template
 ├── pages/ # Astro files representing individual pages and website sections
@@ -516,13 +520,13 @@ export default defineConfig({
 > - [Disable Admin UI Routes in Production](https://keystatic.com/docs/recipes/astro-disable-admin-ui-in-production)
 > - [Astro Content Collections](https://docs.astro.build/en/guides/content-collections/)
 
-## Data Handling with Astro DB
+## Data Handling with Drizzle and Turso
 
-DataNova utilizes Astro DB with Turso for the feedback component. Astro DB is a database integration for Astro that allows you to easily connect to various databases, including Turso. Turso is a serverless database platform that provides a scalable and globally distributed database.
+DataNova uses [Drizzle ORM](https://orm.drizzle.team/) with [Turso](https://turso.tech/) for the feedback component. Turso is a serverless SQLite platform that provides a scalable, globally distributed database. Locally, the app falls back to a SQLite file at `.data/local.db` when no remote credentials are configured.
 
 ### Create a Turso Database
 
-You will need to create a Turso database to use the feedback component.
+You will need to create a Turso database to use the feedback component in production.
 
 1. **Sign up and create a database:**
 
@@ -533,45 +537,45 @@ You will need to create a Turso database to use the feedback component.
 
 2. **Configure environment variables:**
 
-- Rename `.env.template` to `.env` and fill in your specific database credentials:
+- Rename `.env.template` to `.env` and fill in your database credentials:
 
 ```env
-    ASTRO_DB_REMOTE_URL=your_turso_db_url  # Copy the database URL
-    ASTRO_DB_APP_TOKEN=your_turso_db_token  # Create a database token
+TURSO_DATABASE_URL=your_turso_db_url  # Copy the database URL
+TURSO_AUTH_TOKEN=your_turso_db_token  # Create a database token
 ```
+
+> [!NOTE]
+> Legacy `ASTRO_DB_REMOTE_URL` and `ASTRO_DB_APP_TOKEN` environment variables are still supported as fallbacks.
 
 3. **Push the database schema:**
 
 ```bash
-npx astro db push --remote
+pnpm db:push
 ```
 
-You should see something like this on a successful push:
+For a remote Turso database, pass your credentials inline or via `.env`:
 
 ```bash
-Pushing database schema updates...
-Push complete!
+TURSO_DATABASE_URL=your_turso_db_url TURSO_AUTH_TOKEN=your_turso_db_token pnpm db:push
 ```
+
+You should see a success message when the schema is applied.
 
 #### Database Configuration
 
-The database schema is defined in `/db/config.ts`. It stores the post slug and the counts for helpful and not helpful feedback:
+The database schema is defined in `src/db/schema.ts`. It stores the post slug and the counts for helpful and not helpful feedback:
 
 ```typescript
-import { defineDb, defineTable, column } from 'astro:db';
+import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
 
-const Feedback = defineTable({
-  columns: {
-    slug: column.text({ primaryKey: true }),
-    helpful: column.number({ default: 0 }),
-    notHelpful: column.number({ default: 0 }),
-  },
-});
-
-export default defineDb({
-  tables: { Feedback },
+export const feedback = sqliteTable('Feedback', {
+  slug: text().primaryKey(),
+  helpful: integer().default(0).notNull(),
+  notHelpful: integer().default(0).notNull(),
 });
 ```
+
+The database client in `src/db/client.ts` connects to Turso in production or to a local SQLite file during development.
 
 > [!NOTE]
 > Don't forget to add the environment variables when deploying your site.
@@ -579,13 +583,14 @@ export default defineDb({
 > [!TIP]
 > Key locations:
 >
-> - [/db/\*](https://github.com/mearashadowfax/DataNova/tree/c611b145c821aaac2df787df8848ebf5002a8ddd/db): Database schema
-> - [@common/PostFeedback.svelte](https://github.com/mearashadowfax/DataNova/blob/c611b145c821aaac2df787df8848ebf5002a8ddd/src/components/common/PostFeedback.svelte): Feedback component
-> - [src/pages/api/feedback.ts](https://github.com/mearashadowfax/DataNova/blob/c611b145c821aaac2df787df8848ebf5002a8ddd/src/pages/api/feedback.ts): API
+> - [src/db/](src/db/): Database schema and client
+> - [drizzle.config.ts](drizzle.config.ts): Drizzle Kit configuration
+> - [@common/PostFeedback.svelte](src/components/common/PostFeedback.svelte): Feedback component
+> - [src/pages/api/feedback.ts](src/pages/api/feedback.ts): API
 >
 > Recommended resources:
 >
-> - [Astro DB](https://docs.astro.build/en/guides/astro-db/)
+> - [Drizzle ORM Docs](https://orm.drizzle.team/docs/overview)
 > - [Turso Docs](https://docs.turso.tech/introduction)
 
 ## Integrations and Enhancements
