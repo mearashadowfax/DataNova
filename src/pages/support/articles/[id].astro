@@ -109,18 +109,18 @@ const schema: WithContext<Thing> = {
             secondChoice="No"
             slug={slug}
           >
-            <svelte:fragment slot="helpfulIcon">
+            <fragment slot="helpfulIcon">
               <Icon
                 name="thumbUp"
                 class="transition duration-300 group-hover:-translate-y-1 group-focus-visible:-translate-y-1"
               />
-            </svelte:fragment>
-            <svelte:fragment slot="notHelpfulIcon">
+            </fragment>
+            <fragment slot="notHelpfulIcon">
               <Icon
                 name="thumbDown"
                 class="transition duration-300 group-hover:translate-y-1 group-focus-visible:translate-y-1"
               />
-            </svelte:fragment>
+            </fragment>
           </PostFeedback>
         </div>
       </div>
