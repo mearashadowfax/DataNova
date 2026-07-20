@@ -51,7 +51,7 @@
     "react-dom": "^19.2.7",
     "reading-time": "^1.5.0",
     "schema-dts": "^1.1.5",
-    "sharp": "^0.35.3",
+    "sharp": "0.34.5",
     "svelte": "^5.56.5",
     "tailwind-merge": "^3.6.0",
     "tailwindcss": "^4.3.2",
