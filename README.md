@@ -2,7 +2,7 @@
 
 ![DataNova](https://github.com/user-attachments/assets/b2ca99ee-8161-4755-9b66-205993ef2910)
 
-DataNova is an open-source, multi-page website template designed for flexibility — perfect for marketing sites, documentation hubs, and dynamic applications. Built with [Astro](https://astro.build/), [Tailwind CSS](https://tailwindcss.com/), and [Preline UI](https://preline.co/), it seamlessly integrates with [Keystatic CMS](https://keystatic.com/) and [Drizzle ORM](https://orm.drizzle.team/) with [Turso](https://turso.tech/) for effortless content management and data handling.
+DataNova is an open-source, multi-page website template designed for flexibility – perfect for marketing sites, documentation hubs, and dynamic applications. Built with [Astro](https://astro.build/), [Tailwind CSS](https://tailwindcss.com/), and [Preline UI](https://preline.co/), it seamlessly integrates with [Keystatic CMS](https://keystatic.com/) and [Drizzle ORM](https://orm.drizzle.team/) with [Turso](https://turso.tech/) for effortless content management and data handling.
 
 <p align="left">
     <a href="https://data-nova.vercel.app/" target="_blank">
@@ -70,7 +70,7 @@ DataNova is an open-source, multi-page website template designed for flexibility
 ## What's New
 
 > [!NOTE]
-> Currently, there are no planned improvements or known bugs. If you encounter any issues, please report them on our [issues page](https://github.com/mearashadowfax/DataNova/issues) or [start a discussion](https://github.com/mearashadowfax/DataNova/discussions/new/choose) to share ideas, suggestions, or ask questions.
+> Recent template improvements include wired contact/newsletter APIs (demo mode or Formspree), hardened feedback endpoints, baseline accessibility fixes, CI, and Drizzle migrations. Some mega-menu and CTA links intentionally use `#` placeholders for showcase – replace them when adapting the template. Report issues on our [issues page](https://github.com/mearashadowfax/DataNova/issues) or [start a discussion](https://github.com/mearashadowfax/DataNova/discussions/new/choose).
 
 ## Getting Started
 
@@ -104,12 +104,17 @@ This command will install all the necessary dependencies defined in the `package
 With dependencies installed, you can utilize the following pnpm scripts to manage your project's development lifecycle:
 
 - `pnpm dev`: Runs Astro's development server.
-- `pnpm preview`: The [Node adapter](https://docs.astro.build/en/guides/integrations-guide/node/) supports `preview` for builds generated with on-demand rendering.
-- `pnpm build`: Generates the required server files for deployment.
+- `pnpm preview`: Preview a production build locally (Vercel adapter).
+- `pnpm build`: Runs `astro check` and generates the server output for deployment.
+- `pnpm test`: Runs unit tests (Vitest).
 - `pnpm db:push`: Pushes the database schema to your local or remote Turso database.
+- `pnpm db:generate`: Generates SQL migrations into `drizzle/`.
+- `pnpm format:check` / `pnpm format:write`: Prettier checks and fixes.
 
 > [!TIP]  
 > Need more details? Check out the [Astro's documentation](https://docs.astro.build/en/reference/cli-reference/).
+
+Copy [`.env.template`](.env.template) to `.env` and fill in Turso / Keystatic / form webhook values as needed.
 
 ## Deployment
 
@@ -125,6 +130,7 @@ Click the button below to start deploying your project on Vercel:
 > - `TURSO_DATABASE_URL` (database URL - required for feedback component)
 > - `TURSO_AUTH_TOKEN` (database token - required for feedback component)
 > - `SKIP_KEYSTATIC=true` (to disable Keystatic Admin UI in production if using local mode)
+> - `FORMSPREE_CONTACT_ENDPOINT` / `FORMSPREE_NEWSLETTER_ENDPOINT` (optional - form delivery; demo mode if unset)
 
 > [!NOTE]
 > SSR is used because Keystatic requires server-side execution for its API routes. If you only intend to use Keystatic for local development, you can configure the project for static output as described in the [Keystatic CMS section](#keystatic-cms).
@@ -433,30 +439,21 @@ DataNova uses Keystatic CMS for content management. You can edit content through
 
 #### Storage Mode Configuration
 
-Keystatic allows you to configure the storage mode in `keystatic.config.ts`. You can set the mode to either `local` or `github`:
+Keystatic storage is configured via environment variables in `keystatic.config.ts`:
 
-```typescript
-// ...
-let KEYSTATIC_STORAGE_MODE = 'local';
-
-const GITHUB_REPO_OWNER = 'REPO_OWNER';
-const GITHUB_REPO_NAME = 'REPO_NAME';
-
-export default config({
-  storage:
-    (KEYSTATIC_STORAGE_MODE as 'github') === 'github'
-      ? {
-          kind: 'github',
-          repo: `${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}`,
-        }
-      : {
-          kind: 'local',
-        },
-  // ...
-});
+```bash
+# .env
+KEYSTATIC_STORAGE_MODE=local   # or github
+KEYSTATIC_GITHUB_REPO_OWNER=your-org
+KEYSTATIC_GITHUB_REPO_NAME=your-repo
 ```
 
-The appropriate storage mode is automatically selected based on the configuration.
+```typescript
+const KEYSTATIC_STORAGE_MODE =
+  import.meta.env.KEYSTATIC_STORAGE_MODE ?? 'local';
+```
+
+See [`.env.template`](.env.template) for the full list of variables.
 
 #### Disable Admin UI Routes in Production
 
@@ -553,6 +550,8 @@ TURSO_AUTH_TOKEN=your_turso_db_token  # Create a database token
 pnpm db:push
 ```
 
+Versioned SQL migrations live in `drizzle/` (generate with `pnpm db:generate`). Prefer migrations in shared environments; `db:push` remains convenient for local prototyping.
+
 For a remote Turso database, pass your credentials inline or via `.env`:
 
 ```bash
@@ -592,6 +591,16 @@ The database client in `src/db/client.ts` connects to Turso in production or to 
 >
 > - [Drizzle ORM Docs](https://orm.drizzle.team/docs/overview)
 > - [Turso Docs](https://docs.turso.tech/introduction)
+
+## Contact and newsletter forms
+
+Contact, quote, and newsletter forms post JSON to `/api/contact` and `/api/newsletter`.
+
+- Without a webhook env var, submissions are validated and accepted in **demo mode** (logged server-side).
+- Set `FORMSPREE_CONTACT_ENDPOINT` / `FORMSPREE_NEWSLETTER_ENDPOINT` (or `FORM_WEBHOOK_*`) to forward payloads to Formspree or any JSON webhook.
+- Honeypot field `website` and basic IP rate limiting are included.
+
+Health check: `GET /api/health` (verifies database connectivity). Feedback: `GET /api/feedback?slug=...` to read counts, `POST /api/feedback` with `{ slug, type }` to vote.
 
 ## Integrations and Enhancements
 

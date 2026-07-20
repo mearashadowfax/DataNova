@@ -124,9 +124,15 @@ const defaultSchema: WithContext<Thing> = {
     </script>
   </head>
   <body class="bg-off-white selection:bg-teal-400 selection:text-slate-700">
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-100 focus:rounded-lg focus:bg-teal-700 focus:px-4 focus:py-2 focus:text-white focus:shadow-lg"
+    >
+      Skip to main content
+    </a>
     <Navbar />
 
-    <main>
+    <main id="main-content" tabindex="-1">
       <slot />
     </main>
 

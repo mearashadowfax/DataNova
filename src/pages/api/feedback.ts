@@ -1,79 +1,118 @@
 import type { APIRoute } from 'astro';
 import { eq, sql } from 'drizzle-orm';
+import { z } from 'zod';
 import { db } from '@/db/client';
 import { feedback } from '@/db/schema';
+import { errorResponse, jsonResponse } from '@/utils/api';
+import { getClientIp, rateLimit } from '@/utils/rate-limit';
 
-/**
- * Handles POST requests to submit or retrieve feedback data for a specific `slug`.
- *
- * The function processes the request body to extract the `slug` and optional `type` values.
- * If `slug` is missing or `type` is invalid, it retrieves existing feedback data for the `slug`.
- * If a valid `type` is provided ("helpful" or "notHelpful"), it updates the feedback data
- * by incrementing the respective count.
- *
- * Returns the feedback data in JSON format with appropriate success or error response status.
- *
- */
-export const POST: APIRoute = async ({ request }) => {
+const slugSchema = z
+  .string()
+  .trim()
+  .min(1)
+  .max(200)
+  .regex(/^[a-zA-Z0-9/_-]+$/, 'Invalid slug format');
+
+const voteSchema = z.object({
+  slug: slugSchema,
+  type: z.enum(['helpful', 'notHelpful']),
+});
+
+async function getFeedbackCounts(slug: string) {
+  const row = await db
+    .select()
+    .from(feedback)
+    .where(eq(feedback.slug, slug))
+    .then(rows => rows[0] || { helpful: 0, notHelpful: 0 });
+
+  return {
+    helpful: row.helpful ?? 0,
+    notHelpful: row.notHelpful ?? 0,
+  };
+}
+
+/** Read feedback counts for a slug. */
+export const GET: APIRoute = async ({ url, request }) => {
   try {
-    const data = await request.json();
-    const { slug, type } = data;
-
-    if (!slug || (type && type !== 'helpful' && type !== 'notHelpful')) {
-      // If there is no 'type', return feedback data instead of submitting
-      const row = await db
-        .select()
-        .from(feedback)
-        .where(eq(feedback.slug, slug))
-        .then(rows => rows[0] || { helpful: 0, notHelpful: 0 });
-
-      return new Response(JSON.stringify(row), {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    const ip = getClientIp(request);
+    const limited = rateLimit(`feedback-get:${ip}`, {
+      limit: 60,
+      windowMs: 60_000,
+    });
+    if (!limited.ok) {
+      return errorResponse('Too many requests.', 429, {
+        retryAfterSec: limited.retryAfterSec,
       });
     }
 
-    // If type exists, handle feedback submission as before
-    let updatedFeedback;
-
-    if (type === 'helpful') {
-      updatedFeedback = await db
-        .insert(feedback)
-        .values({ slug, helpful: 1 })
-        .onConflictDoUpdate({
-          target: feedback.slug,
-          set: { helpful: sql`${feedback.helpful} + 1` },
-        })
-        .returning({
-          helpful: feedback.helpful,
-          notHelpful: feedback.notHelpful,
-        })
-        .then(res => res[0]);
-    } else {
-      updatedFeedback = await db
-        .insert(feedback)
-        .values({ slug, notHelpful: 1 })
-        .onConflictDoUpdate({
-          target: feedback.slug,
-          set: { notHelpful: sql`${feedback.notHelpful} + 1` },
-        })
-        .returning({
-          helpful: feedback.helpful,
-          notHelpful: feedback.notHelpful,
-        })
-        .then(res => res[0]);
+    const slugResult = slugSchema.safeParse(url.searchParams.get('slug'));
+    if (!slugResult.success) {
+      return errorResponse('A valid slug query parameter is required.', 400);
     }
 
-    return new Response(JSON.stringify(updatedFeedback), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    const counts = await getFeedbackCounts(slugResult.data);
+    return jsonResponse(counts);
+  } catch (error) {
+    console.error('Error reading feedback:', error);
+    return errorResponse('Internal server error', 500);
+  }
+};
+
+/** Submit helpful / notHelpful feedback for a slug. */
+export const POST: APIRoute = async ({ request }) => {
+  try {
+    const ip = getClientIp(request);
+    const limited = rateLimit(`feedback-post:${ip}`, {
+      limit: 20,
+      windowMs: 60_000,
     });
+    if (!limited.ok) {
+      return errorResponse('Too many requests.', 429, {
+        retryAfterSec: limited.retryAfterSec,
+      });
+    }
+
+    const data = await request.json();
+    const parsed = voteSchema.safeParse(data);
+
+    if (!parsed.success) {
+      return errorResponse('Invalid feedback payload.', 400, {
+        issues: z.treeifyError(parsed.error),
+      });
+    }
+
+    const { slug, type } = parsed.data;
+
+    const updatedFeedback =
+      type === 'helpful'
+        ? await db
+            .insert(feedback)
+            .values({ slug, helpful: 1 })
+            .onConflictDoUpdate({
+              target: feedback.slug,
+              set: { helpful: sql`${feedback.helpful} + 1` },
+            })
+            .returning({
+              helpful: feedback.helpful,
+              notHelpful: feedback.notHelpful,
+            })
+            .then(res => res[0])
+        : await db
+            .insert(feedback)
+            .values({ slug, notHelpful: 1 })
+            .onConflictDoUpdate({
+              target: feedback.slug,
+              set: { notHelpful: sql`${feedback.notHelpful} + 1` },
+            })
+            .returning({
+              helpful: feedback.helpful,
+              notHelpful: feedback.notHelpful,
+            })
+            .then(res => res[0]);
+
+    return jsonResponse(updatedFeedback);
   } catch (error) {
     console.error('Error handling feedback:', error);
-    return new Response('Internal server error', { status: 500 });
+    return errorResponse('Internal server error', 500);
   }
 };

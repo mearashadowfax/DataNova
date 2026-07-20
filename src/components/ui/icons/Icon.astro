@@ -24,8 +24,13 @@ const combinedClass = [icon.class, className].filter(Boolean).join(' ');
       stroke-width={icon.strokeWidth}
       stroke-linecap={icon.strokeLinecap}
       stroke-linejoin={icon.strokeLinejoin}
+      aria-hidden={
+        attributes['aria-hidden'] ?? (!icon.title ? 'true' : undefined)
+      }
     >
-      <title>{icon.title}</title>
+      {icon.title && !attributes['aria-hidden'] ? (
+        <title>{icon.title}</title>
+      ) : null}
       {paths.map((path: Path) => (
         <path d={path.d} class={path.class || ''} />
       ))}

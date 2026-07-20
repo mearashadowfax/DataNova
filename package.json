@@ -2,6 +2,10 @@
   "name": "datanova-template",
   "type": "module",
   "version": "0.0.1",
+  "packageManager": "pnpm@10.33.3",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -10,7 +14,12 @@
     "format:check": "prettier --check .",
     "format:fix": "prettier --write .",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
   },
   "pnpm": {
     "peerDependencyRules": {
@@ -47,15 +56,18 @@
     "tailwind-merge": "^3.6.0",
     "tailwindcss": "^4.3.2",
     "tslib": "^2.8.1",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.11",
     "@tailwindcss/typography": "^0.5.20",
+    "@types/node": "^26.1.1",
     "drizzle-kit": "^0.31.10",
     "mdast-util-from-markdown": "^2.0.3",
     "prettier": "^3.9.5",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.8.0"
+    "prettier-plugin-tailwindcss": "^0.8.0",
+    "vitest": "^4.1.10"
   }
 }

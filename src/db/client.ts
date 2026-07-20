@@ -2,11 +2,19 @@ import { createClient } from '@libsql/client';
 import { drizzle } from 'drizzle-orm/libsql';
 
 function getDatabaseUrl(): string {
-  return (
-    import.meta.env.TURSO_DATABASE_URL ??
-    import.meta.env.ASTRO_DB_REMOTE_URL ??
-    'file:.data/local.db'
-  );
+  const url =
+    import.meta.env.TURSO_DATABASE_URL ?? import.meta.env.ASTRO_DB_REMOTE_URL;
+
+  if (url) return url;
+
+  // Fail closed on Vercel when Turso env is missing – never silently use a local file DB there.
+  if (import.meta.env.VERCEL) {
+    throw new Error(
+      'Missing TURSO_DATABASE_URL (or ASTRO_DB_REMOTE_URL). Configure a Turso database for production.'
+    );
+  }
+
+  return 'file:.data/local.db';
 }
 
 function getAuthToken(): string | undefined {

@@ -48,7 +48,7 @@ This component dynamically renders either a `<button>` element or an `<a>` (link
       rel={rel ? rel : undefined}
       target={target ? target : undefined}
       class={twMerge(
-        `rounded-lg px-6 py-2.5 text-center font-medium transition-colors duration-300 focus:outline-hidden ${variants[variant ?? 'primary']} ${className || ''}`
+        `rounded-lg px-6 py-2.5 text-center font-medium transition-colors duration-300 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80 focus-visible:ring-offset-2 ${variants[variant ?? 'primary']} ${className || ''}`
       )}
     >
       <slot />
@@ -58,7 +58,7 @@ This component dynamically renders either a `<button>` element or an `<a>` (link
       id={id}
       type={type || 'button'}
       class={twMerge(
-        `rounded-lg px-6 py-2.5 text-center font-medium transition-colors duration-300 focus:outline-hidden ${variants[variant ?? 'primary']} ${className || ''}`
+        `rounded-lg px-6 py-2.5 text-center font-medium transition-colors duration-300 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80 focus-visible:ring-offset-2 ${variants[variant ?? 'primary']} ${className || ''}`
       )}
     >
       <slot />

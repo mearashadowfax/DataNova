@@ -1,14 +1,20 @@
 import type { APIRoute } from 'astro';
 
-// Helper function that generates the content for the robots.txt file
-// This specifies that all web crawlers (User-agent: *) have access to the entire site (Allow: /)
-const getRobotsTxt = () => `
+const getRobotsTxt = (sitemapURL: string) => `
 User-agent: *
 Allow: /
+Disallow: /keystatic
+Disallow: /api/
+
+Sitemap: ${sitemapURL}
 `;
 
-// API route for serving the robots.txt file
-// When a GET request is made to this route, it returns the generated robots.txt content
-export const GET: APIRoute = () => {
-  return new Response(getRobotsTxt());
+export const GET: APIRoute = ({ site }) => {
+  const sitemapURL = new URL(
+    'sitemap-index.xml',
+    site ?? 'https://data-nova.vercel.app'
+  );
+  return new Response(getRobotsTxt(sitemapURL.href), {
+    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+  });
 };

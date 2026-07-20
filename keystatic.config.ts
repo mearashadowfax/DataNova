@@ -5,7 +5,7 @@ import { config, fields, collection } from '@keystatic/core';
 const KEYSTATIC_STORAGE_MODE =
   import.meta.env.KEYSTATIC_STORAGE_MODE ?? 'local';
 
-// GitHub repository details — set these in your .env file for GitHub mode:
+// GitHub repository details – set these in your .env file for GitHub mode:
 // KEYSTATIC_GITHUB_REPO_OWNER=your-org
 // KEYSTATIC_GITHUB_REPO_NAME=your-repo
 const GITHUB_REPO_OWNER = import.meta.env.KEYSTATIC_GITHUB_REPO_OWNER ?? '';

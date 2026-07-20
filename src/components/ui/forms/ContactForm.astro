@@ -4,72 +4,95 @@ const formStrings = {
   email: 'Email',
   message: 'Message',
   submit: 'Submit',
+  submitting: 'Sending…',
+  success: 'Thanks! Your message has been sent.',
+  error: 'Something went wrong. Please try again.',
 };
+
+/**
+ * Submits to /api/contact.
+ * Optional delivery: set FORMSPREE_CONTACT_ENDPOINT or FORM_WEBHOOK_CONTACT in .env
+ */
 ---
 
-<!-- TODO: Wire up form submission. Options:
-  1. Set action="/api/contact" method="POST" and create src/pages/api/contact.ts
-  2. Use a third-party form service (e.g. Formspree: action="https://formspree.io/f/YOUR_ID" method="POST")
-  3. Add a fetch-based JS submit handler for a fully custom solution.
--->
-<form class="p-4" aria-labelledby="form-title">
-  {/* Fieldset and legend for grouping form elements */}
+<form
+  id="contact-form"
+  class="p-4"
+  aria-labelledby="contact-form-title"
+  data-form="contact"
+  novalidate
+>
   <fieldset class="space-y-4">
-    <legend id="form-title" class="sr-only">{formStrings.submit}</legend>
+    <legend id="contact-form-title" class="sr-only">{formStrings.submit}</legend
+    >
 
-    {/* Name input field */}
+    {/* Honeypot – hidden from users */}
+    <div class="hidden" aria-hidden="true">
+      <label for="contact-website">Website</label>
+      <input
+        type="text"
+        id="contact-website"
+        name="website"
+        tabindex="-1"
+        autocomplete="off"
+      />
+    </div>
+
     <div class="relative">
       <input
         type="text"
-        id="input-name"
-        class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80 focus:outline-hidden"
+        id="contact-name"
+        name="name"
+        class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80"
         placeholder={formStrings.name}
         required
         aria-required="true"
-        aria-labelledby="input-name-label"
+        aria-labelledby="contact-name-label"
+        autocomplete="name"
       />
       <label
-        id="input-name-label"
-        for="input-name"
+        id="contact-name-label"
+        for="contact-name"
         class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600"
       >
         {formStrings.name}
       </label>
     </div>
 
-    {/* Email input field */}
     <div class="relative">
       <input
         type="email"
-        id="input-email"
-        class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80 focus:outline-hidden"
+        id="contact-email"
+        name="email"
+        class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80"
         placeholder={formStrings.email}
         required
         aria-required="true"
-        aria-labelledby="input-email-label"
-        aria-invalid="false"
+        aria-labelledby="contact-email-label"
+        aria-describedby="contact-form-status"
+        autocomplete="email"
       />
       <label
-        id="input-email-label"
-        for="input-email"
+        id="contact-email-label"
+        for="contact-email"
         class="pointer-events-none absolute start-0 top-0 h-full w-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600"
       >
         {formStrings.email}
       </label>
     </div>
 
-    {/* Message textarea field */}
     <div class="relative">
       <textarea
-        id="input-message"
-        class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80 focus:outline-hidden"
+        id="contact-message"
+        name="message"
+        class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80"
         placeholder={formStrings.message}
         required
         aria-required="true"
-        aria-labelledby="input-message-label"></textarea>
+        aria-labelledby="contact-message-label"></textarea>
       <label
-        id="input-message-label"
-        for="input-message"
+        id="contact-message-label"
+        for="contact-message"
         class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600"
       >
         {formStrings.message}
@@ -77,14 +100,36 @@ const formStrings = {
     </div>
   </fieldset>
 
-  {/* Submit button */}
+  <p
+    id="contact-form-status"
+    class="mt-4 hidden text-sm"
+    role="status"
+    aria-live="polite"
+    data-form-status
+  >
+  </p>
+
   <div class="mt-8">
     <button
       type="submit"
-      class="inline-flex items-center rounded-lg bg-teal-100 px-6 py-2 font-medium text-nowrap text-slate-700 transition-colors duration-300 hover:bg-teal-700/80 hover:text-white focus:bg-teal-700/80 focus:outline-hidden"
+      data-form-submit
+      class="inline-flex items-center rounded-lg bg-teal-100 px-6 py-2 font-medium text-nowrap text-slate-700 transition-colors duration-300 hover:bg-teal-700/80 hover:text-white focus:bg-teal-700/80 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
       aria-label={formStrings.submit}
     >
       {formStrings.submit}
     </button>
   </div>
 </form>
+
+<script>
+  import { bindJsonForm } from '@/utils/form-client';
+
+  document.addEventListener('astro:page-load', () => {
+    bindJsonForm({
+      formId: 'contact-form',
+      endpoint: '/api/contact',
+      submittingLabel: 'Sending…',
+      defaultSubmitLabel: 'Submit',
+    });
+  });
+</script>
