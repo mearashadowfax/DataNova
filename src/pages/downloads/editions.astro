@@ -188,15 +188,23 @@ const infoSection = {
                   </span>
                   <span class="place-self-center md:mx-auto">
                     {item.essential ? (
-                      <Icon
-                        name="check"
-                        class="size-5 shrink-0 text-teal-700"
-                      />
+                      <span class="inline-flex items-center">
+                        <Icon
+                          name="check"
+                          class="size-5 shrink-0 text-teal-700"
+                          aria-hidden="true"
+                        />
+                        <span class="sr-only">Included</span>
+                      </span>
                     ) : (
-                      <Icon
-                        name="minus"
-                        class="size-5 shrink-0 text-slate-400"
-                      />
+                      <span class="inline-flex items-center">
+                        <Icon
+                          name="minus"
+                          class="size-5 shrink-0 text-slate-400"
+                          aria-hidden="true"
+                        />
+                        <span class="sr-only">Not included</span>
+                      </span>
                     )}
                   </span>
                 </div>
@@ -209,15 +217,23 @@ const infoSection = {
                   </span>
                   <span class="place-self-center md:mx-auto">
                     {item.advanced ? (
-                      <Icon
-                        name="check"
-                        class="size-5 shrink-0 text-teal-700"
-                      />
+                      <span class="inline-flex items-center">
+                        <Icon
+                          name="check"
+                          class="size-5 shrink-0 text-teal-700"
+                          aria-hidden="true"
+                        />
+                        <span class="sr-only">Included</span>
+                      </span>
                     ) : (
-                      <Icon
-                        name="minus"
-                        class="size-5 shrink-0 text-slate-400"
-                      />
+                      <span class="inline-flex items-center">
+                        <Icon
+                          name="minus"
+                          class="size-5 shrink-0 text-slate-400"
+                          aria-hidden="true"
+                        />
+                        <span class="sr-only">Not included</span>
+                      </span>
                     )}
                   </span>
                 </div>

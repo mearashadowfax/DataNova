@@ -118,13 +118,17 @@ const schema: WithContext<Thing> = {
   </section>
 
   <script>
-    document.addEventListener('astro:page-load', async () => {
+    document.addEventListener('astro:page-load', () => {
       const goBackButton = document.getElementById(
         'go-back'
-      ) as HTMLButtonElement;
+      ) as HTMLButtonElement | null;
 
-      goBackButton.addEventListener('click', () => {
-        history.back();
+      goBackButton?.addEventListener('click', () => {
+        if (window.history.length > 1) {
+          history.back();
+        } else {
+          window.location.href = '/';
+        }
       });
     });
   </script>

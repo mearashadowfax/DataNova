@@ -1,0 +1,33 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  actionHref?: string;
+  actionLabel?: string;
+}
+
+const {
+  title = 'Nothing here yet',
+  description = 'Content will appear once it is added to the content collections.',
+  actionHref = '/contact',
+  actionLabel = 'Contact us',
+} = Astro.props;
+---
+
+<div
+  class="col-span-full rounded-xl border border-dashed border-slate-300 px-6 py-12 text-center"
+  role="status"
+>
+  <h2 class="text-xl font-medium text-slate-800">{title}</h2>
+  <p class="mx-auto mt-2 max-w-md text-slate-500">{description}</p>
+  {
+    actionHref && (
+      <a
+        href={actionHref}
+        class="mt-6 inline-flex rounded-lg bg-teal-700 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-teal-700/80 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80 focus-visible:ring-offset-2"
+      >
+        {actionLabel}
+      </a>
+    )
+  }
+</div>

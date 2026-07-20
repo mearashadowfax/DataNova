@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '@layout/BaseLayout.astro';
+import EmptyState from '@common/EmptyState.astro';
+import Breadcrumbs from '@common/Breadcrumbs.astro';
 import { getCollection } from 'astro:content';
+import { stripHtml } from '@utils/sanitize';
 
 const spreadsheets = await getCollection('spreadsheets');
 
@@ -19,6 +22,13 @@ export const pageContent = {
   <section class="mx-auto max-w-[85rem] px-4 pt-48 pb-12 sm:px-6 lg:px-8">
     <div class="max-w-7xl">
       <div class="mx-auto max-w-3xl lg:mx-0">
+        <Breadcrumbs
+          items={[
+            { label: 'Home', href: '/' },
+            { label: 'Support', href: '/support/articles' },
+            { label: 'Sample Spreadsheets' },
+          ]}
+        />
         <h1
           class="text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
         >
@@ -29,55 +39,85 @@ export const pageContent = {
   </section>
 
   <section class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8">
-    <div class="flex flex-col">
-      <div class="overflow-x-auto">
-        <div class="inline-block p-1.5 align-middle lg:w-4/5">
-          <table class="divide-y divide-dashed divide-slate-300">
-            <thead>
-              <tr>
-                <th
-                  scope="col"
-                  class="px-6 py-3 text-start text-xs font-medium text-slate-500 uppercase"
-                  >{pageContent.tableHeadings.name}</th
+    {
+      spreadsheets.length === 0 ? (
+        <EmptyState
+          title="No sample spreadsheets yet"
+          description="Add spreadsheet entries under src/data/spreadsheets."
+        />
+      ) : (
+        <>
+          <ul class="space-y-4 md:hidden">
+            {spreadsheets.map(item => (
+              <li class="rounded-xl border border-dashed border-slate-300 p-4">
+                <h2 class="text-base font-medium text-slate-800">
+                  {item.data.title}
+                </h2>
+                <p class="mt-2 text-sm text-slate-600">
+                  {stripHtml(item.data.description)}
+                </p>
+                <a
+                  href={item.data.url}
+                  class="mt-4 inline-flex items-center gap-x-2 text-sm font-medium text-teal-700 transition-colors duration-300 hover:text-teal-800 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80"
                 >
-                <th
-                  scope="col"
-                  class="px-6 py-3 text-start text-xs font-medium text-slate-500 uppercase"
-                  >{pageContent.tableHeadings.details}</th
-                >
-                <th
-                  scope="col"
-                  class="px-6 py-3 text-end text-xs font-medium text-slate-500 uppercase"
-                  >{pageContent.tableHeadings.action}</th
-                >
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-dashed divide-slate-300">
-              {
-                spreadsheets.map(item => (
-                  <tr class="transition duration-150 hover:bg-slate-100">
-                    <td class="px-6 py-4 text-base font-medium whitespace-normal text-slate-800">
-                      {item.data.title}
-                    </td>
-                    <td
-                      class="px-6 py-4 text-base whitespace-normal text-slate-800"
-                      set:html={item.data.description}
-                    />
-                    <td class="px-6 py-4 text-end text-sm font-medium whitespace-nowrap">
-                      <a
-                        href={item.data.url}
-                        class="inline-flex items-center gap-x-2 text-teal-700 transition-colors duration-300 hover:text-teal-800 focus:outline-hidden"
+                  {pageContent.actionLabel}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <div class="hidden flex-col md:flex">
+            <div class="overflow-x-auto">
+              <div class="inline-block p-1.5 align-middle lg:w-4/5">
+                <table class="divide-y divide-dashed divide-slate-300">
+                  <thead>
+                    <tr>
+                      <th
+                        scope="col"
+                        class="px-6 py-3 text-start text-xs font-medium text-slate-500 uppercase"
                       >
-                        {pageContent.actionLabel}
-                      </a>
-                    </td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+                        {pageContent.tableHeadings.name}
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-3 text-start text-xs font-medium text-slate-500 uppercase"
+                      >
+                        {pageContent.tableHeadings.details}
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-3 text-end text-xs font-medium text-slate-500 uppercase"
+                      >
+                        {pageContent.tableHeadings.action}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-dashed divide-slate-300">
+                    {spreadsheets.map(item => (
+                      <tr class="transition duration-150 hover:bg-slate-100">
+                        <td class="px-6 py-4 text-base font-medium whitespace-normal text-slate-800">
+                          {item.data.title}
+                        </td>
+                        <td class="px-6 py-4 text-base whitespace-normal text-slate-800">
+                          {stripHtml(item.data.description)}
+                        </td>
+                        <td class="px-6 py-4 text-end text-sm font-medium whitespace-nowrap">
+                          <a
+                            href={item.data.url}
+                            class="inline-flex items-center gap-x-2 text-teal-700 transition-colors duration-300 hover:text-teal-800 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80"
+                          >
+                            {pageContent.actionLabel}
+                          </a>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </>
+      )
+    }
   </section>
 </BaseLayout>

@@ -10,7 +10,7 @@ const subTitle =
 
 // Comparison Table Link
 const compareLinkTitle = 'Compare editions & features';
-const compareLink = 'editions';
+const compareLink = '/downloads/editions';
 const compareLinkAriaLabel =
   'Explore the detailed feature comparison of the Essential and Advanced Editions of DataNova Core.';
 
@@ -117,8 +117,7 @@ const infoSections = [
         </p>
         <a
           href={compareLink}
-          target="_blank"
-          class="group mt-5 inline-flex items-center justify-center gap-x-2 text-center font-medium text-slate-700 shadow-lg shadow-transparent transition duration-300 hover:text-slate-400 focus:outline-hidden"
+          class="group mt-5 inline-flex items-center justify-center gap-x-2 text-center font-medium text-slate-700 shadow-lg shadow-transparent transition duration-300 hover:text-slate-400 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80"
           aria-label={compareLinkAriaLabel}
         >
           {compareLinkTitle}

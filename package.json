@@ -5,35 +5,45 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build --remote",
+    "build": "astro check && astro build",
     "format:check": "prettier --check .",
     "format:fix": "prettier --write .",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.6",
-    "@astrojs/markdoc": "^0.15.10",
-    "@tailwindcss/vite": "^4.2.1",
-    "astro": "^5.18.0",
+    "@astrojs/check": "^0.9.9",
+    "@astrojs/markdoc": "^2.0.3",
+    "@astrojs/sitemap": "^3.7.3",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.1.3",
     "astro-font": "^1.1.0",
-    "astro-seo": "^0.8.4",
-    "astro-seo-schema": "^5.2.0",
+    "astro-seo": "^1.1.0",
+    "astro-seo-schema": "^7.0.0",
     "mdast-util-to-string": "^4.0.0",
-    "preline": "^3.2.3",
+    "preline": "^4.2.0",
     "reading-time": "^1.5.0",
     "schema-dts": "^1.1.5",
-    "sharp": "^0.34.5",
-    "tailwind-merge": "^3.5.0",
-    "tailwindcss": "^4.2.1",
-    "typescript": "^5.9.3"
+    "sharp": "^0.35.3",
+    "tailwind-merge": "^3.6.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3",
+    "mdast-util-from-markdown": "^2.0.3"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.11",
-    "@tailwindcss/typography": "^0.5.19",
-    "mdast-util-from-markdown": "^2.0.3",
-    "prettier": "^3.8.1",
+    "@tailwindcss/typography": "^0.5.20",
+    "@types/node": "^26.1.1",
+    "prettier": "^3.9.5",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.7.2"
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "vitest": "^4.1.10"
+  },
+  "packageManager": "pnpm@10.33.3",
+  "engines": {
+    "node": ">=22.12.0"
   }
 }

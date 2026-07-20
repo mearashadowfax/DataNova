@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layout/BaseLayout.astro';
+import Breadcrumbs from '@common/Breadcrumbs.astro';
 import { formatDate } from '@utils/utils';
 import { getReadingTime } from '@utils/reading-time';
 import { getCollection, render } from 'astro:content';
@@ -21,7 +22,6 @@ const { Content, headings } = await render(post);
 
 const validHeadings = headings.filter(heading => heading.depth === 2);
 const readingTime = getReadingTime(post.body ?? '');
-const slug = post.id;
 ---
 
 <BaseLayout>
@@ -32,25 +32,41 @@ const slug = post.id;
           validHeadings.length > 0 && (
             <div class="relative mt-10 rounded-lg border border-dashed border-slate-300 p-5 md:mt-0 md:border-none md:p-0 md:pb-24">
               <nav class="sticky top-10 md:top-32">
-                <small class="font-semibold uppercase">On this page</small>
-                <ul class="mt-2 space-y-2">
-                  {validHeadings.map(heading => (
-                    <li>
-                      <a
-                        href={`#${heading.slug}`}
-                        class="block text-slate-400 transition-colors duration-200 hover:text-slate-600"
-                        data-toc-link
-                      >
-                        {heading.text}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+                <details class="group" open>
+                  <summary class="cursor-pointer list-none font-semibold uppercase marker:content-none md:pointer-events-none md:cursor-default">
+                    <span class="inline-flex items-center gap-2">
+                      On this page
+                      <span class="text-slate-400 md:hidden" aria-hidden="true">
+                        ▾
+                      </span>
+                    </span>
+                  </summary>
+                  <ul class="mt-2 space-y-2">
+                    {validHeadings.map(heading => (
+                      <li>
+                        <a
+                          href={`#${heading.slug}`}
+                          class="block text-slate-400 transition-colors duration-200 hover:text-slate-600 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80"
+                          data-toc-link
+                        >
+                          {heading.text}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
               </nav>
             </div>
           )
         }
         <div class="mx-auto md:col-span-2 md:col-start-2 md:pt-8">
+          <Breadcrumbs
+            items={[
+              { label: 'Home', href: '/' },
+              { label: 'Reference', href: '/support/reference' },
+              { label: post.data.title },
+            ]}
+          />
           <ul class="mb-5 text-xs text-slate-500">
             <li
               class="relative inline-block pe-6 before:absolute before:end-2 before:top-1/2 before:size-1 before:-translate-y-1/2 before:rounded-full before:bg-slate-300 last:pe-0 last-of-type:before:hidden"

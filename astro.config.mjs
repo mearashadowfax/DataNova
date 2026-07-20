@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import markdoc from '@astrojs/markdoc';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
@@ -10,10 +11,12 @@ export default defineConfig({
   site: 'https://data-nova.vercel.app',
   prefetch: true,
   trailingSlash: 'never',
+  // Preserve spaces between inline elements (nav/footer) after Astro 7 jsx default
+  compressHTML: true,
   experimental: {
     clientPrerender: true,
   },
-  integrations: [markdoc()],
+  integrations: [markdoc(), sitemap()],
   vite: {
     plugins: [tailwindcss()],
   },

@@ -15,104 +15,153 @@ const formStrings = {
 };
 ---
 
-<form class="p-4">
-  <div class="space-y-4">
-    {/* Name input field */}
+<form id="quote-form" class="p-4" data-form="quote" novalidate>
+  <fieldset class="space-y-4">
+    <legend class="sr-only">Request a quote</legend>
+
+    <div class="hidden" aria-hidden="true">
+      <label for="quote-website">Website</label>
+      <input
+        type="text"
+        id="quote-website"
+        name="website"
+        tabindex="-1"
+        autocomplete="off"
+      />
+    </div>
+
     <div class="relative">
       <input
         type="text"
-        id="input-name"
-        class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80 focus:outline-hidden"
+        id="quote-name"
+        name="name"
+        class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80"
         placeholder={formStrings.name}
         required
-        aria-labelledby="input-name-label"
+        aria-required="true"
+        aria-labelledby="quote-name-label"
+        autocomplete="name"
       />
       <label
-        id="input-name-label"
-        for="input-name"
-        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-disabled:pointer-events-none peer-disabled:opacity-50"
+        id="quote-name-label"
+        for="quote-name"
+        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600"
         >{formStrings.name}</label
       >
     </div>
 
-    {/* Company input field */}
     <div class="relative">
       <input
         type="text"
-        id="input-firm"
-        class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80 focus:outline-hidden"
+        id="quote-company"
+        name="company"
+        class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80"
         placeholder={formStrings.company}
         required
-        aria-labelledby="input-company-label"
+        aria-required="true"
+        aria-labelledby="quote-company-label"
+        autocomplete="organization"
       />
       <label
-        id="input-company-label"
-        for="input-firm"
-        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-disabled:pointer-events-none peer-disabled:opacity-50"
+        id="quote-company-label"
+        for="quote-company"
+        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600"
         >{formStrings.company}</label
       >
     </div>
 
-    {/* Email input field */}
     <div class="relative">
       <input
         type="email"
-        id="input-email"
-        class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80 focus:outline-hidden"
+        id="quote-email"
+        name="email"
+        class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80"
         placeholder={formStrings.email}
         required
-        aria-labelledby="input-email-label"
+        aria-required="true"
+        aria-labelledby="quote-email-label"
+        autocomplete="email"
       />
       <label
-        id="input-email-label"
-        for="input-email"
-        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-disabled:pointer-events-none peer-disabled:opacity-50"
+        id="quote-email-label"
+        for="quote-email"
+        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600"
         >{formStrings.email}</label
       >
     </div>
 
-    {/* License type select field */}
     <div class="relative">
       <select
-        id="license-type"
-        class="peer block w-full rounded-lg border border-transparent p-4 pe-9 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80"
+        id="quote-license-type"
+        name="licenseType"
+        class="peer block w-full rounded-lg border border-transparent p-4 pe-9 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80 focus-visible:ring-2 focus-visible:ring-teal-700/80"
         required
-        aria-labelledby="license-type-label"
+        aria-required="true"
+        aria-labelledby="quote-license-type-label"
       >
-        {formStrings.licenseTypes.map(type => <option>{type}</option>)}
+        {
+          formStrings.licenseTypes.map(type => (
+            <option value={type}>{type}</option>
+          ))
+        }
       </select>
       <label
-        for="license-type"
-        id="license-type-label"
-        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-500 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-500 peer-disabled:pointer-events-none peer-disabled:opacity-50"
+        for="quote-license-type"
+        id="quote-license-type-label"
+        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-500 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-500"
         >{formStrings.licenseTypeLabel}</label
       >
     </div>
 
-    {/* Message textarea field */}
     <div class="relative">
       <textarea
-        id="input-message"
-        class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80 focus:outline-hidden"
+        id="quote-message"
+        name="message"
+        class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80"
         placeholder={formStrings.message}
         required
-        aria-labelledby="input-message-label"></textarea>
+        aria-required="true"
+        aria-labelledby="quote-message-label"></textarea>
       <label
-        id="input-message-label"
-        for="input-message"
-        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-disabled:pointer-events-none peer-disabled:opacity-50"
+        id="quote-message-label"
+        for="quote-message"
+        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600"
         >{formStrings.message}</label
       >
     </div>
-  </div>
+  </fieldset>
 
-  {/* Submit button */}
+  <p
+    id="quote-form-status"
+    class="mt-4 hidden text-sm"
+    role="status"
+    aria-live="polite"
+    data-form-status
+  >
+  </p>
+
   <div class="mt-8">
     <button
       type="submit"
-      class="inline-flex items-center rounded-lg bg-teal-100 px-6 py-2 font-medium text-nowrap text-slate-700 transition-colors duration-300 hover:bg-teal-700/80 hover:text-white focus:bg-teal-700/80 focus:outline-hidden"
+      data-form-submit
+      class="inline-flex items-center rounded-lg bg-teal-100 px-6 py-2 font-medium text-nowrap text-slate-700 transition-colors duration-300 hover:bg-teal-700/80 hover:text-white focus:bg-teal-700/80 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
     >
       {formStrings.submit}
     </button>
   </div>
 </form>
+
+<script>
+  import { bindFormspreeForm } from '@/utils/form-client';
+
+  document.addEventListener('astro:page-load', () => {
+    bindFormspreeForm({
+      formId: 'quote-form',
+      endpointEnv: import.meta.env.PUBLIC_FORMSPREE_CONTACT,
+      submittingLabel: 'Sending…',
+      defaultSubmitLabel: 'Submit',
+      demoMessage:
+        'Thanks! (Demo mode – set PUBLIC_FORMSPREE_CONTACT to deliver emails.)',
+    });
+  });
+</script>

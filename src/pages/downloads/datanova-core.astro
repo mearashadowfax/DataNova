@@ -10,7 +10,7 @@ const subTitle =
 
 // Comparison Table Link
 const compareLinkTitle = 'Compare editions & features';
-const compareLink = 'editions';
+const compareLink = '/downloads/editions';
 const compareLinkAriaLabel =
   'Explore the detailed feature comparison of the Essential and Advanced Editions of DataNova Core.';
 
@@ -38,7 +38,7 @@ const advancedTier = {
 // Small Info Section
 const smallInfoSection = {
   intro: {
-    text: 'Try both editions free for 30 days — no commitment or personal info required.',
+    text: 'Try both editions free for 30 days – no commitment or personal info required.',
   },
   links: [
     {
@@ -48,7 +48,7 @@ const smallInfoSection = {
     },
     {
       text: 'Install / uninstall instructions',
-      href: 'editions',
+      href: '/downloads/editions',
       ariaLabel: 'Install & uninstall instructions',
     },
   ],
@@ -126,9 +126,8 @@ const largeInfoSection = {
           {subTitle}
         </p>
         <a
-          class="group mt-5 inline-flex items-center justify-center gap-x-2 text-center font-medium text-slate-700 shadow-lg shadow-transparent transition duration-300 hover:text-slate-400 focus:outline-hidden"
+          class="group mt-5 inline-flex items-center justify-center gap-x-2 text-center font-medium text-slate-700 shadow-lg shadow-transparent transition duration-300 hover:text-slate-400 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80"
           href={compareLink}
-          target="_blank"
           aria-label={compareLinkAriaLabel}
         >
           {compareLinkTitle}
