@@ -24,10 +24,10 @@ importers:
         version: 11.0.4(astro@7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@26.1.2)(@vercel/functions@3.7.6(ws@8.21.1))(idb-keyval@6.3.0)(jiti@2.7.0)(rollup@4.62.2)(tsx@4.23.1)(yaml@2.9.0))(react@19.2.8)(rollup@4.62.2)(svelte@5.56.8(@typescript-eslint/types@8.58.0))(ws@8.21.1)
       '@keystatic/astro':
         specifier: ^5.2.0
-        version: 5.2.0(@keystatic/core@0.5.51(@react-spectrum/provider@3.11.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(astro@7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@26.1.2)(@vercel/functions@3.7.6(ws@8.21.1))(idb-keyval@6.3.0)(jiti@2.7.0)(rollup@4.62.2)(tsx@4.23.1)(yaml@2.9.0))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        version: 5.2.0(@keystatic/core@0.6.3(@keystar/ui@0.7.22(@react-spectrum/provider@3.11.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-aria@3.50.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react-stately@3.48.0(react@19.2.8))(react@19.2.8))(astro@7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@26.1.2)(@vercel/functions@3.7.6(ws@8.21.1))(idb-keyval@6.3.0)(jiti@2.7.0)(rollup@4.62.2)(tsx@4.23.1)(yaml@2.9.0))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@keystatic/core':
-        specifier: ^0.5.51
-        version: 0.5.51(@react-spectrum/provider@3.11.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        specifier: ^0.6.3
+        version: 0.6.3(@keystar/ui@0.7.22(@react-spectrum/provider@3.11.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-aria@3.50.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react-stately@3.48.0(react@19.2.8))(react@19.2.8)
       '@libsql/client':
         specifier: ^0.17.4
         version: 0.17.4
@@ -124,10 +124,10 @@ importers:
         version: 4.1.10(@types/node@26.1.2)(vite@8.1.5(@types/node@26.1.2)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.23.1)(yaml@2.9.0))
 
 packages:
-  '@0no-co/graphql.web@1.3.2':
+  '@0no-co/graphql.web@1.3.3':
     resolution:
       {
-        integrity: sha512-Q1+pRlLhE31GOY/2c9BAEnFTNxO7Awtc6fhhEDlxyCBQ2N0IhD32cPVvPChrK9mwBNSgRdW/sF1kd2e0ojHj1Q==,
+        integrity: sha512-4gFGBdyaFmQ6n9euhp5JtIGS4ZeivwDr1tCPENUxTvy5wyv532yOtFCr9zzYAJh1s6uibgC+TRXUcay+mxzCoQ==,
       }
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
@@ -1854,14 +1854,17 @@ packages:
       react: ^18.2.0 || ^19.0.0
       react-dom: ^18.2.0 || ^19.0.0
 
-  '@keystatic/core@0.5.51':
+  '@keystatic/core@0.6.3':
     resolution:
       {
-        integrity: sha512-/Tw1r3iKCaqIuJfoxL6KO03sn+B/S2z3rly2jYUCjVMxwBInNyNIzOvrCK0Bg64FXHU1MAyUUD/stacnM0aUgA==,
+        integrity: sha512-cgALkpAvikI+FVC/Hn4y2iSlCEWmUy08GFlmHziSn247ssyY/CUzbJTNWYBnnJnRNpdvesZa1qF1AZf7xs84oA==,
       }
     peerDependencies:
+      '@keystar/ui': '*'
       react: ^18.2.0 || ^19.0.0
+      react-aria: 3.50.0
       react-dom: ^18.2.0 || ^19.0.0
+      react-stately: 3.48.0
 
   '@libsql/client@0.17.4':
     resolution:
@@ -3719,6 +3722,12 @@ packages:
         integrity: sha512-yg6E+u0/+Zjva+buc3EIb+29XEg4wltq7cSmd4Uc2EE/1nUVmxyzpX6gUXD0V8jIrG0r7YeOGVIbYRkxeooCtw==,
       }
 
+  '@types/linkify-it@5.0.0':
+    resolution:
+      {
+        integrity: sha512-sVDA58zAw4eWAffKOaQH5/5j3XeayukzDk+ewSsnv3p4yJEZHCCzMDiZM8e0OUrRvmpGZ85jf4yDHkHsgBNr9Q==,
+      }
+
   '@types/lodash@4.17.24':
     resolution:
       {
@@ -4271,10 +4280,10 @@ packages:
         integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==,
       }
 
-  brace-expansion@2.1.2:
+  brace-expansion@2.1.3:
     resolution:
       {
-        integrity: sha512-w5JZcKgdhDOgOwm8H+KgbosopHMuGcl6qbulwjtz3SM7I7P3yW1eAjzMPLrIE+NQ9vjgANKHWeMHnrT0OXW1oA==,
+        integrity: sha512-DRdx5neNsG/QXbniLFWi2YmC/68oeOOmKz6zOjVk6ZS1ZLXgLIKqVEc6hWsmkjBbgii0SwaBTcJ5XKj5gzY/4A==,
       }
 
   brace-expansion@5.0.8:
@@ -6650,10 +6659,10 @@ packages:
         integrity: sha512-GxboyN4AMIsoHNtz5uf2r2Ru551i5hWeCMD6E2Ib4Eogqoub0NflniaBPVQ4MrGE5yZ8JV9tUHg9qcZTTrcN4w==,
       }
 
-  prosemirror-view@1.42.1:
+  prosemirror-view@1.42.2:
     resolution:
       {
-        integrity: sha512-rRqzZnRgkyh69XoOMrfFJHwauHscLBmHbq772kwbic1ymQAM8gXjzEbJse5j1ep2UO2HRIAQL0bY3kZ/RoqjVw==,
+        integrity: sha512-Pdg0l5kXm8aLDquFAnQFTCITg0q44sLqBlHlpsVLD9segdOao8TOfQdAhCrCXyVgPSRr6UDDROOIWA3bIrN9YQ==,
       }
 
   punycode@2.3.1:
@@ -7983,7 +7992,7 @@ packages:
       }
 
 snapshots:
-  '@0no-co/graphql.web@1.3.2(graphql@16.14.2)':
+  '@0no-co/graphql.web@1.3.3(graphql@16.14.2)':
     optionalDependencies:
       graphql: 16.14.2
 
@@ -9051,37 +9060,27 @@ snapshots:
       - '@react-spectrum/provider'
       - supports-color
 
-  '@keystatic/astro@5.2.0(@keystatic/core@0.5.51(@react-spectrum/provider@3.11.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(astro@7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@26.1.2)(@vercel/functions@3.7.6(ws@8.21.1))(idb-keyval@6.3.0)(jiti@2.7.0)(rollup@4.62.2)(tsx@4.23.1)(yaml@2.9.0))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+  '@keystatic/astro@5.2.0(@keystatic/core@0.6.3(@keystar/ui@0.7.22(@react-spectrum/provider@3.11.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-aria@3.50.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react-stately@3.48.0(react@19.2.8))(react@19.2.8))(astro@7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@26.1.2)(@vercel/functions@3.7.6(ws@8.21.1))(idb-keyval@6.3.0)(jiti@2.7.0)(rollup@4.62.2)(tsx@4.23.1)(yaml@2.9.0))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
       '@babel/runtime': 7.29.7
-      '@keystatic/core': 0.5.51(@react-spectrum/provider@3.11.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@keystatic/core': 0.6.3(@keystar/ui@0.7.22(@react-spectrum/provider@3.11.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-aria@3.50.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react-stately@3.48.0(react@19.2.8))(react@19.2.8)
       '@types/react': 19.2.17
       astro: 7.1.5(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@26.1.2)(@vercel/functions@3.7.6(ws@8.21.1))(idb-keyval@6.3.0)(jiti@2.7.0)(rollup@4.62.2)(tsx@4.23.1)(yaml@2.9.0)
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
       set-cookie-parser: 2.7.2
 
-  '@keystatic/core@0.5.51(@react-spectrum/provider@3.11.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+  '@keystatic/core@0.6.3(@keystar/ui@0.7.22(@react-spectrum/provider@3.11.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-aria@3.50.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react-stately@3.48.0(react@19.2.8))(react@19.2.8)':
     dependencies:
       '@babel/runtime': 7.29.7
       '@braintree/sanitize-url': 6.0.4
       '@emotion/weak-memoize': 0.3.1
       '@floating-ui/react': 0.24.8(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@internationalized/date': 3.12.2
+      '@internationalized/number': 3.6.7
       '@internationalized/string': 3.2.9
       '@keystar/ui': 0.7.22(@react-spectrum/provider@3.11.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@markdoc/markdoc': 0.4.0(@types/react@19.2.17)(react@19.2.8)
-      '@react-aria/focus': 3.22.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@react-aria/i18n': 3.13.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@react-aria/interactions': 3.28.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@react-aria/label': 3.8.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@react-aria/overlays': 3.32.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@react-aria/selection': 3.28.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@react-aria/utils': 3.34.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@react-aria/visually-hidden': 3.9.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@react-stately/collections': 3.13.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@react-stately/list': 3.14.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@react-stately/overlays': 3.7.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@react-stately/utils': 3.12.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@react-types/shared': 3.36.0(react@19.2.8)
       '@sindresorhus/slugify': 1.1.2
       '@toeverything/y-indexeddb': 0.10.0-canary.9(yjs@13.6.31)
@@ -9122,9 +9121,11 @@ snapshots:
       prosemirror-state: 1.4.4
       prosemirror-tables: 1.8.5
       prosemirror-transform: 1.12.0
-      prosemirror-view: 1.42.1
+      prosemirror-view: 1.42.2
       react: 19.2.8
+      react-aria: 3.50.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       react-dom: 19.2.8(react@19.2.8)
+      react-stately: 3.48.0(react@19.2.8)
       scroll-into-view-if-needed: 3.1.0
       slate: 0.91.4
       slate-history: 0.86.0(slate@0.91.4)
@@ -9132,12 +9133,10 @@ snapshots:
       superstruct: 1.0.4
       unist-util-visit: 5.1.0
       urql: 4.2.2(@urql/core@5.2.0(graphql@16.14.2))(react@19.2.8)
-      y-prosemirror: 1.3.7(prosemirror-model@1.25.11)(prosemirror-state@1.4.4)(prosemirror-view@1.42.1)(y-protocols@1.0.7(yjs@13.6.31))(yjs@13.6.31)
+      y-prosemirror: 1.3.7(prosemirror-model@1.25.11)(prosemirror-state@1.4.4)(prosemirror-view@1.42.2)(y-protocols@1.0.7(yjs@13.6.31))(yjs@13.6.31)
       y-protocols: 1.0.7(yjs@13.6.31)
       yjs: 13.6.31
     transitivePeerDependencies:
-      - '@react-spectrum/provider'
-      - next
       - supports-color
 
   '@libsql/client@0.17.4':
@@ -10383,11 +10382,14 @@ snapshots:
   '@types/linkify-it@3.0.5':
     optional: true
 
+  '@types/linkify-it@5.0.0':
+    optional: true
+
   '@types/lodash@4.17.24': {}
 
   '@types/markdown-it@12.2.3':
     dependencies:
-      '@types/linkify-it': 3.0.5
+      '@types/linkify-it': 5.0.0
       '@types/mdurl': 2.0.0
     optional: true
 
@@ -10435,7 +10437,7 @@ snapshots:
 
   '@urql/core@5.2.0(graphql@16.14.2)':
     dependencies:
-      '@0no-co/graphql.web': 1.3.2(graphql@16.14.2)
+      '@0no-co/graphql.web': 1.3.3(graphql@16.14.2)
       wonka: 6.3.6
     transitivePeerDependencies:
       - graphql
@@ -10447,7 +10449,7 @@ snapshots:
 
   '@urql/exchange-graphcache@7.2.4(@urql/core@5.2.0(graphql@16.14.2))(graphql@16.14.2)':
     dependencies:
-      '@0no-co/graphql.web': 1.3.2(graphql@16.14.2)
+      '@0no-co/graphql.web': 1.3.3(graphql@16.14.2)
       '@urql/core': 5.2.0(graphql@16.14.2)
       wonka: 6.3.6
     transitivePeerDependencies:
@@ -10817,7 +10819,7 @@ snapshots:
 
   boolbase@1.0.0: {}
 
-  brace-expansion@2.1.2:
+  brace-expansion@2.1.3:
     dependencies:
       balanced-match: 1.0.2
 
@@ -12000,7 +12002,7 @@ snapshots:
 
   minimatch@9.0.9:
     dependencies:
-      brace-expansion: 2.1.2
+      brace-expansion: 2.1.3
 
   minipass@7.1.3: {}
 
@@ -12209,7 +12211,7 @@ snapshots:
     dependencies:
       prosemirror-state: 1.4.4
       prosemirror-transform: 1.12.0
-      prosemirror-view: 1.42.1
+      prosemirror-view: 1.42.2
       rope-sequence: 1.3.4
 
   prosemirror-keymap@1.2.3:
@@ -12225,7 +12227,7 @@ snapshots:
     dependencies:
       prosemirror-model: 1.25.11
       prosemirror-transform: 1.12.0
-      prosemirror-view: 1.42.1
+      prosemirror-view: 1.42.2
 
   prosemirror-tables@1.8.5:
     dependencies:
@@ -12233,13 +12235,13 @@ snapshots:
       prosemirror-model: 1.25.11
       prosemirror-state: 1.4.4
       prosemirror-transform: 1.12.0
-      prosemirror-view: 1.42.1
+      prosemirror-view: 1.42.2
 
   prosemirror-transform@1.12.0:
     dependencies:
       prosemirror-model: 1.25.11
 
-  prosemirror-view@1.42.1:
+  prosemirror-view@1.42.2:
     dependencies:
       prosemirror-model: 1.25.11
       prosemirror-state: 1.4.4
@@ -13009,12 +13011,12 @@ snapshots:
 
   xxhash-wasm@1.1.0: {}
 
-  y-prosemirror@1.3.7(prosemirror-model@1.25.11)(prosemirror-state@1.4.4)(prosemirror-view@1.42.1)(y-protocols@1.0.7(yjs@13.6.31))(yjs@13.6.31):
+  y-prosemirror@1.3.7(prosemirror-model@1.25.11)(prosemirror-state@1.4.4)(prosemirror-view@1.42.2)(y-protocols@1.0.7(yjs@13.6.31))(yjs@13.6.31):
     dependencies:
       lib0: 0.2.117
       prosemirror-model: 1.25.11
       prosemirror-state: 1.4.4
-      prosemirror-view: 1.42.1
+      prosemirror-view: 1.42.2
       y-protocols: 1.0.7(yjs@13.6.31)
       yjs: 13.6.31
 
