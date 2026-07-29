@@ -1,0 +1,51 @@
+name: Dependabot format
+
+on:
+  pull_request:
+    branches: [main, master]
+
+# Dependabot-triggered workflows get a read-only token by default;
+# elevate so we can push formatting fixes back to the PR branch.
+permissions:
+  contents: write
+
+concurrency:
+  group: dependabot-format-${{ github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+  format:
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          # Optional: add a PAT/fine-grained token as FORMAT_BOT_TOKEN so the
+          # push re-triggers CI (GITHUB_TOKEN commits do not start new runs).
+          token: ${{ secrets.FORMAT_BOT_TOKEN || secrets.GITHUB_TOKEN }}
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Format
+        run: pnpm format:fix
+
+      - name: Commit and push if needed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No formatting changes"
+            exit 0
+          fi
+          git commit -m "style: apply prettier after dependabot update"
+          git push
