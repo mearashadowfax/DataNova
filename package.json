@@ -62,7 +62,7 @@
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.11",
     "@tailwindcss/typography": "^0.5.20",
-    "@types/node": "^26.1.1",
+    "@types/node": "^26.1.2",
     "drizzle-kit": "^0.31.10",
     "mdast-util-from-markdown": "^2.0.3",
     "prettier": "^3.9.6",
