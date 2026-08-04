@@ -21,13 +21,6 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate"
   },
-  "pnpm": {
-    "peerDependencyRules": {
-      "allowedVersions": {
-        "@keystatic/astro>astro": "7"
-      }
-    }
-  },
   "dependencies": {
     "@astrojs/check": "^0.9.10",
     "@astrojs/markdoc": "^2.0.6",
