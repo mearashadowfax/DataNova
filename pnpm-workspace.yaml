@@ -1,0 +1,3 @@
+peerDependencyRules:
+  allowedVersions:
+    '@keystatic/astro>astro': '7'
