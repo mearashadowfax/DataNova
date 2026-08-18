@@ -33,7 +33,7 @@
     "@tailwindcss/vite": "^4.3.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
-    "astro": "^7.2.1",
+    "astro": "^7.2.2",
     "astro-font": "^1.2.0",
     "astro-seo": "^1.1.0",
     "astro-seo-schema": "^7.0.0",
