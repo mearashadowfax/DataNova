@@ -11,8 +11,8 @@ importers:
         specifier: ^0.9.10
         version: 0.9.10(prettier-plugin-astro@0.14.1)(prettier@3.9.6)(typescript@6.0.3)
       '@astrojs/markdoc':
-        specifier: ^2.0.6
-        version: 2.0.6(@types/react@19.2.18)(astro@7.2.2(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@26.2.0)(@vercel/functions@3.9.5(ws@8.21.3))(idb-keyval@6.3.0)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))(react@19.2.8)
+        specifier: ^2.0.8
+        version: 2.0.8(@types/react@19.2.18)(astro@7.2.2(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@26.2.0)(@vercel/functions@3.9.5(ws@8.21.3))(idb-keyval@6.3.0)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))(react@19.2.8)
       '@astrojs/react':
         specifier: 6.0.2
         version: 6.0.2(@types/node@26.2.0)(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(esbuild@0.28.2)(jiti@2.7.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tsx@4.23.12)(yaml@2.9.0)
@@ -311,10 +311,10 @@ packages:
       prettier-plugin-astro:
         optional: true
 
-  '@astrojs/markdoc@2.0.6':
+  '@astrojs/markdoc@2.0.8':
     resolution:
       {
-        integrity: sha512-YYKfF264HatquB6ytM25PFsXXDbQ9+izNNJ4qysTNCnJUPEgiTuYWCIvKKaKaIPBlkZb3vROtoNeq/chrYU9MQ==,
+        integrity: sha512-lnmMps31Ed6MWyZ7b4NNAjgJ1j88Rf/aPMnuSeNZXRIHIRifLdEkG9TOdZC9+P57xaek7mrbfVydOPDPiuLLjA==,
       }
     engines: { node: '>=22.12.0' }
     peerDependencies:
@@ -8240,9 +8240,9 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@astrojs/markdoc@2.0.6(@types/react@19.2.18)(astro@7.2.2(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@26.2.0)(@vercel/functions@3.9.5(ws@8.21.3))(idb-keyval@6.3.0)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))(react@19.2.8)':
+  '@astrojs/markdoc@2.0.8(@types/react@19.2.18)(astro@7.2.2(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@26.2.0)(@vercel/functions@3.9.5(ws@8.21.3))(idb-keyval@6.3.0)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))(react@19.2.8)':
     dependencies:
-      '@astrojs/internal-helpers': 0.10.2
+      '@astrojs/internal-helpers': 0.10.4
       '@astrojs/prism': 4.0.2
       '@markdoc/markdoc': 0.5.9(@types/react@19.2.18)(react@19.2.8)
       astro: 7.2.2(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@26.2.0)(@vercel/functions@3.9.5(ws@8.21.3))(idb-keyval@6.3.0)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0)
