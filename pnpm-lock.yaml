@@ -59,8 +59,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       preline:
-        specifier: ^4.2.0
-        version: 4.2.0
+        specifier: ^5.0.0
+        version: 5.0.0
       react:
         specifier: ^19.2.8
         version: 19.2.8
@@ -6546,11 +6546,12 @@ packages:
       }
     engines: { node: ^10 || ^12 || >=14 }
 
-  preline@4.2.0:
+  preline@5.0.0:
     resolution:
       {
-        integrity: sha512-lDdP5VzJDwVdWFDOUHKtkvWGxnsKt1o7Q9Sla19MMX03Lzzp4Pxwxs+TndcFZaNiSchYSDgSnjCsm7olV5JV3g==,
+        integrity: sha512-c1ayJoroSzIUcfsBLHrEbYV1NCjCNvjd8l1e/H5EPNQWzZiK1I36eUBgpR+J9scfrf1+1OnXt8Y+EBYUG640cQ==,
       }
+    engines: { node: 22.22.2, npm: '>=10' }
     hasBin: true
 
   prettier-plugin-astro@0.14.1:
@@ -7556,10 +7557,10 @@ packages:
         integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==,
       }
 
-  vanilla-calendar-pro@3.1.0:
+  vanilla-calendar-pro@3.2.0:
     resolution:
       {
-        integrity: sha512-yXDtCaedcKz6i5OOdWGwui0C8MAmjXjj7JzKZyjDlkczSRqnhI8BDGFygqT2K+qL1uY7R2fLYlTlxA6oyFs2yg==,
+        integrity: sha512-YxGMSdIVaUxeFJAN3e0WOirlJHnYfb9XaLLMrQA8mPhMORwqs5PLMtUNfDlnrUBHn59c2GU6s+l2Zhe59B2zpw==,
       }
 
   vfile-location@5.0.3:
@@ -12250,16 +12251,17 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  preline@4.2.0:
+  preline@5.0.0:
     dependencies:
       '@floating-ui/dom': 1.8.0
       '@types/culori': 4.0.1
       apexcharts: 4.7.0
       culori: 4.0.2
+      datatables.net: 2.3.8
       datatables.net-dt: 2.3.8
       dropzone: 6.0.0-beta.2
       nouislider: 15.8.1
-      vanilla-calendar-pro: 3.1.0
+      vanilla-calendar-pro: 3.2.0
 
   prettier-plugin-astro@0.14.1:
     dependencies:
@@ -12919,7 +12921,7 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  vanilla-calendar-pro@3.1.0: {}
+  vanilla-calendar-pro@3.2.0: {}
 
   vfile-location@5.0.3:
     dependencies:
