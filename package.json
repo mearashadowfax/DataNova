@@ -32,7 +32,7 @@
     "@libsql/client": "^0.17.4",
     "@tailwindcss/vite": "^4.3.3",
     "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.4",
+    "@types/react-dom": "^19.2.5",
     "astro": "^7.2.9",
     "astro-font": "^1.2.0",
     "astro-seo": "^1.1.0",
