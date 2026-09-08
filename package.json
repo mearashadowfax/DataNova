@@ -29,7 +29,7 @@
     "@astrojs/vercel": "11.0.8",
     "@keystatic/astro": "^6.0.0",
     "@keystatic/core": "^0.6.5",
-    "@libsql/client": "^0.17.4",
+    "@libsql/client": "^0.18.0",
     "@tailwindcss/vite": "^4.3.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
