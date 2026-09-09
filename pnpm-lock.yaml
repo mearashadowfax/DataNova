@@ -8140,12 +8140,6 @@ packages:
         integrity: sha512-sC95tT5iHHH9gtpj6A81kh+NEaRAUFN+qlUPDUbRfOMvNf5QCBqsb3WgvnpVtK5Y+4UfA6KqufotuTvMGiTlsA==,
       }
 
-  zod@4.5.4:
-    resolution:
-      {
-        integrity: sha512-sC95tT5iHHH9gtpj6A81kh+NEaRAUFN+qlUPDUbRfOMvNf5QCBqsb3WgvnpVtK5Y+4UfA6KqufotuTvMGiTlsA==,
-      }
-
   zwitch@2.0.4:
     resolution:
       {
@@ -13281,8 +13275,6 @@ snapshots:
   zimmerframe@1.1.5: {}
 
   zod@4.1.11: {}
-
-  zod@4.5.4: {}
 
   zod@4.5.4: {}
 
