@@ -23,8 +23,9 @@ const formStrings = {
   novalidate
 >
   <fieldset class="space-y-4">
-    <legend id="contact-form-title" class="sr-only">{formStrings.submit}</legend
-    >
+    <legend id="contact-form-title" class="sr-only">
+      {formStrings.submit}
+    </legend>
 
     {/* Honeypot – hidden from users */}
     <div class="hidden" aria-hidden="true">
@@ -89,7 +90,8 @@ const formStrings = {
         placeholder={formStrings.message}
         required
         aria-required="true"
-        aria-labelledby="contact-message-label"></textarea>
+        aria-labelledby="contact-message-label"
+      ></textarea>
       <label
         id="contact-message-label"
         for="contact-message"
@@ -106,8 +108,7 @@ const formStrings = {
     role="status"
     aria-live="polite"
     data-form-status
-  >
-  </p>
+  ></p>
 
   <div class="mt-8">
     <button

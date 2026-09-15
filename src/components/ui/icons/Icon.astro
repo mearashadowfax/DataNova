@@ -13,29 +13,27 @@ let paths: Path[] = icon.paths || [];
 const combinedClass = [icon.class, className].filter(Boolean).join(' ');
 ---
 
-{
-  icon ? (
-    <svg
-      {...attributes}
-      class={combinedClass}
-      viewBox={icon.viewBox}
-      fill={icon.fill}
-      stroke={icon.stroke}
-      stroke-width={icon.strokeWidth}
-      stroke-linecap={icon.strokeLinecap}
-      stroke-linejoin={icon.strokeLinejoin}
-      aria-hidden={
-        attributes['aria-hidden'] ?? (!icon.title ? 'true' : undefined)
-      }
-    >
-      {icon.title && !attributes['aria-hidden'] ? (
-        <title>{icon.title}</title>
-      ) : null}
-      {paths.map((path: Path) => (
-        <path d={path.d} class={path.class || ''} />
-      ))}
-    </svg>
-  ) : (
-    'Icon not found'
-  )
-}
+{icon ? (
+  <svg
+    {...attributes}
+    class={combinedClass}
+    viewBox={icon.viewBox}
+    fill={icon.fill}
+    stroke={icon.stroke}
+    stroke-width={icon.strokeWidth}
+    stroke-linecap={icon.strokeLinecap}
+    stroke-linejoin={icon.strokeLinejoin}
+    aria-hidden={
+      attributes['aria-hidden'] ?? (!icon.title ? 'true' : undefined)
+    }
+  >
+    {icon.title && !attributes['aria-hidden'] ? (
+      <title>{icon.title}</title>
+    ) : null}
+    {paths.map((path: Path) => (
+      <path d={path.d} class={path.class || ''} />
+    ))}
+  </svg>
+) : (
+  'Icon not found'
+)}

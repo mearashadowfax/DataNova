@@ -116,14 +116,10 @@ const largeInfoSection = {
     <div class="max-w-7xl">
       <div class="mx-auto max-w-2xl lg:mx-0">
         <p class="text-base/7 font-medium text-slate-400">{preTitle}</p>
-        <h1
-          class="mt-1 text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
-        >
+        <h1 class="mt-1 text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl">
           {title}
         </h1>
-        <p
-          class="mt-8 max-w-xl text-lg font-medium text-pretty text-slate-700 sm:text-xl/8"
-        >
+        <p class="mt-8 max-w-xl text-lg font-medium text-pretty text-slate-700 sm:text-xl/8">
           {subTitle}
         </p>
         <a
@@ -139,12 +135,8 @@ const largeInfoSection = {
     </div>
   </section>
 
-  <section
-    class="mx-auto mt-16 grid max-w-lg grid-cols-1 items-center gap-y-6 px-4 sm:mt-20 md:px-0 lg:max-w-4xl lg:grid-cols-2 lg:gap-y-0"
-  >
-    <div
-      class="rounded-3xl rounded-t-3xl bg-white/60 p-8 ring-1 ring-slate-900/10 sm:p-10 lg:rounded-tr-none lg:rounded-b-none lg:rounded-bl-3xl"
-    >
+  <section class="mx-auto mt-16 grid max-w-lg grid-cols-1 items-center gap-y-6 px-4 sm:mt-20 md:px-0 lg:max-w-4xl lg:grid-cols-2 lg:gap-y-0">
+    <div class="rounded-3xl rounded-t-3xl bg-white/60 p-8 ring-1 ring-slate-900/10 sm:p-10 lg:rounded-tr-none lg:rounded-b-none lg:rounded-bl-3xl">
       <h3 class="text-3xl font-semibold text-slate-600">
         {essentialTier.title}
       </h3>
@@ -156,13 +148,12 @@ const largeInfoSection = {
         href={essentialTier.cta.link}
         aria-describedby={essentialTier.title}
         class="mt-8 block rounded-lg px-3.5 py-2.5 text-center text-sm font-semibold ring-1 ring-teal-700 transition duration-300 ring-inset hover:bg-teal-700/80 hover:text-white focus:bg-teal-700 focus:text-white focus:outline-hidden sm:mt-10"
-        >{essentialTier.cta.text}</a
       >
+        {essentialTier.cta.text}
+      </a>
     </div>
 
-    <div
-      class="relative flex flex-col justify-evenly rounded-3xl bg-teal-700 p-8 shadow-2xl ring-1 ring-teal-900/10 sm:p-10 lg:h-[120%]"
-    >
+    <div class="relative flex flex-col justify-evenly rounded-3xl bg-teal-700 p-8 shadow-2xl ring-1 ring-teal-900/10 sm:p-10 lg:h-[120%]">
       <h3 class="text-4xl/7 font-semibold text-teal-100">
         {advancedTier.title}
       </h3>
@@ -175,51 +166,40 @@ const largeInfoSection = {
         href={advancedTier.cta.link}
         aria-describedby={advancedTier.title}
         class="mt-8 block rounded-lg bg-teal-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs transition-colors duration-300 hover:bg-teal-600/80 focus:bg-teal-600/80 focus:outline-hidden sm:mt-10"
-        >{advancedTier.cta.text}</a
       >
+        {advancedTier.cta.text}
+      </a>
     </div>
   </section>
 
   <section class="mx-auto max-w-[85rem] px-4 pt-32 pb-16 sm:px-6 lg:px-8">
-    <div
-      class="mx-auto grid grid-rows-1 content-center divide-y divide-dashed divide-slate-300 lg:mx-0 lg:grid-cols-2 lg:divide-x lg:divide-y-0"
-    >
+    <div class="mx-auto grid grid-rows-1 content-center divide-y divide-dashed divide-slate-300 lg:mx-0 lg:grid-cols-2 lg:divide-x lg:divide-y-0">
       <div class="py-5 sm:p-5">
-        <p
-          class="inline-flex gap-x-4 font-medium text-pretty text-slate-700 sm:text-lg/8"
-        >
+        <p class="inline-flex gap-x-4 font-medium text-pretty text-slate-700 sm:text-lg/8">
           <Icon name="info" class="size-8" />
           {smallInfoSection.intro.text}
         </p>
       </div>
       <div class="flex flex-col justify-evenly p-5">
-        {
-          smallInfoSection.links.map((link, index) => (
-            <a
-              class={`${index === 1 ? 'mt-5' : ''} group inline-flex w-fit items-center gap-x-2 font-medium text-slate-700 transition duration-300 hover:text-slate-400 focus:outline-hidden`}
-              href={link.href}
-              download={index === 0 ? link.href.split('/').pop() : undefined}
-              aria-label={link.ariaLabel}
-            >
-              {link.text}
-              <Icon name="chevronRight" />
-            </a>
-          ))
-        }
+        {smallInfoSection.links.map((link, index) => (
+          <a
+            class={`${index === 1 ? 'mt-5' : ''} group inline-flex w-fit items-center gap-x-2 font-medium text-slate-700 transition duration-300 hover:text-slate-400 focus:outline-hidden`}
+            href={link.href}
+            download={index === 0 ? link.href.split('/').pop() : undefined}
+            aria-label={link.ariaLabel}
+          >
+            {link.text}
+            <Icon name="chevronRight" />
+          </a>
+        ))}
       </div>
     </div>
   </section>
 
-  <section
-    class="mx-auto max-w-[85rem] px-4 pb-10 sm:px-6 md:py-14 lg:px-8 lg:py-20"
-  >
-    <div
-      class="grid rounded-3xl bg-teal-300 px-5 py-5 shadow-xl md:grid-cols-2 md:grid-rows-2"
-    >
+  <section class="mx-auto max-w-[85rem] px-4 pb-10 sm:px-6 md:py-14 lg:px-8 lg:py-20">
+    <div class="grid rounded-3xl bg-teal-300 px-5 py-5 shadow-xl md:grid-cols-2 md:grid-rows-2">
       <div class="py-5 sm:p-5 md:row-span-2 md:content-center">
-        <h3
-          class="text-2xl font-bold tracking-tight text-balance text-slate-800"
-        >
+        <h3 class="text-2xl font-bold tracking-tight text-balance text-slate-800">
           {largeInfoSection.olderReleases.title}
         </h3>
 
@@ -228,39 +208,29 @@ const largeInfoSection = {
         </p>
 
         <ul class="mt-6 list-inside list-none px-5 text-slate-700">
-          {
-            largeInfoSection.olderReleases.versions.map((release, index) => (
-              <li class={`${index % 2 === 1 ? 'mb-6' : ''}`}>
-                <a
-                  href={release.href}
-                  class="transition duration-300 hover:text-slate-400 hover:underline"
-                >
-                  {release.version}
-                </a>
-              </li>
-            ))
-          }
+          {largeInfoSection.olderReleases.versions.map((release, index) => (
+            <li class={`${index % 2 === 1 ? 'mb-6' : ''}`}>
+              <a
+                href={release.href}
+                class="transition duration-300 hover:text-slate-400 hover:underline"
+              >
+                {release.version}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
 
-      <div
-        class="border-t border-dashed border-slate-400 py-5 sm:p-5 md:content-center md:border-t-0 md:border-l"
-      >
-        <h3
-          class="text-2xl font-bold tracking-tight text-balance text-slate-800"
-        >
+      <div class="border-t border-dashed border-slate-400 py-5 sm:p-5 md:content-center md:border-t-0 md:border-l">
+        <h3 class="text-2xl font-bold tracking-tight text-balance text-slate-800">
           {largeInfoSection.systemRequirements.title}
         </h3>
         <p class="mt-6 text-lg/8 text-pretty text-slate-700">
           {largeInfoSection.systemRequirements.content}
         </p>
       </div>
-      <div
-        class="border-t border-dashed border-slate-400 py-5 sm:p-5 md:col-start-2 md:row-start-2 md:content-center md:border-l"
-      >
-        <h3
-          class="text-2xl font-bold tracking-tight text-balance text-slate-800"
-        >
+      <div class="border-t border-dashed border-slate-400 py-5 sm:p-5 md:col-start-2 md:row-start-2 md:content-center md:border-l">
+        <h3 class="text-2xl font-bold tracking-tight text-balance text-slate-800">
           {largeInfoSection.excel2003.title}
         </h3>
 
@@ -269,18 +239,16 @@ const largeInfoSection = {
         </p>
 
         <ul class="mt-6 list-inside list-none px-5 text-slate-700">
-          {
-            largeInfoSection.excel2003.versions.map(version => (
-              <li>
-                <a
-                  href={version.href}
-                  class="transition duration-300 hover:text-slate-400 hover:underline"
-                >
-                  {version.version}
-                </a>
-              </li>
-            ))
-          }
+          {largeInfoSection.excel2003.versions.map(version => (
+            <li>
+              <a
+                href={version.href}
+                class="transition duration-300 hover:text-slate-400 hover:underline"
+              >
+                {version.version}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

@@ -28,8 +28,7 @@ const variants = {
 };
 ---
 
-{
-  /*
+{/*
 Button Component:
 This component dynamically renders either a `<button>` element or an `<a>` (link) element based on the provided `href` prop.
 
@@ -37,31 +36,28 @@ This component dynamically renders either a `<button>` element or an `<a>` (link
  - If no `href` is provided, a `<button>` tag is rendered for performing actions and supports the `type` attribute (e.g., 'button', 'submit', or 'reset') to specify its behavior.
 
  Both types of elements share a similar structure and styling logic, with customization through the `variant`, `className`, and `id` props.
-*/
-}
+*/}
 
-{
-  href ? (
-    <a
-      id={id}
-      href={href}
-      rel={rel ? rel : undefined}
-      target={target ? target : undefined}
-      class={twMerge(
-        `rounded-lg px-6 py-2.5 text-center font-medium transition-colors duration-300 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80 focus-visible:ring-offset-2 ${variants[variant ?? 'primary']} ${className || ''}`
-      )}
-    >
-      <slot />
-    </a>
-  ) : (
-    <button
-      id={id}
-      type={type || 'button'}
-      class={twMerge(
-        `rounded-lg px-6 py-2.5 text-center font-medium transition-colors duration-300 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80 focus-visible:ring-offset-2 ${variants[variant ?? 'primary']} ${className || ''}`
-      )}
-    >
-      <slot />
-    </button>
-  )
-}
+{href ? (
+  <a
+    id={id}
+    href={href}
+    rel={rel ? rel : undefined}
+    target={target ? target : undefined}
+    class={twMerge(
+      `rounded-lg px-6 py-2.5 text-center font-medium transition-colors duration-300 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80 focus-visible:ring-offset-2 ${variants[variant ?? 'primary']} ${className || ''}`
+    )}
+  >
+    <slot />
+  </a>
+) : (
+  <button
+    id={id}
+    type={type || 'button'}
+    class={twMerge(
+      `rounded-lg px-6 py-2.5 text-center font-medium transition-colors duration-300 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80 focus-visible:ring-offset-2 ${variants[variant ?? 'primary']} ${className || ''}`
+    )}
+  >
+    <slot />
+  </button>
+)}

@@ -11,20 +11,18 @@ const subTitle =
 const primaryCTA = { text: 'Start Free Trial', href: '#' };
 ---
 
-<section
-  class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20"
->
+<section class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20">
   <div class="mx-auto mb-10 max-w-3xl text-center lg:mb-14">
     <h2 class="text-4xl text-balance text-slate-800 sm:text-5xl">
       <Fragment set:html={title} />
     </h2>
-    <p class="text-lg\/8 mt-5 text-pretty text-slate-600">
-      {subTitle}
-    </p>
+    <p class="text-lg\/8 mt-5 text-pretty text-slate-600">{subTitle}</p>
     <Button
       href={primaryCTA.href}
       variant="primary"
-      className="mt-7 inline-flex border-none px-3.5!">{primaryCTA.text}</Button
+      className="mt-7 inline-flex border-none px-3.5!"
     >
+      {primaryCTA.text}
+    </Button>
   </div>
 </section>

@@ -217,19 +217,17 @@ Use these links in the `Navbar.astro`:
 
 ```astro
 <div class="grow">
-  {
-    navigationLinks.map(link => (
-      <a
-        href={link.href}
-        class={`flex items-center rounded-lg p-2 font-medium text-slate-800 hover:bg-slate-100 ${
-          currentPath === link.href ? 'underline underline-offset-4' : ''
-        }`}
-        aria-current={currentPath === link.href ? 'page' : undefined}
-      >
-        {link.label}
-      </a>
-    ))
-  }
+  {navigationLinks.map(link => (
+    <a
+      href={link.href}
+      class={`flex items-center rounded-lg p-2 font-medium text-slate-800 hover:bg-slate-100 ${
+        currentPath === link.href ? 'underline underline-offset-4' : ''
+      }`}
+      aria-current={currentPath === link.href ? 'page' : undefined}
+    >
+      {link.label}
+    </a>
+  ))}
 </div>
 ```
 
@@ -288,19 +286,17 @@ const currentPath = Astro.url.pathname;
   </button>
   // ...
   <div class="hs-dropdown-menu">
-    {
-      downloadsMenu.map(section => (
-        <div>
-          <p>{section.sectionTitle}</p>
-          {section.items.map(item => (
-            <a href={item.href}>
-              <p>{item.title}</p>
-              <p>{item.description}</p>
-            </a>
-          ))}
-        </div>
-      ))
-    }
+    {downloadsMenu.map(section => (
+      <div>
+        <p>{section.sectionTitle}</p>
+        {section.items.map(item => (
+          <a href={item.href}>
+            <p>{item.title}</p>
+            <p>{item.description}</p>
+          </a>
+        ))}
+      </div>
+    ))}
   </div>
 </div>
 ```
@@ -622,9 +618,7 @@ const seo = {
 };
 ---
 
-<BaseLayout seo={seo}>
-  {/* ... page content ... */}
-</BaseLayout>
+<BaseLayout seo={seo}>{/* ... page content ... */}</BaseLayout>
 ```
 
 ### Astro SEO Schema
@@ -643,9 +637,7 @@ const schema: WithContext<Thing> = {
 };
 ---
 
-<BaseLayout schema={schema}>
-  {/* ... page content ... */}
-</BaseLayout>
+<BaseLayout schema={schema}>{/* ... page content ... */}</BaseLayout>
 ```
 
 ### Astro Font

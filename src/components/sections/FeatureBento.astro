@@ -66,9 +66,7 @@ const features = [
 <div class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20">
   {/* Section container for the title and subtitle */}
   <div class="mx-auto mb-10 max-w-2xl text-center lg:mb-14">
-    <h2
-      class="text-2xl font-semibold text-balance text-slate-800 md:text-3xl md:leading-tight"
-    >
+    <h2 class="text-2xl font-semibold text-balance text-slate-800 md:text-3xl md:leading-tight">
       <Fragment set:html={title} />
     </h2>
     <p class="mt-1 text-pretty text-slate-600">
@@ -78,76 +76,74 @@ const features = [
 
   <div class="mx-auto max-w-2xl px-6 lg:max-w-[85rem] lg:px-0">
     <div class="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
-      {
-        features.map(feature => (
-          <div class={feature.class}>
-            <div
-              class={`absolute inset-px rounded-lg bg-white ${feature.wrapperClass}`}
-            />
-            <div
-              class={`relative flex h-full flex-col overflow-hidden rounded-lg ${feature.wrapperClass}`}
-            >
-              <div class="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
-                <h3 class="mt-2 text-lg font-medium tracking-tight text-slate-800 max-lg:text-center">
-                  {feature.title}
-                </h3>
+      {features.map(feature => (
+        <div class={feature.class}>
+          <div
+            class={`absolute inset-px rounded-lg bg-white ${feature.wrapperClass}`}
+          />
+          <div
+            class={`relative flex h-full flex-col overflow-hidden rounded-lg ${feature.wrapperClass}`}
+          >
+            <div class="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
+              <h3 class="mt-2 text-lg font-medium tracking-tight text-slate-800 max-lg:text-center">
+                {feature.title}
+              </h3>
 
-                {/* Render descriptions as paragraphs if available */}
-                {feature.description && (
-                  <p
-                    class="mt-2 max-w-lg text-sm/6 text-slate-600 max-lg:text-center"
-                    set:html={feature.description}
-                  />
-                )}
+              {/* Render descriptions as paragraphs if available */}
+              {feature.description && (
+                <p
+                  class="mt-2 max-w-lg text-sm/6 text-slate-600 max-lg:text-center"
+                  set:html={feature.description}
+                />
+              )}
 
-                {/* Render list items if available */}
-                {feature.listItems && (
-                  <ul class="mt-2 max-w-lg list-inside list-disc space-y-1 text-sm/6 text-slate-600 marker:text-teal-600 max-lg:text-center">
-                    {feature.listItems.map(item => (
-                      <li set:html={item} />
-                    ))}
-                  </ul>
+              {/* Render list items if available */}
+              {feature.listItems && (
+                <ul class="mt-2 max-w-lg list-inside list-disc space-y-1 text-sm/6 text-slate-600 marker:text-teal-600 max-lg:text-center">
+                  {feature.listItems.map(item => (
+                    <li set:html={item} />
+                  ))}
+                </ul>
+              )}
+            </div>
+
+            {/* Render Image if available */}
+            {feature.image && (
+              <div class={`${feature.imageContainerClass}`}>
+                {feature.imageSecondaryContainerClass ? (
+                  <div class={`${feature.imageSecondaryContainerClass}`}>
+                    <Image
+                      class={`${feature.imageClass}`}
+                      src={feature.image}
+                      alt=""
+                    />
+                  </div>
+                ) : (
+                  <>
+                    <div class={`${feature.imageFadeClass}`} />
+                    <Image
+                      class={`${feature.imageClass}`}
+                      src={feature.image}
+                      alt=""
+                    />
+                  </>
                 )}
               </div>
+            )}
 
-              {/* Render Image if available */}
-              {feature.image && (
-                <div class={`${feature.imageContainerClass}`}>
-                  {feature.imageSecondaryContainerClass ? (
-                    <div class={`${feature.imageSecondaryContainerClass}`}>
-                      <Image
-                        class={`${feature.imageClass}`}
-                        src={feature.image}
-                        alt=""
-                      />
-                    </div>
-                  ) : (
-                    <>
-                      <div class={`${feature.imageFadeClass}`} />
-                      <Image
-                        class={`${feature.imageClass}`}
-                        src={feature.image}
-                        alt=""
-                      />
-                    </>
-                  )}
-                </div>
-              )}
+            {/* Render component if available */}
+            {feature.component && (
+              <div>
+                <PlatformOrbit />
+              </div>
+            )}
 
-              {/* Render component if available */}
-              {feature.component && (
-                <div>
-                  <PlatformOrbit />
-                </div>
-              )}
-
-              <div
-                class={`pointer-events-none absolute inset-px rounded-lg shadow-sm ring-1 ring-black/5 ${feature.wrapperClass}`}
-              />
-            </div>
+            <div
+              class={`pointer-events-none absolute inset-px rounded-lg shadow-sm ring-1 ring-black/5 ${feature.wrapperClass}`}
+            />
           </div>
-        ))
-      }
+        </div>
+      ))}
     </div>
   </div>
 </div>

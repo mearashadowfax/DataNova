@@ -15,20 +15,17 @@ const primaryCTA = {
 };
 ---
 
-<header
-  class="fixed start-1/2 top-5 z-50 mx-auto flex w-full max-w-sm -translate-x-1/2 transform flex-wrap rounded-2xl border-b border-slate-100 bg-white bg-linear-to-t/oklch from-teal-100 via-transparent to-white p-4 shadow-xs sm:max-w-xl md:max-w-4xl md:flex-nowrap md:justify-start lg:max-w-5xl xl:max-w-6xl xl:shadow-none xl:ring-teal-950/5 2xl:max-w-[81rem] 2xl:via-0%"
->
-  <nav
-    class="relative mx-auto w-full px-4 py-2 sm:px-6 lg:px-8 xl:flex xl:max-w-7xl xl:items-center xl:justify-between xl:gap-3 2xl:max-w-[85rem]"
-  >
+<header class="fixed start-1/2 top-5 z-50 mx-auto flex w-full max-w-sm -translate-x-1/2 transform flex-wrap rounded-2xl border-b border-slate-100 bg-white bg-linear-to-t/oklch from-teal-100 via-transparent to-white p-4 shadow-xs sm:max-w-xl md:max-w-4xl md:flex-nowrap md:justify-start lg:max-w-5xl xl:max-w-6xl xl:shadow-none xl:ring-teal-950/5 2xl:max-w-[81rem] 2xl:via-0%">
+  <nav class="relative mx-auto w-full px-4 py-2 sm:px-6 lg:px-8 xl:flex xl:max-w-7xl xl:items-center xl:justify-between xl:gap-3 2xl:max-w-[85rem]">
     <div class="flex items-center justify-between gap-x-1">
       <a
         class="dm-sans flex-none text-2xl font-light text-slate-400 focus:opacity-80 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80 focus-visible:ring-offset-2"
         href="/"
         aria-label="DataNova Logo"
         translate="no"
-        ><span class="font-semibold text-teal-700">Data</span>Nova</a
       >
+        <span class="font-semibold text-teal-700">Data</span>Nova
+      </a>
 
       <button
         type="button"
@@ -50,12 +47,11 @@ const primaryCTA = {
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
-          ><line x1="3" x2="21" y1="6" y2="6"></line><line
-            x1="3"
-            x2="21"
-            y1="12"
-            y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg
         >
+          <line x1="3" x2="21" y1="6" y2="6"></line>
+          <line x1="3" x2="21" y1="12" y2="12"></line>
+          <line x1="3" x2="21" y1="18" y2="18"></line>
+        </svg>
         <svg
           class="hs-collapse-open:block hidden size-4 shrink-0"
           xmlns="http://www.w3.org/2000/svg"
@@ -67,8 +63,10 @@ const primaryCTA = {
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
-          ><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg
         >
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
         <span class="sr-only">Toggle navigation</span>
       </button>
     </div>
@@ -78,16 +76,10 @@ const primaryCTA = {
       class="hs-collapse hidden grow basis-full overflow-hidden transition-all duration-300 xl:ml-12 xl:block 2xl:ml-20"
       aria-labelledby="hs-header-base-collapse"
     >
-      <div
-        class="max-h-[75vh] overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-300 [&::-webkit-scrollbar-track]:bg-slate-100"
-      >
-        <div
-          class="flex flex-col gap-0.5 py-2 xl:flex-row xl:items-center xl:gap-1 xl:py-0"
-        >
+      <div class="max-h-[75vh] overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-300 [&::-webkit-scrollbar-track]:bg-slate-100">
+        <div class="flex flex-col gap-0.5 py-2 xl:flex-row xl:items-center xl:gap-1 xl:py-0">
           <div class="grow">
-            <div
-              class="flex flex-col gap-0.5 xl:flex-row xl:items-center xl:justify-evenly xl:gap-1"
-            >
+            <div class="flex flex-col gap-0.5 xl:flex-row xl:items-center xl:justify-evenly xl:gap-1">
               <a
                 href="/"
                 class={`flex items-center rounded-lg p-2 font-medium text-slate-800 hover:bg-slate-100 focus:bg-slate-100 focus:outline-hidden ${
@@ -106,36 +98,31 @@ const primaryCTA = {
 
               <Support />
 
-              {
-                navigationLinks.map(link => (
-                  <a
-                    href={link.href}
-                    class={`flex items-center rounded-lg p-2 font-medium text-slate-800 hover:bg-slate-100 focus:bg-slate-100 focus:outline-hidden ${
-                      currentPath === link.href
-                        ? 'underline underline-offset-4'
-                        : ''
-                    }`}
-                    aria-current={
-                      currentPath === link.href ? 'page' : undefined
-                    }
-                  >
-                    {link.label}
-                  </a>
-                ))
-              }
+              {navigationLinks.map(link => (
+                <a
+                  href={link.href}
+                  class={`flex items-center rounded-lg p-2 font-medium text-slate-800 hover:bg-slate-100 focus:bg-slate-100 focus:outline-hidden ${
+                    currentPath === link.href
+                      ? 'underline underline-offset-4'
+                      : ''
+                  }`}
+                  aria-current={currentPath === link.href ? 'page' : undefined}
+                >
+                  {link.label}
+                </a>
+              ))}
             </div>
           </div>
 
-          <div
-            class="mt-5 flex flex-wrap items-center gap-x-1.5 xl:mt-0 xl:ml-6"
-          >
+          <div class="mt-5 flex flex-wrap items-center gap-x-1.5 xl:mt-0 xl:ml-6">
             <Button
               href={primaryCTA.href}
               variant="primary"
               target="_blank"
               className="inline-flex border-none py-2! text-nowrap"
-              >{primaryCTA.text}</Button
             >
+              {primaryCTA.text}
+            </Button>
           </div>
         </div>
       </div>

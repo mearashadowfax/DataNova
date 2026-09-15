@@ -48,8 +48,10 @@ const defaultSchema: WithContext<Thing> = {
     <SEO
       charset="utf-8"
       title={seo?.title ?? 'DataNova'}
-      description={seo?.description ??
-        "Unlock powerful data insights with DataNova's advanced analytics suite for Excel. Visualize, analyze, and make data-driven decisions in minutes with seamless Excel integration, AI-powered analysis, and predictive forecasting models."}
+      description={
+        seo?.description ??
+        "Unlock powerful data insights with DataNova's advanced analytics suite for Excel. Visualize, analyze, and make data-driven decisions in minutes with seamless Excel integration, AI-powered analysis, and predictive forecasting models."
+      }
       openGraph={{
         basic: {
           title: ogTitle,

@@ -29,9 +29,7 @@ export const pageContent = {
             { label: 'Sample Spreadsheets' },
           ]}
         />
-        <h1
-          class="text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
-        >
+        <h1 class="text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl">
           {pageContent.pageTitle}
         </h1>
       </div>
@@ -39,87 +37,85 @@ export const pageContent = {
   </section>
 
   <section class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8">
-    {
-      spreadsheets.length === 0 ? (
-        <EmptyState
-          title="No sample spreadsheets yet"
-          description="Add spreadsheet entries under src/data/spreadsheets."
-        />
-      ) : (
-        <>
-          {/* Mobile card layout */}
-          <ul class="space-y-4 md:hidden">
-            {spreadsheets.map(item => (
-              <li class="rounded-xl border border-dashed border-slate-300 p-4">
-                <h2 class="text-base font-medium text-slate-800">
-                  {item.data.title}
-                </h2>
-                <p class="mt-2 text-sm text-slate-600">
-                  {stripHtml(item.data.description)}
-                </p>
-                <a
-                  href={item.data.url}
-                  class="mt-4 inline-flex items-center gap-x-2 text-sm font-medium text-teal-700 transition-colors duration-300 hover:text-teal-800 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80"
-                >
-                  {pageContent.actionLabel}
-                </a>
-              </li>
-            ))}
-          </ul>
+    {spreadsheets.length === 0 ? (
+      <EmptyState
+        title="No sample spreadsheets yet"
+        description="Add spreadsheet entries under src/data/spreadsheets."
+      />
+    ) : (
+      <>
+        {/* Mobile card layout */}
+        <ul class="space-y-4 md:hidden">
+          {spreadsheets.map(item => (
+            <li class="rounded-xl border border-dashed border-slate-300 p-4">
+              <h2 class="text-base font-medium text-slate-800">
+                {item.data.title}
+              </h2>
+              <p class="mt-2 text-sm text-slate-600">
+                {stripHtml(item.data.description)}
+              </p>
+              <a
+                href={item.data.url}
+                class="mt-4 inline-flex items-center gap-x-2 text-sm font-medium text-teal-700 transition-colors duration-300 hover:text-teal-800 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80"
+              >
+                {pageContent.actionLabel}
+              </a>
+            </li>
+          ))}
+        </ul>
 
-          {/* Desktop table */}
-          <div class="hidden flex-col md:flex">
-            <div class="overflow-x-auto">
-              <div class="inline-block p-1.5 align-middle lg:w-4/5">
-                <table class="divide-y divide-dashed divide-slate-300">
-                  <thead>
-                    <tr>
-                      <th
-                        scope="col"
-                        class="px-6 py-3 text-start text-xs font-medium text-slate-500 uppercase"
-                      >
-                        {pageContent.tableHeadings.name}
-                      </th>
-                      <th
-                        scope="col"
-                        class="px-6 py-3 text-start text-xs font-medium text-slate-500 uppercase"
-                      >
-                        {pageContent.tableHeadings.details}
-                      </th>
-                      <th
-                        scope="col"
-                        class="px-6 py-3 text-end text-xs font-medium text-slate-500 uppercase"
-                      >
-                        {pageContent.tableHeadings.action}
-                      </th>
+        {/* Desktop table */}
+        <div class="hidden flex-col md:flex">
+          <div class="overflow-x-auto">
+            <div class="inline-block p-1.5 align-middle lg:w-4/5">
+              <table class="divide-y divide-dashed divide-slate-300">
+                <thead>
+                  <tr>
+                    <th
+                      scope="col"
+                      class="px-6 py-3 text-start text-xs font-medium text-slate-500 uppercase"
+                    >
+                      {pageContent.tableHeadings.name}
+                    </th>
+                    <th
+                      scope="col"
+                      class="px-6 py-3 text-start text-xs font-medium text-slate-500 uppercase"
+                    >
+                      {pageContent.tableHeadings.details}
+                    </th>
+                    <th
+                      scope="col"
+                      class="px-6 py-3 text-end text-xs font-medium text-slate-500 uppercase"
+                    >
+                      {pageContent.tableHeadings.action}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-dashed divide-slate-300">
+                  {spreadsheets.map(item => (
+                    <tr class="transition duration-150 hover:bg-slate-100">
+                      <td class="px-6 py-4 text-base font-medium whitespace-normal text-slate-800">
+                        {item.data.title}
+                      </td>
+                      <td class="px-6 py-4 text-base whitespace-normal text-slate-800">
+                        {stripHtml(item.data.description)}
+                      </td>
+                      <td class="px-6 py-4 text-end text-sm font-medium whitespace-nowrap">
+                        <a
+                          href={item.data.url}
+                          class="inline-flex items-center gap-x-2 text-teal-700 transition-colors duration-300 hover:text-teal-800 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80"
+                        >
+                          {pageContent.actionLabel}
+                        </a>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody class="divide-y divide-dashed divide-slate-300">
-                    {spreadsheets.map(item => (
-                      <tr class="transition duration-150 hover:bg-slate-100">
-                        <td class="px-6 py-4 text-base font-medium whitespace-normal text-slate-800">
-                          {item.data.title}
-                        </td>
-                        <td class="px-6 py-4 text-base whitespace-normal text-slate-800">
-                          {stripHtml(item.data.description)}
-                        </td>
-                        <td class="px-6 py-4 text-end text-sm font-medium whitespace-nowrap">
-                          <a
-                            href={item.data.url}
-                            class="inline-flex items-center gap-x-2 text-teal-700 transition-colors duration-300 hover:text-teal-800 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80"
-                          >
-                            {pageContent.actionLabel}
-                          </a>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
-        </>
-      )
-    }
+        </div>
+      </>
+    )}
   </section>
 </BaseLayout>
