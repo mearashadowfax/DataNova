@@ -1,3 +1,13 @@
 peerDependencyRules:
   allowedVersions:
     '@keystatic/astro>astro': '7'
+
+# pnpm 11 gates new resolutions behind a 24h minimumReleaseAge. Trust entries
+# already committed to the lockfile so install/CI never fail on versions a
+# human deliberately bumped; fresh resolutions (pnpm add/update) stay gated.
+trustLockfile: true
+
+# esbuild's postinstall only validates the platform binary that already comes
+# in via optional deps; pnpm 10 skipped it silently, pnpm 11 errors unless told.
+allowBuilds:
+  esbuild: false
