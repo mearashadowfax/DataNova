@@ -11,3 +11,6 @@ trustLockfile: true
 # in via optional deps; pnpm 10 skipped it silently, pnpm 11 errors unless told.
 allowBuilds:
   esbuild: false
+
+minimumReleaseAgeExclude:
+  - '@types/node@26.6.0'
