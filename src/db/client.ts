@@ -1,5 +1,6 @@
 import { createClient } from '@libsql/client';
 import { drizzle } from 'drizzle-orm/libsql';
+import { mkdirSync } from 'node:fs';
 
 function getDatabaseUrl(): string {
   const url =
@@ -14,6 +15,8 @@ function getDatabaseUrl(): string {
     );
   }
 
+  // libSQL creates the database file but not its directory, and .data/ is git-ignored.
+  mkdirSync('.data', { recursive: true });
   return 'file:.data/local.db';
 }
 
