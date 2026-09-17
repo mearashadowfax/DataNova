@@ -53,9 +53,7 @@ const features = [
 <div class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20">
   {/* Section container for the title and subtitle */}
   <div class="mx-auto mb-10 max-w-2xl text-center lg:mb-14">
-    <h2
-      class="text-2xl font-semibold text-balance text-slate-800 md:text-3xl md:leading-tight"
-    >
+    <h2 class="text-2xl font-semibold text-balance text-slate-800 md:text-3xl md:leading-tight">
       <Fragment set:html={title} />
     </h2>
     <p class="mt-1 text-pretty text-slate-600">
@@ -63,35 +61,31 @@ const features = [
     </p>
   </div>
 
-  <div
-    class="mx-auto grid max-w-[85rem] px-4 pb-10 sm:grid-cols-2 sm:grid-rows-3 sm:px-6 lg:px-8 lg:pb-14"
-  >
-    {
-      features.map(feature => (
-        <div class={`${feature.class}`}>
-          <h2 class="text-2xl font-bold text-slate-600">{feature.title}</h2>
+  <div class="mx-auto grid max-w-[85rem] px-4 pb-10 sm:grid-cols-2 sm:grid-rows-3 sm:px-6 lg:px-8 lg:pb-14">
+    {features.map(feature => (
+      <div class={`${feature.class}`}>
+        <h2 class="text-2xl font-bold text-slate-600">{feature.title}</h2>
 
-          <p class="mt-2 text-base/6 text-slate-600">
-            <Fragment set:html={feature.description || ''} />
-          </p>
+        <p class="mt-2 text-base/6 text-slate-600">
+          <Fragment set:html={feature.description || ''} />
+        </p>
 
-          {feature.image && (
-            <Image
-              class={`${feature.alignment || ''}`}
-              src={feature.image}
-              alt=""
-            />
-          )}
+        {feature.image && (
+          <Image
+            class={`${feature.alignment || ''}`}
+            src={feature.image}
+            alt=""
+          />
+        )}
 
-          {feature.moreFeatures && (
-            <ul class="mt-4 ml-4 w-4/5 list-inside list-disc space-y-2 text-base/6 text-slate-600 marker:text-teal-600">
-              {feature.moreFeatures.map(item => (
-                <li>{item}</li>
-              ))}
-            </ul>
-          )}
-        </div>
-      ))
-    }
+        {feature.moreFeatures && (
+          <ul class="mt-4 ml-4 w-4/5 list-inside list-disc space-y-2 text-base/6 text-slate-600 marker:text-teal-600">
+            {feature.moreFeatures.map(item => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        )}
+      </div>
+    ))}
   </div>
 </div>

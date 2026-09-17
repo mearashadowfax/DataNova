@@ -50,8 +50,9 @@ const formStrings = {
         id="quote-name-label"
         for="quote-name"
         class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600"
-        >{formStrings.name}</label
       >
+        {formStrings.name}
+      </label>
     </div>
 
     <div class="relative">
@@ -70,8 +71,9 @@ const formStrings = {
         id="quote-company-label"
         for="quote-company"
         class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600"
-        >{formStrings.company}</label
       >
+        {formStrings.company}
+      </label>
     </div>
 
     <div class="relative">
@@ -90,8 +92,9 @@ const formStrings = {
         id="quote-email-label"
         for="quote-email"
         class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600"
-        >{formStrings.email}</label
       >
+        {formStrings.email}
+      </label>
     </div>
 
     <div class="relative">
@@ -103,18 +106,17 @@ const formStrings = {
         aria-required="true"
         aria-labelledby="quote-license-type-label"
       >
-        {
-          formStrings.licenseTypes.map(type => (
-            <option value={type}>{type}</option>
-          ))
-        }
+        {formStrings.licenseTypes.map(type => (
+          <option value={type}>{type}</option>
+        ))}
       </select>
       <label
         for="quote-license-type"
         id="quote-license-type-label"
         class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-500 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-500"
-        >{formStrings.licenseTypeLabel}</label
       >
+        {formStrings.licenseTypeLabel}
+      </label>
     </div>
 
     <div class="relative">
@@ -125,13 +127,15 @@ const formStrings = {
         placeholder={formStrings.message}
         required
         aria-required="true"
-        aria-labelledby="quote-message-label"></textarea>
+        aria-labelledby="quote-message-label"
+      ></textarea>
       <label
         id="quote-message-label"
         for="quote-message"
         class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600"
-        >{formStrings.message}</label
       >
+        {formStrings.message}
+      </label>
     </div>
   </fieldset>
 
@@ -141,8 +145,7 @@ const formStrings = {
     role="status"
     aria-live="polite"
     data-form-status
-  >
-  </p>
+  ></p>
 
   <div class="mt-8">
     <button

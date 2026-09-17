@@ -232,19 +232,17 @@ const currentPath = Astro.url.pathname;
     Downloads
   </button>
   <div class="hs-dropdown-menu">
-    {
-      downloadsMenu.map(section => (
-        <div>
-          <p>{section.sectionTitle}</p>
-          {section.items.map(item => (
-            <a href={item.href}>
-              <p>{item.title}</p>
-              <p>{item.description}</p>
-            </a>
-          ))}
-        </div>
-      ))
-    }
+    {downloadsMenu.map(section => (
+      <div>
+        <p>{section.sectionTitle}</p>
+        {section.items.map(item => (
+          <a href={item.href}>
+            <p>{item.title}</p>
+            <p>{item.description}</p>
+          </a>
+        ))}
+      </div>
+    ))}
   </div>
 </div>
 ```

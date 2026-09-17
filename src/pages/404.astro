@@ -65,21 +65,13 @@ const schema: WithContext<Thing> = {
 ---
 
 <BaseLayout seo={seo} schema={schema}>
-  <section
-    class="grid min-h-full place-items-center px-6 pt-32 pb-10 sm:pt-48 lg:px-8"
-  >
+  <section class="grid min-h-full place-items-center px-6 pt-32 pb-10 sm:pt-48 lg:px-8">
     <div class="text-center">
-      <p class="text-xl font-semibold text-teal-600">
-        {pageContent.errorCode}
-      </p>
-      <h1
-        class="mt-4 text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
-      >
+      <p class="text-xl font-semibold text-teal-600">{pageContent.errorCode}</p>
+      <h1 class="mt-4 text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl">
         {pageContent.title}
       </h1>
-      <p
-        class="mt-6 text-lg font-medium text-pretty text-slate-500 sm:text-xl/8"
-      >
+      <p class="mt-6 text-lg font-medium text-pretty text-slate-500 sm:text-xl/8">
         {pageContent.description}
       </p>
     </div>
@@ -87,33 +79,32 @@ const schema: WithContext<Thing> = {
     <div class="mx-auto w-full px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
       <div class="mx-auto w-full max-w-lg px-4 sm:px-6 lg:px-8">
         <ul class="divide-y divide-dashed divide-slate-300">
-          {
-            resources.map(resource => (
-              <li>
-                <a
-                  href={resource.link}
-                  class="group flex gap-x-5 px-2 py-8 transition hover:bg-slate-100"
-                >
-                  <Icon name={resource.icon} class="size-6 text-teal-600" />
-                  <div class="grow">
-                    <h3 class="font-semibold text-slate-600 transition group-hover:text-teal-700">
-                      {resource.title}
-                    </h3>
-                    <p class="mt-1 text-slate-500">{resource.description}</p>
-                  </div>
-                  <Icon
-                    name="chevronRight"
-                    class="self-center text-slate-400 transition"
-                  />
-                </a>
-              </li>
-            ))
-          }
+          {resources.map(resource => (
+            <li>
+              <a
+                href={resource.link}
+                class="group flex gap-x-5 px-2 py-8 transition hover:bg-slate-100"
+              >
+                <Icon name={resource.icon} class="size-6 text-teal-600" />
+                <div class="grow">
+                  <h3 class="font-semibold text-slate-600 transition group-hover:text-teal-700">
+                    {resource.title}
+                  </h3>
+                  <p class="mt-1 text-slate-500">{resource.description}</p>
+                </div>
+                <Icon
+                  name="chevronRight"
+                  class="self-center text-slate-400 transition"
+                />
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
       <div class="mt-5 flex items-center justify-center">
-        <Button id="go-back" variant="primary">{pageContent.goBackLabel}</Button
-        >
+        <Button id="go-back" variant="primary">
+          {pageContent.goBackLabel}
+        </Button>
       </div>
     </div>
   </section>

@@ -12,22 +12,28 @@ const { address, phone, email, website } = Astro.props;
       <Icon name="mobile" />
       <a
         href={'tel:+' + phone.replace(/[^+\d]/g, '')}
-        class="transition-colors duration-300 hover:text-slate-500">{phone}</a
+        class="transition-colors duration-300 hover:text-slate-500"
       >
+        {phone}
+      </a>
     </li>
     <li class="flex items-center gap-x-2">
       <Icon name="email" />
       <a
         href={'mailto:' + email}
-        class="transition-colors duration-300 hover:text-slate-500">{email}</a
+        class="transition-colors duration-300 hover:text-slate-500"
       >
+        {email}
+      </a>
     </li>
     <li class="flex items-center gap-x-2">
       <Icon name="world" />
       <a
         href={'https://' + website}
-        class="transition-colors duration-300 hover:text-slate-500">{website}</a
+        class="transition-colors duration-300 hover:text-slate-500"
       >
+        {website}
+      </a>
     </li>
   </ul>
 </div>

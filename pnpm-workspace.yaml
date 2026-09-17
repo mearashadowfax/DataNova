@@ -14,3 +14,4 @@ allowBuilds:
 
 minimumReleaseAgeExclude:
   - '@types/node@26.6.0'
+  - prettier-plugin-astro@1.0.1

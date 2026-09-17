@@ -29,71 +29,65 @@ export const pageContent = {
               { label: 'Articles' },
             ]}
           />
-          <h1
-            class="text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
-          >
+          <h1 class="text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl">
             {pageContent.pageTitle}
           </h1>
         </div>
       </div>
     </div>
   </section>
-  <section
-    class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20"
-  >
+  <section class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20">
     <div class="grid grid-cols-1 items-center lg:grid-cols-3">
-      {
-        articles.length === 0 ? (
-          <EmptyState
-            title="No articles yet"
-            description="Add articles in Keystatic or src/content/articles to populate this list."
-            actionHref="/contact"
-            actionLabel="Contact us"
-          />
-        ) : (
-          articles.map((item, index) => {
-            const totalItems = articles.length;
-            const itemsPerRow = 3;
+      {articles.length === 0 ? (
+        <EmptyState
+          title="No articles yet"
+          description="Add articles in Keystatic or src/content/articles to populate this list."
+          actionHref="/contact"
+          actionLabel="Contact us"
+        />
+      ) : (
+        articles.map((item, index) => {
+          const totalItems = articles.length;
+          const itemsPerRow = 3;
 
-            const isLastRow =
-              Math.floor(index / itemsPerRow) ===
-              Math.floor((totalItems - 1) / itemsPerRow);
+          const isLastRow =
+            Math.floor(index / itemsPerRow) ===
+            Math.floor((totalItems - 1) / itemsPerRow);
 
-            const borderClasses = isLastRow
-              ? index % 3 === 0
-                ? 'border-none'
-                : index % 3 === 1
-                  ? 'lg:border-x'
-                  : ''
-              : index % 3 === 0
-                ? 'border-b'
-                : index % 3 === 1
-                  ? 'border-b lg:border-x '
-                  : 'border-b';
+          const borderClasses = isLastRow
+            ? index % 3 === 0
+              ? 'border-none'
+              : index % 3 === 1
+                ? 'lg:border-x'
+                : ''
+            : index % 3 === 0
+              ? 'border-b'
+              : index % 3 === 1
+                ? 'border-b lg:border-x '
+                : 'border-b';
 
-            return (
-              <a
-                class={`card group ${borderClasses}`}
-                href={`${urlPath}/${item.id}`}
-              >
-                <div class="mb-5">
-                  <div class="mt-5">
-                    <h3 class="mt-5 text-lg font-medium text-slate-800">
-                      {item.data.title}
-                    </h3>
-                    <p class="mt-1 text-slate-500">{item.data.description}</p>
-                  </div>
+          return (
+            <a
+              class={`card group ${borderClasses}`}
+              href={`${urlPath}/${item.id}`}
+            >
+              <div class="mb-5">
+                <div class="mt-5">
+                  <h3 class="mt-5 text-lg font-medium text-slate-800">
+                    {item.data.title}
+                  </h3>
+                  <p class="mt-1 text-slate-500">{item.data.description}</p>
                 </div>
-                <p class="mt-auto">
-                  <span class="border-b-2 border-slate-500 pb-1 text-sm font-medium text-slate-700 transition duration-300 group-hover:border-teal-500 group-focus:border-teal-500 focus:outline-hidden">
-                    {pageContent.actionLabel}
-                  </span>
-                </p>
-              </a>
-            );
-          })
-        )
-      }
+              </div>
+              <p class="mt-auto">
+                <span class="border-b-2 border-slate-500 pb-1 text-sm font-medium text-slate-700 transition duration-300 group-hover:border-teal-500 group-focus:border-teal-500 focus:outline-hidden">
+                  {pageContent.actionLabel}
+                </span>
+              </p>
+            </a>
+          );
+        })
+      )}
     </div>
   </section>
 </BaseLayout>
