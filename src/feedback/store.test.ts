@@ -18,23 +18,23 @@ beforeEach(async () => {
 });
 
 describe('feedback store', () => {
-  it('reports zero counts for a document nobody has voted on', async () => {
+  it('reports zero counts for a document nobody has given feedback on', async () => {
     expect(await store.counts('articles/new')).toEqual({
       helpful: 0,
       notHelpful: 0,
     });
   });
 
-  it('creates the row on the first vote and increments after', async () => {
-    expect(await store.vote('articles/a', 'helpful')).toEqual({
+  it('creates the row on the first feedback and increments after', async () => {
+    expect(await store.record('articles/a', 'helpful')).toEqual({
       helpful: 1,
       notHelpful: 0,
     });
-    expect(await store.vote('articles/a', 'notHelpful')).toEqual({
+    expect(await store.record('articles/a', 'notHelpful')).toEqual({
       helpful: 1,
       notHelpful: 1,
     });
-    expect(await store.vote('articles/a', 'helpful')).toEqual({
+    expect(await store.record('articles/a', 'helpful')).toEqual({
       helpful: 2,
       notHelpful: 1,
     });
@@ -45,15 +45,11 @@ describe('feedback store', () => {
   });
 
   it('keeps documents with the same id in different collections apart', async () => {
-    await store.vote(feedbackSlug('articles', 'guide'), 'helpful');
+    await store.record(feedbackSlug('articles', 'guide'), 'helpful');
     expect(await store.counts(feedbackSlug('reference', 'guide'))).toEqual({
       helpful: 0,
       notHelpful: 0,
     });
-  });
-
-  it('pings the database', async () => {
-    await expect(store.ping()).resolves.toBeUndefined();
   });
 });
 

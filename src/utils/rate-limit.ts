@@ -1,3 +1,5 @@
+import { apiError } from './api-error';
+
 /**
  * Per-IP rate limiting, declared as a policy and enforced against a Request.
  *
@@ -5,8 +7,9 @@
  * derivation (policy name + client IP), the 429 response with its
  * `Retry-After` header, window rollover and pruning of expired buckets.
  *
- * Buckets live in memory, so limits are per server instance. To share limits
- * across instances, replace `createRateLimiter` with one backed by a KV store.
+ * Buckets live behind the `RateLimitStore` seam. The in-memory adapter is
+ * per server instance; to share limits across instances, pass a store backed
+ * by KV or Redis to `createRateLimiter`.
  */
 
 export interface RateLimitPolicy {
@@ -21,36 +24,64 @@ export type RateLimitResult =
 
 export interface RateLimiter {
   /** Count one hit for `key` under `policy`. */
-  hit(policy: RateLimitPolicy, key: string): RateLimitResult;
-  /** Returns a 429 Response when `request`'s client is over `policy`, else `null`. */
-  enforce(policy: RateLimitPolicy, request: Request): Response | null;
+  hit(policy: RateLimitPolicy, key: string): Promise<RateLimitResult>;
+  /** Resolves to a 429 Response when `request`'s client is over `policy`, else `null`. */
+  enforce(policy: RateLimitPolicy, request: Request): Promise<Response | null>;
 }
 
-type Bucket = { count: number; resetAt: number };
+export interface Bucket {
+  count: number;
+  /** Epoch milliseconds at which the bucket's window ends. */
+  resetAt: number;
+}
+
+/** Where buckets live. Methods may be sync or async so a KV adapter fits. */
+export interface RateLimitStore {
+  get(key: string): Bucket | undefined | Promise<Bucket | undefined>;
+  set(key: string, bucket: Bucket): void | Promise<void>;
+  /** Drop every bucket whose window ended before `now`. */
+  prune(now: number): void | Promise<void>;
+}
 
 const PRUNE_THRESHOLD = 1000;
 
-export function createRateLimiter({
-  now = () => Date.now(),
-}: { now?: () => number } = {}): RateLimiter {
+/** The default store: a Map, pruned once it holds more than a thousand buckets. */
+export function createMemoryStore(): RateLimitStore {
   const buckets = new Map<string, Bucket>();
+  return {
+    get: key => buckets.get(key),
+    set: (key, bucket) => {
+      buckets.set(key, bucket);
+    },
+    prune: now => {
+      if (buckets.size < PRUNE_THRESHOLD) return;
+      for (const [key, bucket] of buckets) {
+        if (now >= bucket.resetAt) buckets.delete(key);
+      }
+    },
+  };
+}
 
-  function prune(at: number) {
-    if (buckets.size < PRUNE_THRESHOLD) return;
-    for (const [key, bucket] of buckets) {
-      if (at >= bucket.resetAt) buckets.delete(key);
-    }
-  }
-
-  function hit(policy: RateLimitPolicy, key: string): RateLimitResult {
+/**
+ * A rate limiter over a store and a clock. Both default to production values;
+ * tests pass a fresh store for isolation and a fake clock to move time.
+ */
+export function createRateLimiter({
+  store = createMemoryStore(),
+  now = () => Date.now(),
+}: { store?: RateLimitStore; now?: () => number } = {}): RateLimiter {
+  async function hit(
+    policy: RateLimitPolicy,
+    key: string
+  ): Promise<RateLimitResult> {
     const at = now();
-    prune(at);
+    await store.prune(at);
 
     const bucketKey = `${policy.name}:${key}`;
-    const bucket = buckets.get(bucketKey);
+    const bucket = await store.get(bucketKey);
 
     if (!bucket || at >= bucket.resetAt) {
-      buckets.set(bucketKey, { count: 1, resetAt: at + policy.windowMs });
+      await store.set(bucketKey, { count: 1, resetAt: at + policy.windowMs });
       return { ok: true, remaining: policy.limit - 1 };
     }
 
@@ -62,29 +93,29 @@ export function createRateLimiter({
     }
 
     bucket.count += 1;
+    await store.set(bucketKey, bucket);
     return { ok: true, remaining: policy.limit - bucket.count };
   }
 
-  function enforce(policy: RateLimitPolicy, request: Request): Response | null {
-    const result = hit(policy, getClientIp(request));
+  async function enforce(
+    policy: RateLimitPolicy,
+    request: Request
+  ): Promise<Response | null> {
+    const result = await hit(policy, getClientIp(request));
     if (result.ok) return null;
 
-    return Response.json(
-      {
-        ok: false,
-        error: 'Too many requests. Please try again later.',
-        retryAfterSec: result.retryAfterSec,
-      },
-      {
-        status: 429,
-        headers: { 'Retry-After': String(result.retryAfterSec) },
-      }
+    return apiError(
+      'Too many requests. Please try again later.',
+      429,
+      { retryAfterSec: result.retryAfterSec },
+      { 'Retry-After': String(result.retryAfterSec) }
     );
   }
 
   return { hit, enforce };
 }
 
+/** The client's IP as seen through the platform's proxy headers, or `'unknown'`. */
 export function getClientIp(request: Request): string {
   return (
     request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||

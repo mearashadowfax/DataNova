@@ -4,12 +4,12 @@ import { getDb, type Database } from '@/db/client';
 import { feedback } from '@/db/schema';
 
 /**
- * Helpful / not-helpful votes on a support document.
+ * Helpful / not-helpful feedback on a support document.
  *
- * Votes are keyed by a namespaced slug (`articles/my-post`) so two collections
- * can hold documents with the same id without sharing a counter. The Svelte
- * widget imports `FeedbackCounts` as its wire type; nothing outside this module
- * knows the table.
+ * Feedback is keyed by a namespaced slug (`articles/my-post`) so two
+ * collections can hold documents with the same id without sharing a counter.
+ * The Svelte widget imports `FeedbackCounts` as its wire type; nothing outside
+ * this module knows the table.
  */
 
 export type FeedbackKind = 'helpful' | 'notHelpful';
@@ -19,6 +19,7 @@ export interface FeedbackCounts {
   notHelpful: number;
 }
 
+/** The slug feedback is keyed by: the document's collection and id together. */
 export function feedbackSlug(collection: string, id: string): string {
   return `${collection}/${id}`;
 }
@@ -34,14 +35,14 @@ export const feedbackKindSchema = z.enum(['helpful', 'notHelpful']);
 
 export interface FeedbackStore {
   counts(slug: string): Promise<FeedbackCounts>;
-  vote(slug: string, kind: FeedbackKind): Promise<FeedbackCounts>;
-  /** Resolves when the database answers; rejects when it is unreachable. */
-  ping(): Promise<void>;
+  /** Count one piece of feedback and return the new totals. */
+  record(slug: string, kind: FeedbackKind): Promise<FeedbackCounts>;
 }
 
 const NONE: FeedbackCounts = { helpful: 0, notHelpful: 0 };
 const columns = { helpful: feedback.helpful, notHelpful: feedback.notHelpful };
 
+/** A feedback store over any Drizzle handle – Turso in production, `:memory:` in tests. */
 export function createFeedbackStore(db: Database): FeedbackStore {
   return {
     async counts(slug) {
@@ -52,7 +53,7 @@ export function createFeedbackStore(db: Database): FeedbackStore {
       return row ?? NONE;
     },
 
-    async vote(slug, kind) {
+    async record(slug, kind) {
       const delta = {
         helpful: kind === 'helpful' ? 1 : 0,
         notHelpful: kind === 'notHelpful' ? 1 : 0,
@@ -69,10 +70,6 @@ export function createFeedbackStore(db: Database): FeedbackStore {
         })
         .returning(columns);
       return row ?? NONE;
-    },
-
-    async ping() {
-      await db.select({ slug: feedback.slug }).from(feedback).limit(1);
     },
   };
 }

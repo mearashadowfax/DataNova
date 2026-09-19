@@ -1,9 +1,9 @@
 import type { ImageMetadata } from 'astro';
-import type { Icons } from '@/components/ui/icons/icons';
-import datanova from './assets/images/datanova.webp';
-import ifCloud from './assets/images/if_cloud.webp';
-import ifPlanner from './assets/images/if_planner.webp';
-import ifVisualizer from './assets/images/if_visualizer.webp';
+import type { Icons } from '@ui/icons/icons';
+import datanova from '@images/datanova.webp';
+import ifCloud from '@images/if_cloud.webp';
+import ifPlanner from '@images/if_planner.webp';
+import ifVisualizer from '@images/if_visualizer.webp';
 
 /**
  * The site's navigation tree: every mega menu, top-level link and breadcrumb
@@ -16,6 +16,12 @@ export type IconName = keyof typeof Icons;
 export interface Crumb {
   label: string;
   href?: string;
+}
+
+/** A plain link in the navbar. */
+export interface NavLink {
+  label: string;
+  href: string;
 }
 
 export interface MenuLink {
@@ -234,12 +240,12 @@ export const menus = {
 export const menuList: readonly Menu[] = Object.values(menus);
 
 /** Plain top-level links rendered after the mega menus. */
-export const navigationLinks: readonly Required<Crumb>[] = [
+export const navigationLinks: readonly NavLink[] = [
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
 ];
 
-/** Every link in a menu, sections flattened. */
+/** Every item in a menu, sections flattened. */
 export function menuItems<M extends Menu>(
   menu: M
 ): M['sections'][number]['items'][number][] {

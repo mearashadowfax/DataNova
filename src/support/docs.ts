@@ -2,6 +2,7 @@ import type { MarkdownHeading } from 'astro';
 import type { Thing, WithContext } from 'schema-dts';
 import { feedbackSlug } from '@/feedback/store';
 import { supportTrail, type Crumb } from '@/navigation';
+import { site as company } from '@/site';
 import { getReadingTime } from '@/utils/reading-time';
 
 /**
@@ -58,10 +59,11 @@ export interface DocMeta {
   schema: WithContext<Thing>;
 }
 
-const SITE_NAME = 'DataNova';
-const SITE_DESCRIPTION =
-  'DataNova Analytics Inc. provides advanced analytics for Excel to help businesses unlock actionable insights quickly with no coding required.';
-
+/**
+ * Everything a doc page derives from a content entry. Pure, so the table of
+ * contents, feedback slug, SEO and schema.org rules are tested once and hold
+ * for every collection.
+ */
 export function describeDoc(input: {
   collection: DocCollection;
   id: string;
@@ -97,8 +99,8 @@ export function describeDoc(input: {
       isPartOf: {
         '@type': 'WebSite',
         url: `${site}`,
-        name: SITE_NAME,
-        description: SITE_DESCRIPTION,
+        name: company.name,
+        description: company.tagline,
       },
     },
   };

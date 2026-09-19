@@ -76,12 +76,23 @@ describe('resolveConfig', () => {
       expect(resolveConfig({}).keystatic).toEqual({ kind: 'local' });
     });
 
+    it('reads only PUBLIC_ keys, so the browser bundle sees the same mode', () => {
+      // The admin UI is compiled for the browser, where private env is absent.
+      expect(
+        resolveConfig({
+          PUBLIC_KEYSTATIC_STORAGE_MODE: 'github',
+          PUBLIC_KEYSTATIC_GITHUB_REPO_OWNER: 'acme',
+          PUBLIC_KEYSTATIC_GITHUB_REPO_NAME: 'site',
+        }).keystatic
+      ).toEqual({ kind: 'github', repo: 'acme/site' });
+    });
+
     it('builds the GitHub repo slug in github mode', () => {
       expect(
         resolveConfig({
-          KEYSTATIC_STORAGE_MODE: 'github',
-          KEYSTATIC_GITHUB_REPO_OWNER: 'acme',
-          KEYSTATIC_GITHUB_REPO_NAME: 'site',
+          PUBLIC_KEYSTATIC_STORAGE_MODE: 'github',
+          PUBLIC_KEYSTATIC_GITHUB_REPO_OWNER: 'acme',
+          PUBLIC_KEYSTATIC_GITHUB_REPO_NAME: 'site',
         }).keystatic
       ).toEqual({ kind: 'github', repo: 'acme/site' });
     });

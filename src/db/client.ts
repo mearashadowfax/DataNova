@@ -1,21 +1,14 @@
 import { createClient } from '@libsql/client';
+import { sql } from 'drizzle-orm';
 import { drizzle, type LibSQLDatabase } from 'drizzle-orm/libsql';
-import { mkdirSync } from 'node:fs';
 import { getConfig, type DbConfig } from '@/config';
+import { dbCredentials } from './credentials';
 
 export type Database = LibSQLDatabase;
 
 /** Build a Drizzle handle for a resolved database config. */
 export function createDb(db: DbConfig): Database {
-  if (db.kind === 'missing') {
-    throw new Error(db.reason);
-  }
-  if (db.kind === 'local-file') {
-    // libSQL creates the database file but not its directory, and .data/ is git-ignored.
-    mkdirSync('.data', { recursive: true });
-    return drizzle(createClient({ url: db.url }));
-  }
-  return drizzle(createClient({ url: db.url, authToken: db.authToken }));
+  return drizzle(createClient(dbCredentials(db)));
 }
 
 let cached: Database | undefined;
@@ -24,4 +17,9 @@ let cached: Database | undefined;
 export function getDb(): Database {
   cached ??= createDb(getConfig().db);
   return cached;
+}
+
+/** Resolves when the database answers a trivial query; rejects when it is unreachable. */
+export async function pingDb(db: Database = getDb()): Promise<void> {
+  await db.run(sql`select 1`);
 }

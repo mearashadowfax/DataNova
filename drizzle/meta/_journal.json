@@ -8,6 +8,13 @@
       "when": 1784574411784,
       "tag": "0000_init_feedback",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1789859137756,
+      "tag": "0001_namespace_feedback_slugs",
+      "breakpoints": true
     }
   ]
 }

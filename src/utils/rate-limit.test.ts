@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { createRateLimiter, getClientIp } from './rate-limit';
+import {
+  createMemoryStore,
+  createRateLimiter,
+  getClientIp,
+  type Bucket,
+  type RateLimitStore,
+} from './rate-limit';
 
 const policy = { name: 'test', limit: 2, windowMs: 60_000 };
 
@@ -13,50 +19,82 @@ function request(headers: Record<string, string> = {}) {
 }
 
 describe('rate limiter', () => {
-  it('allows requests under the limit', () => {
+  it('allows requests under the limit', async () => {
     const limiter = createRateLimiter();
-    expect(limiter.hit(policy, 'ip')).toEqual({ ok: true, remaining: 1 });
-    expect(limiter.hit(policy, 'ip')).toEqual({ ok: true, remaining: 0 });
+    expect(await limiter.hit(policy, 'ip')).toEqual({ ok: true, remaining: 1 });
+    expect(await limiter.hit(policy, 'ip')).toEqual({ ok: true, remaining: 0 });
   });
 
-  it('blocks requests over the limit with the seconds until reset', () => {
+  it('blocks requests over the limit with the seconds until reset', async () => {
     const c = clock();
     const limiter = createRateLimiter(c);
-    limiter.hit(policy, 'ip');
-    limiter.hit(policy, 'ip');
+    await limiter.hit(policy, 'ip');
+    await limiter.hit(policy, 'ip');
     c.advance(10_000);
-    expect(limiter.hit(policy, 'ip')).toEqual({ ok: false, retryAfterSec: 50 });
+    expect(await limiter.hit(policy, 'ip')).toEqual({
+      ok: false,
+      retryAfterSec: 50,
+    });
   });
 
-  it('starts a fresh window once the previous one expires', () => {
+  it('starts a fresh window once the previous one expires', async () => {
     const c = clock();
     const limiter = createRateLimiter(c);
-    limiter.hit(policy, 'ip');
-    limiter.hit(policy, 'ip');
+    await limiter.hit(policy, 'ip');
+    await limiter.hit(policy, 'ip');
     c.advance(policy.windowMs);
-    expect(limiter.hit(policy, 'ip').ok).toBe(true);
+    expect((await limiter.hit(policy, 'ip')).ok).toBe(true);
   });
 
-  it('keeps separate buckets per policy name and per key', () => {
+  it('keeps separate buckets per policy name and per key', async () => {
     const limiter = createRateLimiter();
-    limiter.hit(policy, 'ip');
-    limiter.hit(policy, 'ip');
-    expect(limiter.hit({ ...policy, name: 'other' }, 'ip').ok).toBe(true);
-    expect(limiter.hit(policy, 'other-ip').ok).toBe(true);
+    await limiter.hit(policy, 'ip');
+    await limiter.hit(policy, 'ip');
+    expect((await limiter.hit({ ...policy, name: 'other' }, 'ip')).ok).toBe(
+      true
+    );
+    expect((await limiter.hit(policy, 'other-ip')).ok).toBe(true);
   });
 
-  it('enforce() returns null while under the limit', () => {
+  it('works with an async store adapter', async () => {
+    const backing = new Map<string, Bucket>();
+    const store: RateLimitStore = {
+      get: async key => backing.get(key),
+      set: async (key, bucket) => {
+        backing.set(key, bucket);
+      },
+      prune: async () => {},
+    };
+    const limiter = createRateLimiter({ store });
+    await limiter.hit(policy, 'ip');
+    await limiter.hit(policy, 'ip');
+    expect((await limiter.hit(policy, 'ip')).ok).toBe(false);
+    expect(backing.size).toBe(1);
+  });
+
+  it('prunes expired buckets once the memory store grows large', async () => {
+    const c = clock();
+    const store = createMemoryStore();
+    const limiter = createRateLimiter({ store, now: c.now });
+    for (let i = 0; i < 1000; i++) await limiter.hit(policy, `ip-${i}`);
+    c.advance(policy.windowMs);
+    await limiter.hit(policy, 'fresh');
+    expect(await store.get('test:ip-0')).toBeUndefined();
+    expect(await store.get('test:fresh')).toBeDefined();
+  });
+
+  it('enforce() resolves to null while under the limit', async () => {
     const limiter = createRateLimiter();
-    expect(limiter.enforce(policy, request())).toBeNull();
+    expect(await limiter.enforce(policy, request())).toBeNull();
   });
 
-  it('enforce() returns a 429 with Retry-After once over the limit', async () => {
+  it('enforce() resolves to a 429 with Retry-After once over the limit', async () => {
     const limiter = createRateLimiter(clock());
     const req = request({ 'x-forwarded-for': '203.0.113.9, 10.0.0.1' });
-    limiter.enforce(policy, req);
-    limiter.enforce(policy, req);
+    await limiter.enforce(policy, req);
+    await limiter.enforce(policy, req);
 
-    const response = limiter.enforce(policy, req);
+    const response = await limiter.enforce(policy, req);
     expect(response?.status).toBe(429);
     expect(response?.headers.get('Retry-After')).toBe('60');
     await expect(response?.json()).resolves.toMatchObject({

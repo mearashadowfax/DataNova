@@ -1,9 +1,9 @@
 import type { APIRoute } from 'astro';
-import { getFeedbackStore } from '@/feedback/store';
+import { pingDb } from '@/db/client';
 
 export const GET: APIRoute = async () => {
   try {
-    await getFeedbackStore().ping();
+    await pingDb();
     return Response.json({ ok: true, database: 'up' });
   } catch (error) {
     console.error('Health check failed:', error);

@@ -1,4 +1,4 @@
 import { formEndpoint } from '@/forms/submit';
-import { contactForm } from '@/forms/definitions';
+import { contactForm } from '@/forms/declarations';
 
 export const POST = formEndpoint(contactForm);

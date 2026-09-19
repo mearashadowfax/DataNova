@@ -21,7 +21,7 @@
   let feedbackGiven = $state(false);
   let userChoice = $state<FeedbackKind | null>(null);
 
-  function savedVotes(): Record<string, FeedbackKind> {
+  function savedFeedback(): Record<string, FeedbackKind> {
     return JSON.parse(localStorage.getItem('feedback') || '{}');
   }
 
@@ -31,7 +31,7 @@
   }
 
   onMount(() => {
-    const saved = savedVotes();
+    const saved = savedFeedback();
     feedbackGiven = !!saved[slug];
     userChoice = saved[slug] || null;
     fetchFeedback();
@@ -79,7 +79,7 @@
 
       applyCounts(body as FeedbackCounts);
 
-      const saved = savedVotes();
+      const saved = savedFeedback();
       saved[slug] = type;
       localStorage.setItem('feedback', JSON.stringify(saved));
 

@@ -1,10 +1,10 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createRateLimiter } from '@/utils/rate-limit';
-import { defineForm, formSchema } from './definition';
-import { contactForm, newsletterForm, quoteForm } from './definitions';
+import { declareForm, formSchema } from './declare';
+import { contactForm, newsletterForm, quoteForm } from './declarations';
 import { submitForm, type FormResponse } from './submit';
 
-const form = defineForm({
+const form = declareForm({
   name: 'test',
   endpoint: '/api/test',
   deliverTo: 'contact',

@@ -6,6 +6,7 @@ export type Deliver = (
   payload: Record<string, unknown>
 ) => Promise<{ demo: boolean }>;
 
+/** The adapter for a delivery target: a webhook when configured, demo mode otherwise. */
 export function delivererFor(
   webhookUrl: string | null,
   fetchImpl: typeof fetch = fetch

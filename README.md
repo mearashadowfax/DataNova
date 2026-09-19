@@ -113,7 +113,7 @@ DataNova is set up for [server-side rendering](https://docs.astro.build/en/guide
 | `TURSO_DATABASE_URL`                                           | Yes                      | Turso database URL. Database routes throw on Vercel without it – see [Database](#database-with-drizzle-and-turso). |
 | `TURSO_AUTH_TOKEN`                                             | Yes                      | Turso database token                                                                                               |
 | `SKIP_KEYSTATIC=1`                                             | If using local CMS mode  | Disables the `/keystatic` admin routes in production                                                               |
-| `KEYSTATIC_STORAGE_MODE=github` + repo owner/name              | If using GitHub CMS mode | Lets editors publish through the admin UI on your live site                                                        |
+| `PUBLIC_KEYSTATIC_STORAGE_MODE=github` + repo owner/name       | If using GitHub CMS mode | Lets editors publish through the admin UI on your live site                                                        |
 | `FORMSPREE_CONTACT_ENDPOINT` / `FORMSPREE_NEWSLETTER_ENDPOINT` | No                       | Deliver form submissions. Forms run in demo mode when unset                                                        |
 
 Also change `site` in `astro.config.mjs` from `https://data-nova.vercel.app` to your domain – it's used for canonical URLs and `robots.txt`.
@@ -162,7 +162,7 @@ Also change `site` in `astro.config.mjs` from `https://data-nova.vercel.app` to 
     ├── db/
     │   ├── client.ts           # libSQL client, opened on first use
     │   └── schema.ts           # Feedback table
-    ├── feedback/store.ts       # Helpful / not-helpful votes: counts(), vote(), ping()
+    ├── feedback/store.ts       # Helpful / not-helpful feedback: counts(), record()
     ├── forms/                  # Form declarations, the submit pipeline and the delivery seam
     ├── layout/BaseLayout.astro # <head>, SEO, fonts, navbar and footer for every page
     ├── navigation.ts           # Mega menus, top-level links and breadcrumb roots
@@ -279,16 +279,16 @@ Keystatic gives editors a web UI for the `articles` and `reference` Markdoc coll
 
 ### Storage Modes
 
-Storage is chosen by environment variable, read in `keystatic.config.ts`:
+Storage is chosen by environment variable, resolved in [`src/config.ts`](src/config.ts) and read by `keystatic.config.ts`:
 
 ```bash
 # .env
-KEYSTATIC_STORAGE_MODE=local          # default; or "github"
-KEYSTATIC_GITHUB_REPO_OWNER=your-org  # GitHub mode only
-KEYSTATIC_GITHUB_REPO_NAME=your-repo  # GitHub mode only
+PUBLIC_KEYSTATIC_STORAGE_MODE=local          # default; or "github"
+PUBLIC_KEYSTATIC_GITHUB_REPO_OWNER=your-org  # GitHub mode only
+PUBLIC_KEYSTATIC_GITHUB_REPO_NAME=your-repo  # GitHub mode only
 ```
 
-GitHub mode also requires a Keystatic GitHub App – follow the [Keystatic GitHub mode guide](https://keystatic.com/docs/github-mode).
+These three carry the `PUBLIC_` prefix on purpose: Keystatic's admin UI is bundled for the browser and must see the same storage mode as the server, and Astro only exposes `PUBLIC_` variables to client code. None of them are secrets. GitHub mode also requires a Keystatic GitHub App whose client id and secret stay private – follow the [Keystatic GitHub mode guide](https://keystatic.com/docs/github-mode).
 
 ### Disable the Admin UI in Production
 
@@ -336,7 +336,7 @@ Further reading: [Keystatic docs](https://keystatic.com/docs/introduction) · [D
 
 ## Database with Drizzle and Turso
 
-The feedback widget ([`PostFeedback.svelte`](src/components/common/PostFeedback.svelte)) stores helpful / not-helpful counts per document. Votes are keyed by `collection/id` (for example `articles/my-post`) so an article and a reference doc with the same file name never share a counter. The schema is one table in [`src/db/schema.ts`](src/db/schema.ts):
+The feedback widget ([`PostFeedback.svelte`](src/components/common/PostFeedback.svelte)) stores helpful / not-helpful counts per document. Feedback is keyed by `collection/id` (for example `articles/my-post`) so an article and a reference doc with the same file name never share a counter. The schema is one table in [`src/db/schema.ts`](src/db/schema.ts):
 
 ```ts
 export const feedback = sqliteTable('Feedback', {
@@ -346,7 +346,7 @@ export const feedback = sqliteTable('Feedback', {
 });
 ```
 
-All reads and writes go through [`src/feedback/store.ts`](src/feedback/store.ts) – `counts(slug)`, `vote(slug, kind)` and `ping()` – which is also what `pnpm test` exercises against an in-memory libSQL database. The connection itself comes from [`src/db/client.ts`](src/db/client.ts), opened on first use, with its URL resolved in [`src/config.ts`](src/config.ts): `TURSO_DATABASE_URL` when set, `file:.data/local.db` otherwise. **On Vercel the config refuses to fall back to a local file**, so a misconfigured deploy fails loudly instead of silently writing to a throwaway file.
+All reads and writes go through [`src/feedback/store.ts`](src/feedback/store.ts) – `counts(slug)` and `record(slug, kind)` – which is also what `pnpm test` exercises against an in-memory libSQL database. The connection itself comes from [`src/db/client.ts`](src/db/client.ts), opened on first use, with its URL resolved in [`src/config.ts`](src/config.ts): `TURSO_DATABASE_URL` when set, `file:.data/local.db` otherwise. **On Vercel the config refuses to fall back to a local file**, so a misconfigured deploy fails loudly instead of silently writing to a throwaway file.
 
 **Set up a production database:**
 
@@ -369,16 +369,19 @@ All reads and writes go through [`src/feedback/store.ts`](src/feedback/store.ts)
 > [!NOTE]
 > The legacy `ASTRO_DB_REMOTE_URL` and `ASTRO_DB_APP_TOKEN` variables are still accepted as fallbacks.
 
+> [!IMPORTANT]
+> Feedback rows created by earlier versions of this template are keyed by a bare document id. Migration `drizzle/0001_namespace_feedback_slugs.sql` rewrites them to `collection/id`; run `pnpm db:migrate` (not `db:push`, which only syncs the schema) against a database that already holds feedback, and check the collection list in that file first if you replaced the demo content.
+
 Further reading: [Drizzle ORM docs](https://orm.drizzle.team/docs/overview) · [Turso docs](https://docs.turso.tech/introduction)
 
 ---
 
 ## Contact and Newsletter Forms
 
-Each form is declared once in [`src/forms/definitions.ts`](src/forms/definitions.ts) as a list of fields:
+Each form is declared once in [`src/forms/declarations.ts`](src/forms/declarations.ts) as a list of fields:
 
 ```ts
-export const contactForm = defineForm({
+export const contactForm = declareForm({
   name: 'contact',
   endpoint: '/api/contact',
   deliverTo: 'contact',
@@ -433,7 +436,7 @@ FORMSPREE_NEWSLETTER_ENDPOINT=https://formspree.io/f/your-id
 
 The CSP in `vercel.json` allows `connect-src` to `formspree.io`; add your own webhook host there if you use something else.
 
-To add a form: add a `defineForm(...)` declaration, a one-line route under `src/pages/api/`, and render it with `<JsonForm>`.
+To add a form: add a `declareForm(...)` declaration, a one-line route under `src/pages/api/`, and render it with `<JsonForm>`.
 
 ---
 
@@ -445,10 +448,10 @@ To add a form: add a `defineForm(...)` declaration, a one-line route under `src/
 | `/api/quote`             | POST   | Quote form – `{ name, company, email, licenseType, message }`      |
 | `/api/newsletter`        | POST   | Newsletter subscribe – `{ email }`                                 |
 | `/api/feedback?slug=...` | GET    | Read helpful / not-helpful counts for a document (`articles/<id>`) |
-| `/api/feedback`          | POST   | Vote – `{ slug, type: 'helpful' \| 'notHelpful' }`                 |
+| `/api/feedback`          | POST   | Record feedback – `{ slug, type: 'helpful' \| 'notHelpful' }`      |
 | `/api/health`            | GET    | `{ ok, database }` – returns 503 if the database is unreachable    |
 
-Form and feedback routes declare a rate-limit policy (`{ name, limit, windowMs }`) enforced by [`src/utils/rate-limit.ts`](src/utils/rate-limit.ts), which answers `429` with a `Retry-After` header. Buckets are in memory, so limits are per instance; replace `createRateLimiter` with one backed by a shared store if you run many instances.
+Form and feedback routes declare a rate-limit policy (`{ name, limit, windowMs }`) enforced by [`src/utils/rate-limit.ts`](src/utils/rate-limit.ts), which answers `429` with a `Retry-After` header. Buckets live behind a `RateLimitStore` seam; the default in-memory store is per instance, so pass `createRateLimiter({ store })` a KV- or Redis-backed store if you run many instances.
 
 ---
 

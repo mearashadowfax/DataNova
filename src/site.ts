@@ -1,15 +1,20 @@
 /**
- * Company details shown in the footer, contact page and licensing copy.
- * Replace these with your own – the values below are placeholders from
- * reserved ranges (example.com, the fictional 555-01xx phone block).
+ * Company details shown in the footer, contact page, licensing copy and
+ * schema.org metadata. Replace these with your own – the values below are
+ * placeholders from reserved ranges (example.com, the fictional 555-01xx
+ * phone block, "Anytown").
  */
 export const site = {
   name: 'DataNova Analytics Inc.',
+  /** Who the company is – footer blurb. */
   description:
-    'DataNova Analytics Inc. is a leading business intelligence and analytics software company founded in 2018, with offices in Boston and Seattle.',
+    'DataNova Analytics Inc. is a leading business intelligence and analytics software company founded in 2018, with offices across the United States.',
+  /** What the company does – schema.org WebSite description. */
+  tagline:
+    'DataNova Analytics Inc. provides advanced analytics for Excel to help businesses unlock actionable insights quickly with no coding required.',
   address: {
     street: '123 Example Street, Suite 100',
-    city: 'Seattle, WA 98104',
+    city: 'Anytown, WA 00000',
     country: 'USA',
   },
   phone: '1 (555) 555-0123',
