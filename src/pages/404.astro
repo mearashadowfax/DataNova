@@ -4,6 +4,7 @@ import BaseLayout from '@layout/BaseLayout.astro';
 import Icon from '@ui/icons/Icon.astro';
 import Button from '@ui/Button.astro';
 import type { WithContext, Thing } from 'schema-dts';
+import { menuItems, menus } from '@/navigation';
 
 export const pageContent = {
   errorCode: '404',
@@ -12,32 +13,8 @@ export const pageContent = {
   goBackLabel: 'Go back',
 };
 
-const resources = [
-  {
-    title: 'Knowledge Base',
-    description: 'Find answers to common questions.',
-    icon: 'info',
-    link: '/support/knowledge-base',
-  },
-  {
-    title: 'Articles',
-    description: 'Explore insights and best practices.',
-    icon: 'articles',
-    link: '/support/articles',
-  },
-  {
-    title: 'Whitepapers',
-    description: 'Read in-depth technical reports.',
-    icon: 'blankDocument',
-    link: '/support/whitepapers',
-  },
-  {
-    title: 'Reference',
-    description: 'Browse technical documentation.',
-    icon: 'documentMagnifyingGlass',
-    link: '/support/reference',
-  },
-];
+// Support links, shared with the mega menu
+const resources = menuItems(menus.support);
 
 const seo = {
   title: 'Page Not Found - DataNova',
@@ -82,7 +59,7 @@ const schema: WithContext<Thing> = {
           {resources.map(resource => (
             <li>
               <a
-                href={resource.link}
+                href={resource.href}
                 class="group flex gap-x-5 px-2 py-8 transition hover:bg-slate-100"
               >
                 <Icon name={resource.icon} class="size-6 text-teal-600" />

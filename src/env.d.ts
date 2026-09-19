@@ -14,7 +14,6 @@ interface ImportMetaEnv {
   readonly FORM_WEBHOOK_CONTACT?: string;
   readonly FORM_WEBHOOK_NEWSLETTER?: string;
   readonly VERCEL?: string;
-  readonly PROD: boolean;
 }
 
 interface ImportMeta {

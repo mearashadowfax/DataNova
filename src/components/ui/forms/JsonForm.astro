@@ -1,0 +1,155 @@
+---
+/**
+ * Renders a `FormDefinition` and posts it as JSON to its endpoint.
+ *
+ * Owns the honeypot, status line, submit button and the client-side binding,
+ * so a page only says which form it wants. Two layouts: `stacked` (floating
+ * fields, used for contact and quote) and `inline` (single field beside the
+ * button, used for the newsletter subscribe box).
+ *
+ * Element ids are derived from the form name, so render each form at most
+ * once per page.
+ */
+import type { FormDefinition } from '@/forms/definition';
+import { HONEYPOT_FIELD } from '@/forms/definition';
+import FloatingField from './FloatingField.astro';
+
+interface Props {
+  form: FormDefinition;
+  layout?: 'stacked' | 'inline';
+  /** Helper text shown under an inline form. */
+  description?: string;
+  class?: string;
+}
+
+const { form, layout = 'stacked', description, class: className } = Astro.props;
+
+const { name, endpoint, fields, messages } = form;
+const legendId = `${name}-form-legend`;
+const statusId = `${name}-form-status`;
+const descriptionId = `${name}-form-description`;
+const honeypotId = `${name}-${HONEYPOT_FIELD}`;
+const fieldId = (fieldName: string) => `${name}-${fieldName}`;
+const inlineField = fields[0];
+---
+
+<form
+  id={`${name}-form`}
+  class:list={[layout === 'stacked' && 'p-4', className]}
+  aria-labelledby={legendId}
+  data-form={name}
+  data-endpoint={endpoint}
+  data-submitting-label={messages.submitting}
+  novalidate
+>
+  {layout === 'inline' ? (
+    <fieldset
+      class="flex flex-col items-center gap-2 rounded-lg bg-teal-400 p-2 sm:flex-row sm:gap-3"
+      aria-labelledby={legendId}
+    >
+      <legend id={legendId} class="sr-only text-lg font-medium text-slate-700">
+        {messages.legend}
+      </legend>
+
+      <div class="hidden" aria-hidden="true">
+        <label for={honeypotId}>Website</label>
+        <input
+          type="text"
+          id={honeypotId}
+          name={HONEYPOT_FIELD}
+          tabindex="-1"
+          autocomplete="off"
+        />
+      </div>
+
+      {inlineField && inlineField.kind !== 'select' && (
+        <div class="w-full">
+          <label for={fieldId(inlineField.name)} class="sr-only">
+            {inlineField.label}
+          </label>
+          <input
+            type={inlineField.kind === 'textarea' ? 'text' : inlineField.kind}
+            id={fieldId(inlineField.name)}
+            name={inlineField.name}
+            class="block w-full rounded-lg border-transparent px-4 py-3 text-sm focus:border-teal-700/80 focus:ring-teal-700/80 focus-visible:ring-2 focus-visible:ring-teal-700/80"
+            placeholder={inlineField.label}
+            maxlength={inlineField.maxLength}
+            required={inlineField.required}
+            aria-required={inlineField.required ? 'true' : undefined}
+            aria-label={inlineField.label}
+            aria-describedby={[description && descriptionId, statusId]
+              .filter(Boolean)
+              .join(' ')}
+            autocomplete={inlineField.autocomplete}
+            spellcheck="false"
+          />
+        </div>
+      )}
+
+      <button
+        type="submit"
+        data-form-submit
+        class="inline-flex w-full items-center justify-center gap-x-2 rounded-lg border border-transparent bg-teal-100 p-3 text-sm font-medium whitespace-nowrap text-slate-700 transition duration-300 hover:bg-teal-700/80 hover:text-white focus:bg-teal-700 focus:text-white focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+      >
+        {messages.submit}
+      </button>
+    </fieldset>
+  ) : (
+    <fieldset class="space-y-4">
+      <legend id={legendId} class="sr-only">
+        {messages.legend}
+      </legend>
+
+      <div class="hidden" aria-hidden="true">
+        <label for={honeypotId}>Website</label>
+        <input
+          type="text"
+          id={honeypotId}
+          name={HONEYPOT_FIELD}
+          tabindex="-1"
+          autocomplete="off"
+        />
+      </div>
+
+      {fields.map(field => (
+        <FloatingField
+          field={field}
+          id={fieldId(field.name)}
+          describedBy={field.kind === 'email' ? statusId : undefined}
+        />
+      ))}
+    </fieldset>
+  )}
+
+  {description && (
+    <p id={descriptionId} class="mt-3 text-sm text-slate-400">
+      {description}
+    </p>
+  )}
+
+  <p
+    id={statusId}
+    class:list={['hidden text-sm', layout === 'inline' ? 'mt-2' : 'mt-4']}
+    role="status"
+    aria-live="polite"
+    data-form-status
+  ></p>
+
+  {layout === 'stacked' && (
+    <div class="mt-8">
+      <button
+        type="submit"
+        data-form-submit
+        class="inline-flex items-center rounded-lg bg-teal-100 px-6 py-2 font-medium text-nowrap text-slate-700 transition-colors duration-300 hover:bg-teal-700/80 hover:text-white focus:bg-teal-700/80 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        {messages.submit}
+      </button>
+    </div>
+  )}
+</form>
+
+<script>
+  import { bindJsonForms } from '@/utils/form-client';
+
+  document.addEventListener('astro:page-load', () => bindJsonForms());
+</script>

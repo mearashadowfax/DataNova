@@ -9,7 +9,7 @@ An [Astro](https://astro.build/) template for multi-page product sites – marke
 - **17 pages, 4 content collections.** Landing, about, contact, platform, five downloads pages and a support hub with articles, reference docs, a knowledge base, sample spreadsheets and whitepapers. Articles and reference are Markdoc; spreadsheets and whitepapers are JSON.
 - **Edit content in a CMS.** [Keystatic](https://keystatic.com/) admin UI at `/keystatic`. Writes to local files in development or to your GitHub repo in production.
 - **Database included.** [Drizzle ORM](https://orm.drizzle.team/) on [Turso](https://turso.tech/)/libSQL, with a local SQLite file in development. Powers the helpful / not-helpful feedback widget on every article and reference page.
-- **Forms that work on day one.** `/api/contact` and `/api/newsletter` validate with Zod, rate-limit per IP and carry a honeypot. They run in demo mode until you paste a Formspree or webhook URL.
+- **Forms that work on day one.** `/api/contact`, `/api/quote` and `/api/newsletter` are each declared once as a field list that renders the form and validates the payload, rate-limit per IP and carry a honeypot. They run in demo mode until you paste a Formspree or webhook URL.
 - **Hardened for production.** CSP, HSTS and other security headers in `vercel.json`; the CMS admin can be switched off in production; the database client refuses to fall back to a local file on Vercel.
 - **Modern stack.** Astro 7 (SSR, Vercel adapter), Tailwind CSS 4, Preline UI 5, React 19 and Svelte 5 islands, TypeScript. Node 22+, pnpm.
 - **SEO and performance wiring.** `astro-seo`, schema.org via `astro-seo-schema`, `astro-font`, view transitions with `ClientRouter`, prefetching and a dynamic `robots.txt`.
@@ -158,18 +158,23 @@ Also change `site` in `astro.config.mjs` from `https://data-nova.vercel.app` to 
     ├── data/                   # JSON collections
     │   ├── spreadsheets/
     │   └── whitepapers/
+    ├── config.ts               # Every env var, resolved once into a typed config
     ├── db/
-    │   ├── client.ts           # libSQL client: Turso in prod, .data/local.db in dev
+    │   ├── client.ts           # libSQL client, opened on first use
     │   └── schema.ts           # Feedback table
+    ├── feedback/store.ts       # Helpful / not-helpful votes: counts(), vote(), ping()
+    ├── forms/                  # Form declarations, the submit pipeline and the delivery seam
     ├── layout/BaseLayout.astro # <head>, SEO, fonts, navbar and footer for every page
+    ├── navigation.ts           # Mega menus, top-level links and breadcrumb roots
     ├── pages/
-    │   ├── api/                # contact.ts, newsletter.ts, feedback.ts, health.ts
+    │   ├── api/                # contact.ts, quote.ts, newsletter.ts, feedback.ts, health.ts
     │   ├── downloads/          # Product, editions, licensing, quote pages
     │   ├── platform/
     │   ├── support/            # articles/, reference/, knowledge base, spreadsheets, whitepapers
     │   ├── index.astro, about.astro, contact.astro, 404.astro
     │   └── robots.txt.ts       # Generated from `site`
-    ├── utils/                  # navigation.ts, megaMenu/, rate-limit.ts, sanitize.ts, api.ts
+    ├── support/                # docs.ts (what a support document is), load.ts (astro:content)
+    ├── utils/                  # rate-limit.ts, sanitize.ts, form-client.ts, reading-time.ts
     └── content.config.ts       # Astro content collection schemas
 ```
 
@@ -184,7 +189,7 @@ Path aliases are defined in `tsconfig.json`: `@/`, `@common/`, `@sections/`, `@u
 
 ### Navigation Bar
 
-Top-level links live in [`src/utils/navigation.ts`](src/utils/navigation.ts):
+Top-level links live in [`src/navigation.ts`](src/navigation.ts):
 
 ```ts
 export const navigationLinks = [
@@ -197,66 +202,47 @@ export const navigationLinks = [
 
 ### Mega Menus
 
-Each dropdown is a data file in [`src/utils/megaMenu/`](src/utils/megaMenu) paired with a component in [`src/components/common/MegaMenu/`](src/components/common/MegaMenu). The data file holds sections of items with an icon, title, optional description and link:
+The whole navigation tree is one typed object, `menus`, in [`src/navigation.ts`](src/navigation.ts). Each menu has a label, an optional description, a `pathPrefix` that marks it active, and sections of items:
 
 ```ts
-// src/utils/megaMenu/downloads.ts
-export const downloadsMenu = [
-  {
-    sectionTitle: 'Download',
-    items: [
+// src/navigation.ts
+export const menus = {
+  downloads: {
+    id: 'downloads',
+    label: 'Downloads',
+    description: 'Get started with a free trial or explore licensing options',
+    pathPrefix: '/downloads',
+    layout: 'list',
+    sections: [
       {
-        icon: 'download',
-        title: 'DataNova Core',
-        description: 'Download the free trial version.',
-        href: '/downloads/datanova-core',
+        title: 'Download',
+        items: [
+          {
+            icon: 'download',
+            title: 'DataNova Core',
+            description: 'Download the free trial version.',
+            href: '/downloads/datanova-core',
+          },
+        ],
       },
     ],
   },
   // ...
-];
+} as const satisfies Record<string, Menu>;
 ```
 
-The matching component imports it and renders a Preline `hs-dropdown`:
+`layout: 'list'` renders an icon, title and description per link; `layout: 'cards'` renders an imported image per link (see the Platform menu). One component, [`MegaMenu.astro`](src/components/common/MegaMenu/MegaMenu.astro), renders every menu, and `Navbar.astro` loops over `menuList`. The expanded footer and the 404 page read the same tree, and `pnpm test` checks that every internal `href` has a page and every `icon` exists in [`icons.ts`](src/components/ui/icons/icons.ts).
 
-```astro
----
-import { downloadsMenu } from '@utils/megaMenu/downloads';
-const currentPath = Astro.url.pathname;
----
-
-<div class="hs-dropdown">
-  <button
-    class={`hs-dropdown-toggle ${currentPath.startsWith('/downloads') ? 'underline' : ''}`}
-  >
-    Downloads
-  </button>
-  <div class="hs-dropdown-menu">
-    {downloadsMenu.map(section => (
-      <div>
-        <p>{section.sectionTitle}</p>
-        {section.items.map(item => (
-          <a href={item.href}>
-            <p>{item.title}</p>
-            <p>{item.description}</p>
-          </a>
-        ))}
-      </div>
-    ))}
-  </div>
-</div>
-```
-
-To add a menu: create a data file, copy one of the `MegaMenu/*.astro` components, and drop it into `Navbar.astro`. Icon names come from [`src/components/ui/icons/icons.ts`](src/components/ui/icons/icons.ts).
+To add a menu: add an entry to `menus`. Nothing else changes.
 
 ### Footers
 
 Two footers ship with the template:
 
-- [`Footer.astro`](src/components/sections/Footer.astro) – compact: company info, contact details and a subscribe form ([`FooterForm.astro`](src/components/ui/forms/FooterForm.astro)).
-- [`FooterExpanded.astro`](src/components/sections/FooterExpanded.astro) – adds link columns generated from the mega-menu data and a wider subscribe form ([`FooterFormExpanded.astro`](src/components/ui/forms/FooterFormExpanded.astro)).
+- [`Footer.astro`](src/components/sections/Footer.astro) – compact: company info, contact details and a subscribe form.
+- [`FooterExpanded.astro`](src/components/sections/FooterExpanded.astro) – adds link columns generated from `menus` and a wider subscribe form.
 
-Company name, description, address and attribution are constants at the top of `Footer.astro`. Switch footers by changing one import in [`src/layout/BaseLayout.astro`](src/layout/BaseLayout.astro):
+Both render the newsletter form with `<JsonForm form={newsletterForm} layout="inline" />` (see [Contact and Newsletter Forms](#contact-and-newsletter-forms)). Company name, description, address, phone and email live in [`src/site.ts`](src/site.ts) (shipped as placeholder values – replace them with yours); the attribution line is a constant at the top of each footer. Switch footers by changing one import in [`src/layout/BaseLayout.astro`](src/layout/BaseLayout.astro):
 
 ```astro
 ---
@@ -286,7 +272,7 @@ Tailwind CSS 4 is configured in CSS, not in a JS config file. Theme tokens live 
 
 ## Content Management with Keystatic
 
-Keystatic gives editors a web UI for the `articles` and `reference` Markdoc collections. Collection shapes are defined in [`keystatic.config.ts`](keystatic.config.ts); the matching Astro schemas are in [`src/content.config.ts`](src/content.config.ts). Keep the two in sync when you add fields.
+Keystatic gives editors a web UI for the `articles` and `reference` Markdoc collections. Collection shapes are defined in [`keystatic.config.ts`](keystatic.config.ts); the matching Astro schemas are in [`src/content.config.ts`](src/content.config.ts). Both files build the `articles` and `reference` collections from one `docCollection()` helper, so a new field is added in two places, once per file. What a page derives from a document (table of contents, reading time, SEO, schema.org, breadcrumbs, feedback slug) lives in [`src/support/docs.ts`](src/support/docs.ts).
 
 - **Local development:** <http://localhost:4321/keystatic> – edits write to `src/content/`.
 - **Production (GitHub mode):** `https://your-domain.com/keystatic` – edits are committed to your repository.
@@ -350,7 +336,7 @@ Further reading: [Keystatic docs](https://keystatic.com/docs/introduction) · [D
 
 ## Database with Drizzle and Turso
 
-The article feedback widget ([`PostFeedback.svelte`](src/components/common/PostFeedback.svelte)) stores helpful / not-helpful counts per article slug. The schema is one table in [`src/db/schema.ts`](src/db/schema.ts):
+The feedback widget ([`PostFeedback.svelte`](src/components/common/PostFeedback.svelte)) stores helpful / not-helpful counts per document. Votes are keyed by `collection/id` (for example `articles/my-post`) so an article and a reference doc with the same file name never share a counter. The schema is one table in [`src/db/schema.ts`](src/db/schema.ts):
 
 ```ts
 export const feedback = sqliteTable('Feedback', {
@@ -360,7 +346,7 @@ export const feedback = sqliteTable('Feedback', {
 });
 ```
 
-[`src/db/client.ts`](src/db/client.ts) connects to `TURSO_DATABASE_URL` when set and to `file:.data/local.db` otherwise. **On Vercel it throws if the URL is missing**, so a misconfigured deploy fails loudly instead of silently writing to a throwaway file.
+All reads and writes go through [`src/feedback/store.ts`](src/feedback/store.ts) – `counts(slug)`, `vote(slug, kind)` and `ping()` – which is also what `pnpm test` exercises against an in-memory libSQL database. The connection itself comes from [`src/db/client.ts`](src/db/client.ts), opened on first use, with its URL resolved in [`src/config.ts`](src/config.ts): `TURSO_DATABASE_URL` when set, `file:.data/local.db` otherwise. **On Vercel the config refuses to fall back to a local file**, so a misconfigured deploy fails loudly instead of silently writing to a throwaway file.
 
 **Set up a production database:**
 
@@ -389,14 +375,53 @@ Further reading: [Drizzle ORM docs](https://orm.drizzle.team/docs/overview) · [
 
 ## Contact and Newsletter Forms
 
-The contact, request-a-quote and footer subscribe forms post JSON to `/api/contact` and `/api/newsletter` ([`src/pages/api/`](src/pages/api)). Each endpoint:
+Each form is declared once in [`src/forms/definitions.ts`](src/forms/definitions.ts) as a list of fields:
 
-- validates the payload with Zod (field lengths, email format),
-- rate-limits by client IP (contact: 5 requests/minute),
+```ts
+export const contactForm = defineForm({
+  name: 'contact',
+  endpoint: '/api/contact',
+  deliverTo: 'contact',
+  fields: [
+    {
+      name: 'name',
+      label: 'Name',
+      kind: 'text',
+      maxLength: 120,
+      required: true,
+    },
+    {
+      name: 'email',
+      label: 'Email',
+      kind: 'email',
+      maxLength: 254,
+      required: true,
+    },
+    {
+      name: 'message',
+      label: 'Message',
+      kind: 'textarea',
+      maxLength: 5000,
+      required: true,
+    },
+  ],
+  messages: {
+    legend: 'Contact us',
+    sent: 'Thanks! Your message has been sent.',
+  },
+});
+```
+
+The same declaration renders the markup – `<JsonForm form={contactForm} />` from [`JsonForm.astro`](src/components/ui/forms/JsonForm.astro) – and derives the Zod schema the endpoint validates with, so a field the browser requires is always a field the server requires. The route file is one line: `export const POST = formEndpoint(contactForm)`.
+
+[`src/forms/submit.ts`](src/forms/submit.ts) owns the whole pipeline for every form:
+
+- rate-limits by client IP (5 requests/minute per form),
+- validates the JSON payload against the derived schema,
 - drops submissions that fill the hidden `website` honeypot field, returning a silent success,
 - forwards the payload to a webhook, or logs it server-side in **demo mode** when no webhook is configured.
 
-To deliver real submissions, set one variable per form:
+To deliver real submissions, set one variable per delivery target (the contact and quote forms share `contact`):
 
 ```bash
 FORMSPREE_CONTACT_ENDPOINT=https://formspree.io/f/your-id
@@ -408,19 +433,22 @@ FORMSPREE_NEWSLETTER_ENDPOINT=https://formspree.io/f/your-id
 
 The CSP in `vercel.json` allows `connect-src` to `formspree.io`; add your own webhook host there if you use something else.
 
+To add a form: add a `defineForm(...)` declaration, a one-line route under `src/pages/api/`, and render it with `<JsonForm>`.
+
 ---
 
 ## API Routes
 
-| Route                    | Method | Purpose                                                                   |
-| ------------------------ | ------ | ------------------------------------------------------------------------- |
-| `/api/contact`           | POST   | Contact / quote form – `{ name, email, message, company?, licenseType? }` |
-| `/api/newsletter`        | POST   | Newsletter subscribe                                                      |
-| `/api/feedback?slug=...` | GET    | Read helpful / not-helpful counts for an article                          |
-| `/api/feedback`          | POST   | Vote – `{ slug, type: 'helpful' \| 'notHelpful' }`                        |
-| `/api/health`            | GET    | `{ ok, database }` – returns 503 if the database is unreachable           |
+| Route                    | Method | Purpose                                                            |
+| ------------------------ | ------ | ------------------------------------------------------------------ |
+| `/api/contact`           | POST   | Contact form – `{ name, email, message }`                          |
+| `/api/quote`             | POST   | Quote form – `{ name, company, email, licenseType, message }`      |
+| `/api/newsletter`        | POST   | Newsletter subscribe – `{ email }`                                 |
+| `/api/feedback?slug=...` | GET    | Read helpful / not-helpful counts for a document (`articles/<id>`) |
+| `/api/feedback`          | POST   | Vote – `{ slug, type: 'helpful' \| 'notHelpful' }`                 |
+| `/api/health`            | GET    | `{ ok, database }` – returns 503 if the database is unreachable    |
 
-All routes are rate-limited via [`src/utils/rate-limit.ts`](src/utils/rate-limit.ts), an in-memory limiter suitable for a single serverless region. Swap it for a shared store if you run many instances.
+Form and feedback routes declare a rate-limit policy (`{ name, limit, windowMs }`) enforced by [`src/utils/rate-limit.ts`](src/utils/rate-limit.ts), which answers `429` with a `Retry-After` header. Buckets are in memory, so limits are per instance; replace `createRateLimiter` with one backed by a shared store if you run many instances.
 
 ---
 

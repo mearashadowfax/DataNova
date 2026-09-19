@@ -1,34 +1,27 @@
 import { createClient } from '@libsql/client';
-import { drizzle } from 'drizzle-orm/libsql';
+import { drizzle, type LibSQLDatabase } from 'drizzle-orm/libsql';
 import { mkdirSync } from 'node:fs';
+import { getConfig, type DbConfig } from '@/config';
 
-function getDatabaseUrl(): string {
-  const url =
-    import.meta.env.TURSO_DATABASE_URL ?? import.meta.env.ASTRO_DB_REMOTE_URL;
+export type Database = LibSQLDatabase;
 
-  if (url) return url;
-
-  // Fail closed on Vercel when Turso env is missing – never silently use a local file DB there.
-  if (import.meta.env.VERCEL) {
-    throw new Error(
-      'Missing TURSO_DATABASE_URL (or ASTRO_DB_REMOTE_URL). Configure a Turso database for production.'
-    );
+/** Build a Drizzle handle for a resolved database config. */
+export function createDb(db: DbConfig): Database {
+  if (db.kind === 'missing') {
+    throw new Error(db.reason);
   }
-
-  // libSQL creates the database file but not its directory, and .data/ is git-ignored.
-  mkdirSync('.data', { recursive: true });
-  return 'file:.data/local.db';
+  if (db.kind === 'local-file') {
+    // libSQL creates the database file but not its directory, and .data/ is git-ignored.
+    mkdirSync('.data', { recursive: true });
+    return drizzle(createClient({ url: db.url }));
+  }
+  return drizzle(createClient({ url: db.url, authToken: db.authToken }));
 }
 
-function getAuthToken(): string | undefined {
-  const token =
-    import.meta.env.TURSO_AUTH_TOKEN ?? import.meta.env.ASTRO_DB_APP_TOKEN;
-  return token || undefined;
+let cached: Database | undefined;
+
+/** The app's database, opened on first use so importing a route never touches the disk. */
+export function getDb(): Database {
+  cached ??= createDb(getConfig().db);
+  return cached;
 }
-
-const client = createClient({
-  url: getDatabaseUrl(),
-  authToken: getAuthToken(),
-});
-
-export const db = drizzle(client);

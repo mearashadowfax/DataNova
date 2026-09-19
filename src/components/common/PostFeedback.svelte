@@ -1,7 +1,16 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
+  import type { FeedbackCounts, FeedbackKind } from '@/feedback/store';
 
-  let { title, firstChoice, secondChoice, slug } = $props();
+  interface Props {
+    title: string;
+    firstChoice: string;
+    secondChoice: string;
+    /** Namespaced document slug, e.g. `articles/my-post` (see `feedbackSlug`). */
+    slug: string;
+  }
+
+  let { title, firstChoice, secondChoice, slug }: Props = $props();
 
   let helpful = $state(0);
   let notHelpful = $state(0);
@@ -10,12 +19,21 @@
   let submitError = $state('');
   let submitting = $state(false);
   let feedbackGiven = $state(false);
-  let userChoice = $state(null);
+  let userChoice = $state<FeedbackKind | null>(null);
+
+  function savedVotes(): Record<string, FeedbackKind> {
+    return JSON.parse(localStorage.getItem('feedback') || '{}');
+  }
+
+  function applyCounts(counts: FeedbackCounts) {
+    helpful = counts.helpful || 0;
+    notHelpful = counts.notHelpful || 0;
+  }
 
   onMount(() => {
-    const savedFeedback = JSON.parse(localStorage.getItem('feedback') || '{}');
-    feedbackGiven = !!savedFeedback[slug];
-    userChoice = savedFeedback[slug] || null;
+    const saved = savedVotes();
+    feedbackGiven = !!saved[slug];
+    userChoice = saved[slug] || null;
     fetchFeedback();
   });
 
@@ -31,9 +49,7 @@
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json();
-      helpful = data.helpful || 0;
-      notHelpful = data.notHelpful || 0;
+      applyCounts((await response.json()) as FeedbackCounts);
       initialFetch = true;
     } catch (error) {
       console.error('Failed to fetch feedback count:', error);
@@ -42,7 +58,7 @@
     }
   }
 
-  async function handleFeedback(type) {
+  async function handleFeedback(type: FeedbackKind) {
     if (feedbackGiven || submitting) return;
 
     submitting = true;
@@ -61,14 +77,11 @@
         throw new Error(body.error || `HTTP error! status: ${response.status}`);
       }
 
-      helpful = body.helpful || 0;
-      notHelpful = body.notHelpful || 0;
+      applyCounts(body as FeedbackCounts);
 
-      const savedFeedback = JSON.parse(
-        localStorage.getItem('feedback') || '{}'
-      );
-      savedFeedback[slug] = type;
-      localStorage.setItem('feedback', JSON.stringify(savedFeedback));
+      const saved = savedVotes();
+      saved[slug] = type;
+      localStorage.setItem('feedback', JSON.stringify(saved));
 
       feedbackGiven = true;
       userChoice = type;

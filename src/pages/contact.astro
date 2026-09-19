@@ -2,7 +2,9 @@
 export const prerender = true;
 import BaseLayout from '@layout/BaseLayout.astro';
 import Icon from '@ui/icons/Icon.astro';
-import ContactForm from '@ui/forms/ContactForm.astro';
+import JsonForm from '@ui/forms/JsonForm.astro';
+import { contactForm } from '@/forms/definitions';
+import { site } from '@/site';
 import type { WithContext, Thing } from 'schema-dts';
 
 const addressHeading = 'Our address:';
@@ -10,10 +12,9 @@ const emailHeading = 'Contact us by email:';
 const knowledgeBaseHeading = 'Knowledge base';
 
 const contactDetails = {
-  addressLine1: '1234 1st Ave Ste 300',
-  addressLine2: 'Seattle, WA 98104, USA',
-  phone: '1 (833) 328-2669',
-  email: 'info@datanova.com',
+  addressLine1: site.address.street,
+  addressLine2: `${site.address.city}, ${site.address.country}`,
+  email: site.email,
 };
 
 const knowledgeBaseDetails = {
@@ -64,7 +65,7 @@ const schema: WithContext<Thing> = {
 
     <div class="grid grid-cols-1 gap-x-10 md:grid-cols-2 lg:gap-x-16">
       <div class="mb-10 h-fit rounded-xl bg-teal-400 pb-10 md:order-2 md:mb-0 md:pb-0">
-        <ContactForm />
+        <JsonForm form={contactForm} />
       </div>
 
       <div class="space-y-14">
@@ -116,51 +117,4 @@ const schema: WithContext<Thing> = {
       </div>
     </div>
   </div>
-
-  <script>
-    // Automatically adjusting the height of the textarea
-    // based on its content. Triggers when the textarea content changes.
-    document.addEventListener('astro:page-load', () => {
-      function textareaAutoHeight(
-        el: HTMLTextAreaElement,
-        offsetTop: number = 0
-      ): void {
-        el.style.height = 'auto';
-        el.style.height = `${el.scrollHeight + offsetTop}px`;
-      }
-
-      (() => {
-        const textareas: string[] = ['#input-message'];
-
-        textareas.forEach(selector => {
-          const textarea = document.querySelector(
-            selector
-          ) as HTMLTextAreaElement;
-
-          if (!textarea) return;
-
-          const overlay = textarea.closest('.hs-overlay');
-
-          if (overlay) {
-            const instance = (window as any).HSOverlay.getInstance(
-              overlay,
-              true
-            );
-
-            if (instance) {
-              instance.element.on('open', () =>
-                textareaAutoHeight(textarea, 3)
-              );
-            }
-          } else {
-            textareaAutoHeight(textarea, 3);
-          }
-
-          textarea.addEventListener('input', () => {
-            textareaAutoHeight(textarea, 3);
-          });
-        });
-      })();
-    });
-  </script>
 </BaseLayout>

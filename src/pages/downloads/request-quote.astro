@@ -1,7 +1,8 @@
 ---
 export const prerender = true;
 import BaseLayout from '@layout/BaseLayout.astro';
-import ContactFormAlt from '@ui/forms/ContactFormAlt.astro';
+import JsonForm from '@ui/forms/JsonForm.astro';
+import { quoteForm } from '@/forms/definitions';
 const title = 'Request a custom quote';
 const subTitle =
   "Provide your contact details, the required number of licenses/users, and any additional information or questions. We'll send you a tailored quote promptly.";
@@ -19,56 +20,9 @@ const subTitle =
 
       <div class="w-full lg:w-[48%]">
         <div class="rounded-xl bg-teal-400 pb-10 md:order-2 md:pb-0">
-          <ContactFormAlt />
+          <JsonForm form={quoteForm} />
         </div>
       </div>
     </div>
   </section>
-
-  <script>
-    // Automatically adjusting the height of the textarea
-    // based on its content. Triggers when the textarea content changes.
-    document.addEventListener('astro:page-load', () => {
-      function textareaAutoHeight(
-        el: HTMLTextAreaElement,
-        offsetTop: number = 0
-      ): void {
-        el.style.height = 'auto';
-        el.style.height = `${el.scrollHeight + offsetTop}px`;
-      }
-
-      (() => {
-        const textareas: string[] = ['#input-message'];
-
-        textareas.forEach(selector => {
-          const textarea = document.querySelector(
-            selector
-          ) as HTMLTextAreaElement;
-
-          if (!textarea) return;
-
-          const overlay = textarea.closest('.hs-overlay');
-
-          if (overlay) {
-            const instance = (window as any).HSOverlay.getInstance(
-              overlay,
-              true
-            );
-
-            if (instance) {
-              instance.element.on('open', () =>
-                textareaAutoHeight(textarea, 3)
-              );
-            }
-          } else {
-            textareaAutoHeight(textarea, 3);
-          }
-
-          textarea.addEventListener('input', () => {
-            textareaAutoHeight(textarea, 3);
-          });
-        });
-      })();
-    });
-  </script>
 </BaseLayout>

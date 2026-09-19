@@ -2,6 +2,7 @@
 export const prerender = true;
 import BaseLayout from '@layout/BaseLayout.astro';
 import Icon from '@ui/icons/Icon.astro';
+import { site, telHref } from '@/site';
 
 // Hero
 const preTitle = 'Register';
@@ -80,9 +81,9 @@ const infoSections = [
   {
     title: null,
     content: [
-      `Every installation package includes the full DataNova Core software, sample workbooks, and detailed user documentation. For enterprise solutions, bulk licensing, or invoicing inquiries, reach out to us at <a href='mailto:sales@datanova.com' aria-label='Sales email' class="hover:text-slate-400 transition-colors duration-300"
->sales@datanova.com</a> or call <a href='tel:1-833-328-2669' aria-label='Contact number' class="hover:text-slate-400 transition-colors duration-300"
->1 (833) 328-2669</a>. Discounts for academic and non-profit organizations are available.`,
+      `Every installation package includes the full DataNova Core software, sample workbooks, and detailed user documentation. For enterprise solutions, bulk licensing, or invoicing inquiries, reach out to us at <a href='mailto:${site.salesEmail}' aria-label='Sales email' class="hover:text-slate-400 transition-colors duration-300"
+>${site.salesEmail}</a> or call <a href='${telHref(site.phone)}' aria-label='Contact number' class="hover:text-slate-400 transition-colors duration-300"
+>${site.phone}</a>. Discounts for academic and non-profit organizations are available.`,
     ],
     className:
       'md:content-center md:border-l border-t md:border-t-0 border-dashed border-slate-400 py-5 sm:p-5',
