@@ -1,10 +1,7 @@
 ---
-import Downloads from '@megaMenu/Downloads.astro';
-import Support from '@megaMenu/Support.astro';
-import Platform from '@megaMenu/Platform.astro';
-import Features from '@megaMenu/Features.astro';
+import MegaMenu from '@megaMenu/MegaMenu.astro';
 import Button from '@ui/Button.astro';
-import { navigationLinks } from '@utils/navigation';
+import { menuList, navigationLinks } from '@/navigation';
 
 const currentPath = Astro.url.pathname;
 
@@ -90,13 +87,9 @@ const primaryCTA = {
                 Home
               </a>
 
-              <Features />
-
-              <Platform />
-
-              <Downloads />
-
-              <Support />
+              {menuList.map(menu => (
+                <MegaMenu menu={menu} />
+              ))}
 
               {navigationLinks.map(link => (
                 <a

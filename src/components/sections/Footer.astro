@@ -1,19 +1,16 @@
 ---
-import FooterForm from '@ui/forms/FooterForm.astro';
+import JsonForm from '@ui/forms/JsonForm.astro';
+import { newsletterForm } from '@/forms/declarations';
 import ContactInfo from '@common/ContactInfo.astro';
+import { site } from '@/site';
 
-// Props for customization
-const companyName = 'DataNova Analytics Inc.';
-const companyDescription =
-  'DataNova Analytics Inc. is a leading business intelligence and analytics software company founded in 2018, with offices in Boston and Seattle.';
+// Company details live in src/site.ts
+const companyName = site.name;
+const companyDescription = site.description;
 
-// Contact information for the company
-const contactDetails = {
-  address: 'Seattle, WA, 98104',
-  phone: '1 (833) 328-2669',
-  email: 'info@datanova.com',
-  website: 'www.datanova.com',
-};
+// Helper text under the subscribe form
+const subscribeDescription =
+  "Get all the information you need. Enter your email, and we'll be in touch.";
 
 // Dynamic date for copyright display
 const copyrightYear = new Date().getFullYear();
@@ -47,13 +44,18 @@ const trademarkNotice =
 
       {/* Contact Information Section */}
       <div class="col-span-1 md:col-span-2 xl:col-span-1 xl:col-start-3">
-        <ContactInfo {...contactDetails} />
+        <ContactInfo />
       </div>
 
       {/* Email Subscription Form */}
       <div class="col-span-2 md:col-span-3 xl:col-span-2">
         <h3 class="font-semibold text-slate-700">Subscribe for updates</h3>
-        <FooterForm />
+        <JsonForm
+          form={newsletterForm}
+          layout="inline"
+          description={subscribeDescription}
+          class="mt-4"
+        />
       </div>
     </div>
 

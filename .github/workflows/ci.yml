@@ -34,4 +34,3 @@ jobs:
         run: pnpm build
         env:
           SKIP_KEYSTATIC: '1'
-          TURSO_DATABASE_URL: file:./.data/ci.db

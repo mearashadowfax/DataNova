@@ -1,0 +1,61 @@
+---
+/**
+ * One field of a `FormDeclaration`, rendered with a floating label. Required-ness,
+ * type and options all come from the field spec, never from the markup.
+ */
+import type { FieldSpec } from '@/forms/declare';
+
+interface Props {
+  field: FieldSpec;
+  id: string;
+  describedBy?: string;
+}
+
+const { field, id, describedBy } = Astro.props;
+const labelId = `${id}-label`;
+
+const controlClass =
+  'peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-700/80';
+const selectClass =
+  'peer block w-full rounded-lg border border-transparent p-4 pe-9 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80 focus-visible:ring-2 focus-visible:ring-teal-700/80';
+const labelClass =
+  'pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600';
+
+const shared = {
+  id,
+  name: field.name,
+  required: field.required,
+  'aria-required': field.required ? ('true' as const) : undefined,
+  'aria-labelledby': labelId,
+  'aria-describedby': describedBy,
+  autocomplete: field.autocomplete,
+};
+---
+
+<div class="relative">
+  {field.kind === 'textarea' ? (
+    <textarea
+      {...shared}
+      class={controlClass}
+      placeholder={field.label}
+      maxlength={field.maxLength}
+    ></textarea>
+  ) : field.kind === 'select' ? (
+    <select {...shared} class={selectClass}>
+      {field.options.map(option => (
+        <option value={option}>{option}</option>
+      ))}
+    </select>
+  ) : (
+    <input
+      {...shared}
+      type={field.kind}
+      class={controlClass}
+      placeholder={field.label}
+      maxlength={field.maxLength}
+    />
+  )}
+  <label id={labelId} for={id} class={labelClass}>
+    {field.label}
+  </label>
+</div>

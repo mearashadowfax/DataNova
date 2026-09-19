@@ -1,74 +1,47 @@
 import { config, fields, collection } from '@keystatic/core';
+import { getConfig } from './src/config';
 
 // https://keystatic.com/docs/local-mode
-// Set storage mode via environment variable: KEYSTATIC_STORAGE_MODE=github or leave unset for local
-const KEYSTATIC_STORAGE_MODE =
-  import.meta.env.KEYSTATIC_STORAGE_MODE ?? 'local';
+// Storage mode comes from PUBLIC_KEYSTATIC_STORAGE_MODE (github | local) and the
+// PUBLIC_KEYSTATIC_GITHUB_REPO_OWNER / PUBLIC_KEYSTATIC_GITHUB_REPO_NAME pair – see src/config.ts.
+const { keystatic } = getConfig();
 
-// GitHub repository details – set these in your .env file for GitHub mode:
-// KEYSTATIC_GITHUB_REPO_OWNER=your-org
-// KEYSTATIC_GITHUB_REPO_NAME=your-repo
-const GITHUB_REPO_OWNER = import.meta.env.KEYSTATIC_GITHUB_REPO_OWNER ?? '';
-const GITHUB_REPO_NAME = import.meta.env.KEYSTATIC_GITHUB_REPO_NAME ?? '';
+/** A Markdoc document collection: articles and reference share one shape. */
+function docCollection(label: string, dir: string) {
+  return collection({
+    label,
+    slugField: 'title',
+    path: `src/content/${dir}/*` as const,
+    format: { contentField: 'content' },
+    schema: {
+      title: fields.slug({ name: { label: 'Title' } }),
+      description: fields.text({ label: 'Description' }),
+      content: fields.markdoc({
+        label: 'Content',
+        options: {
+          image: {
+            directory: `src/assets/images/${dir}`,
+            publicPath: `@images/${dir}/`,
+          },
+        },
+      }),
+      date: fields.date({
+        label: 'Publication date',
+        description: 'The date of the publication',
+      }),
+    },
+  });
+}
 
 export default config({
   storage:
-    KEYSTATIC_STORAGE_MODE === 'github'
-      ? {
-          kind: 'github' as const,
-          repo: `${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}` as `${string}/${string}`,
-        }
-      : {
-          kind: 'local' as const,
-        },
+    keystatic.kind === 'github'
+      ? { kind: 'github', repo: keystatic.repo }
+      : { kind: 'local' },
 
   collections: {
-    articles: collection({
-      label: 'Articles',
-      slugField: 'title',
-      path: 'src/content/articles/*',
-      format: { contentField: 'content' },
-      schema: {
-        title: fields.slug({ name: { label: 'Title' } }),
-        description: fields.text({ label: 'Description' }),
-        content: fields.markdoc({
-          label: 'Content',
-          options: {
-            image: {
-              directory: 'src/assets/images/articles',
-              publicPath: '@images/articles/',
-            },
-          },
-        }),
-        date: fields.date({
-          label: 'Publication date',
-          description: 'The date of the publication',
-        }),
-      },
-    }),
-    reference: collection({
-      label: 'Reference',
-      slugField: 'title',
-      path: 'src/content/reference/*',
-      format: { contentField: 'content' },
-      schema: {
-        title: fields.slug({ name: { label: 'Title' } }),
-        description: fields.text({ label: 'Description' }),
-        content: fields.markdoc({
-          label: 'Content',
-          options: {
-            image: {
-              directory: 'src/assets/images/reference',
-              publicPath: '@images/reference/',
-            },
-          },
-        }),
-        date: fields.date({
-          label: 'Publication date',
-          description: 'The date of the publication',
-        }),
-      },
-    }),
+    articles: docCollection('Articles', 'articles'),
+    reference: docCollection('Reference', 'reference'),
     spreadsheets: collection({
       label: 'Sample Spreadsheets',
       slugField: 'title',

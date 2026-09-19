@@ -3,29 +3,23 @@ import { z } from 'astro/zod';
 
 import { glob } from 'astro/loaders';
 
-const articles = defineCollection({
-  loader: glob({
-    pattern: ['**/*.md', '**/*.mdx', '**/*.mdoc'],
-    base: './src/content/articles',
-  }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    date: z.date(),
-  }),
-});
+/** Markdoc support documents – articles and reference share one shape. */
+function docCollection(dir: string) {
+  return defineCollection({
+    loader: glob({
+      pattern: ['**/*.md', '**/*.mdx', '**/*.mdoc'],
+      base: `./src/content/${dir}`,
+    }),
+    schema: z.object({
+      title: z.string(),
+      description: z.string(),
+      date: z.date(),
+    }),
+  });
+}
 
-const reference = defineCollection({
-  loader: glob({
-    pattern: ['**/*.md', '**/*.mdx', '**/*.mdoc'],
-    base: './src/content/reference',
-  }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    date: z.date(),
-  }),
-});
+const articles = docCollection('articles');
+const reference = docCollection('reference');
 
 const spreadsheets = defineCollection({
   loader: glob({ pattern: '**/*.json', base: './src/data/spreadsheets' }),
