@@ -1,0 +1,51 @@
+---
+/**
+ * The frame every support-hub index shares: hero with breadcrumbs, then the
+ * resource's list (default slot) or its empty state when there is nothing.
+ */
+import BaseLayout from '@layout/BaseLayout.astro';
+import Breadcrumbs from '@common/Breadcrumbs.astro';
+import EmptyState from '@common/EmptyState.astro';
+import PageHero from '@common/PageHero.astro';
+import { supportTrail } from '@/navigation';
+import { describePage } from '@/seo';
+import { site } from '@/site';
+import { supportResources, type SupportResourceId } from '@/support/resources';
+
+interface Props {
+  resource: SupportResourceId;
+  /** How many items the list holds; zero shows the empty state. */
+  count: number;
+  /** Extra classes for the content section, e.g. a grid. */
+  class?: string;
+}
+
+const { resource, count, class: className } = Astro.props;
+const { label, empty } = supportResources[resource];
+
+const page = describePage({
+  title: label,
+  description: `Browse ${site.brand} ${label.toLowerCase()}.`,
+  url: Astro.url,
+});
+---
+
+<BaseLayout page={page}>
+  <PageHero title={label} gradient="br" width="3xl">
+    <Breadcrumbs slot="breadcrumbs" items={supportTrail({ label })} />
+  </PageHero>
+  <section
+    class:list={[
+      'mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20',
+      className,
+    ]}
+  >
+    {
+      count === 0 ? (
+        <EmptyState title={empty.title} description={empty.description} />
+      ) : (
+        <slot />
+      )
+    }
+  </section>
+</BaseLayout>

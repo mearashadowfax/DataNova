@@ -2,39 +2,20 @@
 import Navbar from '@sections/Navbar.astro';
 import Footer from '@sections/Footer.astro';
 import { ClientRouter } from 'astro:transitions';
-import { SEO, type Props as SEOProps } from 'astro-seo';
+import { SEO } from 'astro-seo';
 import { Schema } from 'astro-seo-schema';
-import type { WithContext, Thing } from 'schema-dts';
 import { AstroFont } from 'astro-font';
+import { describePage, type PageMeta } from '@/seo';
+import { site } from '@/site';
 import '@styles/global.css';
 
 interface Props {
-  seo?: SEOProps; // Optional SEO properties to customize meta tags
-  schema?: WithContext<Thing>; // Optional schema.org properties for structured data
+  /** From `describePage()`; omitted, the page gets the site defaults. */
+  page?: PageMeta;
 }
 
-// Extract `seo` and `schema` from properties or define defaults
-const { seo, schema } = Astro.props;
-const socialImage = `${Astro.site}social.png`; // Path to the default social sharing image
-
-// Define default JSON-LD Schema.org data if no schema is passed
-const defaultSchema: WithContext<Thing> = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  inLanguage: 'en-US',
-  '@id': Astro.url.href,
-  url: Astro.url.href,
-  name: 'DataNova',
-  description:
-    "Unlock powerful data insights with DataNova's advanced analytics suite for Excel. Visualize, analyze, and make data-driven decisions in minutes with seamless Excel integration, AI-powered analysis, and predictive forecasting models.",
-  isPartOf: {
-    '@type': 'WebSite',
-    url: `${Astro.site}`,
-    name: 'DataNova',
-    description:
-      'DataNova Analytics Inc. provides advanced analytics for Excel to help businesses unlock actionable insights quickly with no coding required.',
-  },
-};
+const page = Astro.props.page ?? describePage({ url: Astro.url });
+const socialImage = new URL('social.png', site.url).href;
 ---
 
 <html lang="en" class="scroll-pt-32">
@@ -42,27 +23,24 @@ const defaultSchema: WithContext<Thing> = {
     {/* SEO Meta Tags */}
     <SEO
       charset="utf-8"
-      title={seo?.title ?? 'DataNova'}
-      description={seo?.description ??
-        "Unlock powerful data insights with DataNova's advanced analytics suite for Excel. Visualize, analyze, and make data-driven decisions in minutes with seamless Excel integration, AI-powered analysis, and predictive forecasting models."}
+      title={page.title}
+      description={page.description}
       openGraph={{
         basic: {
-          title: 'DataNova - Unlock Insights from Your Excel Data',
+          title: page.title,
           type: 'website',
           image: socialImage,
         },
         optional: {
-          description:
-            "Transform your Excel workspace with DataNova's powerful analytics suite. Get insights, predictive models, and visualizations in minutes with no coding required.",
+          description: page.description,
         },
       }}
       twitter={{
         card: 'summary_large_image',
-        title: 'DataNova - Unlock Insights from Your Excel Data',
-        description:
-          "Transform your Excel workspace with DataNova's powerful analytics suite. Visualize and analyze data quickly with no coding required.",
+        title: page.title,
+        description: page.description,
         image: socialImage,
-        imageAlt: 'DataNova Logo.',
+        imageAlt: `${site.brand} Logo.`,
       }}
       extend={{
         link: [
@@ -77,7 +55,7 @@ const defaultSchema: WithContext<Thing> = {
       }}
     />
     {/* Schema.org JSON-LD */}
-    <Schema item={schema ?? defaultSchema} />
+    <Schema item={page.schema} />
 
     {/* Font Definitions */}
     <AstroFont

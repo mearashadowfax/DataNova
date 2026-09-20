@@ -1,0 +1,59 @@
+---
+/**
+ * Lists every document in a doc collection, newest first.
+ */
+import SupportPage from './SupportPage.astro';
+import { docCollections, type DocCollection } from '@/support/docs';
+import { listDocs } from '@/support/load';
+import { isLastRow } from '@utils/grid';
+
+interface Props {
+  collection: DocCollection;
+}
+
+const { collection } = Astro.props;
+const { basePath } = docCollections[collection];
+const docs = await listDocs(collection);
+const perRow = 3;
+const actionLabel = 'Read more';
+---
+
+<SupportPage resource={collection} count={docs.length}>
+  <div class="grid grid-cols-1 items-center lg:grid-cols-3">
+    {
+      docs.map((item, index) => {
+        const column = index % perRow;
+        const borderClasses = isLastRow(index, docs.length, perRow)
+          ? column === 0
+            ? 'border-none'
+            : column === 1
+              ? 'lg:border-x'
+              : ''
+          : column === 1
+            ? 'border-b lg:border-x'
+            : 'border-b';
+
+        return (
+          <a
+            class:list={['card group', borderClasses]}
+            href={`${basePath}/${item.id}`}
+          >
+            <div class="mb-5">
+              <div class="mt-5">
+                <h3 class="mt-5 text-lg font-medium text-slate-800">
+                  {item.data.title}
+                </h3>
+                <p class="mt-1 text-slate-500">{item.data.description}</p>
+              </div>
+            </div>
+            <p class="mt-auto">
+              <span class="border-b-2 border-slate-500 pb-1 text-sm font-medium text-slate-700 transition duration-300 group-hover:border-teal-500 group-focus:border-teal-500 focus:outline-hidden">
+                {actionLabel}
+              </span>
+            </p>
+          </a>
+        );
+      })
+    }
+  </div>
+</SupportPage>

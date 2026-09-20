@@ -1,21 +1,37 @@
 ---
-import { Icons } from './icons.ts';
+import type { HTMLAttributes } from 'astro/types';
+import { Icons, type IconName } from './icons.ts';
 
 interface Path {
   d: string;
   class?: string;
 }
 
+interface Props extends HTMLAttributes<'svg'> {
+  /** A key of `Icons`; a typo is a type error at every call site. */
+  name: IconName;
+}
+
 const { name, class: className, ...attributes } = Astro.props;
-let icon = (Icons as any)[name] || {};
-let paths: Path[] = icon.paths || [];
+const icon = Icons[name] as {
+  paths: Path[];
+  class?: string;
+  title?: string;
+  viewBox?: string;
+  fill?: string;
+  stroke?: string;
+  strokeWidth?: astroHTML.JSX.SVGAttributes['stroke-width'];
+  strokeLinecap?: astroHTML.JSX.SVGAttributes['stroke-linecap'];
+  strokeLinejoin?: astroHTML.JSX.SVGAttributes['stroke-linejoin'];
+};
+const paths: Path[] = icon.paths;
 
 const combinedClass = [icon.class, className].filter(Boolean).join(' ');
 const ariaHidden = attributes['aria-hidden'];
 ---
 
 {
-  icon ? (
+  (
     <svg
       {...attributes}
       class={combinedClass}
@@ -32,7 +48,5 @@ const ariaHidden = attributes['aria-hidden'];
         <path d={path.d} class={path.class || ''} />
       ))}
     </svg>
-  ) : (
-    'Icon not found'
   )
 }

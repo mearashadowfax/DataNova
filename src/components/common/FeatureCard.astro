@@ -1,6 +1,14 @@
 ---
 import Icon from '@ui/icons/Icon.astro';
-const { icon, description, styleClass } = Astro.props;
+import type { IconName } from '@ui/icons/icons';
+
+interface Props {
+  icon: IconName;
+  description: string;
+  styleClass?: string;
+}
+
+const { icon, description, styleClass = '' } = Astro.props;
 ---
 
 <div

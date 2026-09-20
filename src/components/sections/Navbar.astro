@@ -1,17 +1,15 @@
 ---
-import Downloads from '@megaMenu/Downloads.astro';
-import Support from '@megaMenu/Support.astro';
-import Platform from '@megaMenu/Platform.astro';
-import Features from '@megaMenu/Features.astro';
+import MegaMenu from '@megaMenu/MegaMenu.astro';
 import Button from '@ui/Button.astro';
-import { navigationLinks } from '@utils/navigation';
+import { menuList, navigationLinks } from '@/navigation';
+import { site } from '@/site';
 
 const currentPath = Astro.url.pathname;
 
 // Call-to-action configuration for the primary button
 const primaryCTA = {
   text: 'Try Free',
-  href: 'https://github.com/mearashadowfax/DataNova',
+  href: site.links.trial,
 };
 ---
 
@@ -27,8 +25,9 @@ const primaryCTA = {
         href="/"
         aria-label="DataNova Logo"
         translate="no"
-        ><span class="font-semibold text-teal-700">Data</span>Nova</a
       >
+        <span class="font-semibold text-teal-700">Data</span>Nova
+      </a>
 
       <button
         type="button"
@@ -50,12 +49,11 @@ const primaryCTA = {
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
-          ><line x1="3" x2="21" y1="6" y2="6"></line><line
-            x1="3"
-            x2="21"
-            y1="12"
-            y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg
         >
+          <line x1="3" x2="21" y1="6" y2="6"></line>
+          <line x1="3" x2="21" y1="12" y2="12"></line>
+          <line x1="3" x2="21" y1="18" y2="18"></line>
+        </svg>
         <svg
           class="hs-collapse-open:block hidden size-4 shrink-0"
           xmlns="http://www.w3.org/2000/svg"
@@ -67,8 +65,10 @@ const primaryCTA = {
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
-          ><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg
         >
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
         <span class="sr-only">Toggle navigation</span>
       </button>
     </div>
@@ -97,14 +97,7 @@ const primaryCTA = {
               >
                 Home
               </a>
-
-              <Features />
-
-              <Platform />
-
-              <Downloads />
-
-              <Support />
+              {menuList.map(menu => <MegaMenu menu={menu} />)}
 
               {
                 navigationLinks.map(link => (
@@ -134,8 +127,9 @@ const primaryCTA = {
               variant="primary"
               target="_blank"
               className="inline-flex border-none py-2! text-nowrap"
-              >{primaryCTA.text}</Button
             >
+              {primaryCTA.text}
+            </Button>
           </div>
         </div>
       </div>

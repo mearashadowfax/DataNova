@@ -1,18 +1,19 @@
 ---
 import BaseLayout from '@layout/BaseLayout.astro';
+import { describePage } from '@/seo';
 import Icon from '@ui/icons/Icon.astro';
-import ContactForm from '@ui/forms/ContactForm.astro';
-import type { WithContext, Thing } from 'schema-dts';
+import JsonForm from '@ui/forms/JsonForm.astro';
+import { contactForm } from '@/forms/declarations';
+import { site } from '@/site';
 
 const addressHeading = 'Our address:';
 const emailHeading = 'Contact us by email:';
 const knowledgeBaseHeading = 'Knowledge base';
 
 const contactDetails = {
-  addressLine1: '1234 1st Ave Ste 300',
-  addressLine2: 'Seattle, WA 98104, USA',
-  phone: '1 (833) 328-2669',
-  email: 'info@datanova.com',
+  addressLine1: site.address.street,
+  addressLine2: `${site.address.city}, ${site.address.country}`,
+  email: site.email,
 };
 
 const knowledgeBaseDetails = {
@@ -25,34 +26,16 @@ const knowledgeBaseDetails = {
 const title = 'Contact us';
 const subTitle = 'Questions, Comments or Feedback.';
 
-// SEO metadata for the page
-const seo = {
-  title: 'Contact DataNova',
+const page = describePage({
+  title: 'Contact',
   description:
     'Get in touch with DataNova for inquiries, support, and feedback. Reach out via email, phone, or visit our office.',
-};
-
-// Schema.org metadata for SEO
-const schema: WithContext<Thing> = {
-  '@context': 'https://schema.org',
-  '@type': 'ContactPage',
-  inLanguage: 'en-US',
-  '@id': Astro.url.href,
-  url: Astro.url.href,
-  name: 'Contact DataNova',
-  description:
-    'Reach out to DataNova for any questions, support, or business inquiries. Our team is ready to assist you.',
-  isPartOf: {
-    '@type': 'WebSite',
-    url: `${Astro.site}`,
-    name: 'DataNova',
-    description:
-      'DataNova Analytics Inc. provides advanced analytics for Excel to help businesses unlock actionable insights quickly with no coding required.',
-  },
-};
+  kind: 'ContactPage',
+  url: Astro.url,
+});
 ---
 
-<BaseLayout seo={seo} schema={schema}>
+<BaseLayout page={page}>
   <div class="mx-auto max-w-[85rem] px-4 pt-48 pb-28 sm:px-6 lg:px-8">
     <div class="mb-10 max-w-3xl lg:mb-14">
       <h1
@@ -67,7 +50,7 @@ const schema: WithContext<Thing> = {
       <div
         class="mb-10 h-fit rounded-xl bg-teal-400 pb-10 md:order-2 md:mb-0 md:pb-0"
       >
-        <ContactForm />
+        <JsonForm form={contactForm} />
       </div>
 
       <div class="space-y-14">
@@ -119,51 +102,4 @@ const schema: WithContext<Thing> = {
       </div>
     </div>
   </div>
-
-  <script>
-    // Automatically adjusting the height of the textarea
-    // based on its content. Triggers when the textarea content changes.
-    document.addEventListener('astro:page-load', () => {
-      function textareaAutoHeight(
-        el: HTMLTextAreaElement,
-        offsetTop: number = 0
-      ): void {
-        el.style.height = 'auto';
-        el.style.height = `${el.scrollHeight + offsetTop}px`;
-      }
-
-      (() => {
-        const textareas: string[] = ['#input-message'];
-
-        textareas.forEach(selector => {
-          const textarea = document.querySelector(
-            selector
-          ) as HTMLTextAreaElement;
-
-          if (!textarea) return;
-
-          const overlay = textarea.closest('.hs-overlay');
-
-          if (overlay) {
-            const instance = (window as any).HSOverlay.getInstance(
-              overlay,
-              true
-            );
-
-            if (instance) {
-              instance.element.on('open', () =>
-                textareaAutoHeight(textarea, 3)
-              );
-            }
-          } else {
-            textareaAutoHeight(textarea, 3);
-          }
-
-          textarea.addEventListener('input', () => {
-            textareaAutoHeight(textarea, 3);
-          });
-        });
-      })();
-    });
-  </script>
 </BaseLayout>
