@@ -1,5 +1,6 @@
 ---
 import Icon from '@ui/icons/Icon.astro';
+import type { IconName } from '@ui/icons/icons';
 
 // Content for the section title and subtitle
 const title =
@@ -7,7 +8,14 @@ const title =
 const subTitle =
   'Experience the perfect balance of power and simplicity in data analytics. From startups to enterprises, DataNova empowers teams to extract meaningful insights from their data while maintaining seamless integration with existing workflows. Transform the way you analyze, visualize, and act on your data.';
 
-const features = [
+const features: {
+  borderClasses: string;
+  gridClasses?: string;
+  gradientClasses: string;
+  icon: IconName;
+  heading: string;
+  description: string;
+}[] = [
   {
     borderClasses: 'md:border-l md:border-r',
     gradientClasses: 'bg-linear-to-l/oklch from-teal-200 to-transparent',

@@ -1,76 +1,34 @@
 ---
 import BaseLayout from '@layout/BaseLayout.astro';
+import { describePage } from '@/seo';
 import Icon from '@ui/icons/Icon.astro';
 import Button from '@ui/Button.astro';
-import type { WithContext, Thing } from 'schema-dts';
+import { menuItems, menus } from '@/navigation';
 
-export const pageContent = {
+const pageContent = {
   errorCode: '404',
   title: 'This page does not exist',
   description: "Sorry, we couldn't find the page you're looking for.",
   goBackLabel: 'Go back',
 };
 
-const resources = [
-  {
-    title: 'Knowledge Base',
-    description: 'Find answers to common questions.',
-    icon: 'info',
-    link: '/support/knowledge-base',
-  },
-  {
-    title: 'Articles',
-    description: 'Explore insights and best practices.',
-    icon: 'articles',
-    link: '/support/articles',
-  },
-  {
-    title: 'Whitepapers',
-    description: 'Read in-depth technical reports.',
-    icon: 'blankDocument',
-    link: '/support/whitepapers',
-  },
-  {
-    title: 'Reference',
-    description: 'Browse technical documentation.',
-    icon: 'documentMagnifyingGlass',
-    link: '/support/reference',
-  },
-];
+// Support links, shared with the mega menu
+const resources = menuItems(menus.support);
 
-const seo = {
-  title: 'Page Not Found - DataNova',
+const page = describePage({
+  title: 'Page Not Found',
   description:
     "Sorry, we couldn't find the page you're looking for. Explore our resources or go back to the homepage.",
-};
-
-const schema: WithContext<Thing> = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  inLanguage: 'en-US',
-  '@id': Astro.url.href,
-  url: Astro.url.href,
-  name: 'Page Not Found',
-  description:
-    "Sorry, we couldn't find the page you're looking for. Explore our resources or go back to the homepage.",
-  isPartOf: {
-    '@type': 'WebSite',
-    url: `${Astro.site}`,
-    name: 'DataNova',
-    description:
-      'DataNova Analytics Inc. provides advanced analytics for Excel to help businesses unlock actionable insights quickly with no coding required.',
-  },
-};
+  url: Astro.url,
+});
 ---
 
-<BaseLayout seo={seo} schema={schema}>
+<BaseLayout page={page}>
   <section
     class="grid min-h-full place-items-center px-6 pt-32 pb-10 sm:pt-48 lg:px-8"
   >
     <div class="text-center">
-      <p class="text-xl font-semibold text-teal-600">
-        {pageContent.errorCode}
-      </p>
+      <p class="text-xl font-semibold text-teal-600">{pageContent.errorCode}</p>
       <h1
         class="mt-4 text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
       >
@@ -90,7 +48,7 @@ const schema: WithContext<Thing> = {
             resources.map(resource => (
               <li>
                 <a
-                  href={resource.link}
+                  href={resource.href}
                   class="group flex gap-x-5 px-2 py-8 transition hover:bg-slate-100"
                 >
                   <Icon name={resource.icon} class="size-6 text-teal-600" />
@@ -111,8 +69,9 @@ const schema: WithContext<Thing> = {
         </ul>
       </div>
       <div class="mt-5 flex items-center justify-center">
-        <Button id="go-back" variant="primary">{pageContent.goBackLabel}</Button
-        >
+        <Button id="go-back" variant="primary">
+          {pageContent.goBackLabel}
+        </Button>
       </div>
     </div>
   </section>

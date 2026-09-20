@@ -1,0 +1,77 @@
+---
+/**
+ * The heading block every content page opens with: optional eyebrow, title,
+ * one or more subtitle paragraphs (trusted HTML from page copy), then
+ * whatever the page adds – links, feature lists, a CTA – via the default slot.
+ * `breadcrumbs` renders above the title; `aside` renders after the text
+ * column but inside the section (stats, media).
+ */
+interface Props {
+  preTitle?: string;
+  title: string;
+  subtitle?: string | readonly string[];
+  /** Direction of the teal gradient behind the section, if any. */
+  gradient?: 'br' | 'bl' | 'tl';
+  /** Text column width. */
+  width?: 'xl' | '2xl' | '3xl';
+  class?: string;
+}
+
+const {
+  preTitle,
+  title,
+  subtitle,
+  gradient,
+  width = '2xl',
+  class: className,
+} = Astro.props;
+
+const paragraphs = subtitle === undefined ? [] : [subtitle].flat();
+const widthClass = { xl: 'max-w-xl', '2xl': 'max-w-2xl', '3xl': 'max-w-3xl' }[
+  width
+];
+const gradientClass =
+  gradient &&
+  {
+    br: 'bg-linear-to-br/oklch from-teal-200 via-transparent to-white',
+    bl: 'bg-linear-to-bl/oklch from-teal-200 via-transparent to-white',
+    tl: 'bg-linear-to-tl/oklch from-teal-200 via-transparent to-white',
+  }[gradient];
+---
+
+<section class:list={[gradientClass, className]}>
+  <div
+    class:list={[
+      'mx-auto max-w-[85rem] px-4 pb-12 sm:px-6 lg:px-8',
+      preTitle ? 'pt-40' : 'pt-48',
+    ]}
+  >
+    <div class="max-w-7xl">
+      <div class:list={['mx-auto lg:mx-0', widthClass]}>
+        <slot name="breadcrumbs" />
+        {
+          preTitle && (
+            <p class="text-base/7 font-medium text-slate-400">{preTitle}</p>
+          )
+        }
+        <h1
+          class:list={[
+            'text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl',
+            preTitle && 'mt-1',
+          ]}
+        >
+          {title}
+        </h1>
+        {
+          paragraphs.map(text => (
+            <p class="mt-8 text-lg font-medium text-pretty text-slate-700 sm:text-xl/8">
+              <Fragment set:html={text} />
+            </p>
+          ))
+        }
+        <slot />
+      </div>
+      <slot name="aside" />
+    </div>
+  </div>
+</section>

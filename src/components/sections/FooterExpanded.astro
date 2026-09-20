@@ -1,15 +1,16 @@
 ---
-import FooterFormExpanded from '@ui/forms/FooterFormExpanded.astro';
+import JsonForm from '@ui/forms/JsonForm.astro';
+import { newsletterForm } from '@/forms/declarations';
 
-// Import data for dynamic rendering
-import { featuresMenu } from '@utils/megaMenu/features';
-import { platformMenu } from '@utils/megaMenu/platform';
-import { supportMenu } from '@utils/megaMenu/support';
+// Link columns are generated from the navigation tree
+import { menuItems, menus } from '@/navigation';
+import { site } from '@/site';
 
-// Props for customization
-const companyName = 'DataNova Analytics Inc.';
-const companyDescription =
-  'DataNova Analytics Inc. is a leading business intelligence and analytics software company founded in 2018, with offices in Boston and Seattle.';
+const linkColumns = [menus.features, menus.platform, menus.support];
+
+// Company details live in src/site.ts
+const companyName = site.name;
+const companyDescription = site.description;
 
 // Contact information for the company
 const contactFormDescription =
@@ -36,7 +37,7 @@ const trademarkNotice =
       {/* Company Information */}
       <div class="col-span-full self-center xl:col-span-2">
         <a
-          href="#"
+          href="/"
           class="flex-none text-xl font-semibold text-slate-700 uppercase focus:opacity-80 focus:outline-hidden"
           aria-label={`${companyName} Homepage`}
         >
@@ -47,63 +48,24 @@ const trademarkNotice =
         </p>
       </div>
 
-      {/* Features Links */}
-      <div>
-        <h3 class="font-semibold text-slate-700">Features</h3>
-        <div class="mt-3 text-sm">
-          <ul class="space-y-3">
-            {
-              featuresMenu
-                .flatMap(feature => feature.items)
-                .map(item => (
+      {
+        linkColumns.map(menu => (
+          <div>
+            <h3 class="font-semibold text-slate-700">{menu.label}</h3>
+            <div class="mt-3 text-sm">
+              <ul class="space-y-3">
+                {menuItems(menu).map(item => (
                   <li>
                     <a class="text-sm text-slate-600" href={item.href}>
                       {item.title}
                     </a>
                   </li>
-                ))
-            }
-          </ul>
-        </div>
-      </div>
-
-      {/* Products Links */}
-      <div>
-        <h3 class="font-semibold text-slate-700">Platform</h3>
-        <div class="mt-3 text-sm">
-          <ul class="space-y-3">
-            {
-              platformMenu.map(platform => (
-                <li>
-                  <a class="text-sm text-slate-600" href={platform.href}>
-                    {platform.title}
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-      </div>
-
-      {/* Support Links */}
-      <div>
-        <h3 class="font-semibold text-slate-700">Support</h3>
-        <div class="mt-3 text-sm">
-          <ul class="space-y-3">
-            {
-              supportMenu
-                .flatMap(support => support.items)
-                .map(item => (
-                  <li>
-                    <a class="text-sm text-slate-600" href={item.href}>
-                      {item.title}
-                    </a>
-                  </li>
-                ))
-            }
-          </ul>
-        </div>
-      </div>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))
+      }
     </div>
 
     {/* Divider before subscription form section */}
@@ -115,11 +77,13 @@ const trademarkNotice =
     >
       <div class="mb-5 md:mb-0 md:w-1/2">
         <h3 class="font-semibold text-slate-700">More information?</h3>
-        <p class="mt-3 text-sm text-slate-400">
-          {contactFormDescription}
-        </p>
+        <p class="mt-3 text-sm text-slate-400">{contactFormDescription}</p>
       </div>
-      <FooterFormExpanded />
+      <JsonForm
+        form={newsletterForm}
+        layout="inline"
+        class="w-full md:w-1/2 xl:w-1/3"
+      />
     </div>
 
     {/* Divider before footer's bottom section */}
@@ -130,8 +94,9 @@ const trademarkNotice =
     >
       {/* Copyright and Crafted By Section */}
       <p class="text-sm text-slate-400/50">
-        &copy; 2018-{copyrightYear}
-        {companyName} Crafted by
+        &copy; {site.founded}-{copyrightYear}
+        {` `}
+        {companyName} Crafted by {` `}
         <a
           href={craftedBy.url}
           target="_blank"
@@ -143,9 +108,7 @@ const trademarkNotice =
       </p>
 
       {/* Trademark Notice */}
-      <p class="text-sm text-slate-400/50">
-        {trademarkNotice}
-      </p>
+      <p class="text-sm text-slate-400/50">{trademarkNotice}</p>
     </div>
   </div>
 </footer>

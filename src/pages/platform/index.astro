@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '@layout/BaseLayout.astro';
+import PageHero from '@common/PageHero.astro';
+import { describePage } from '@/seo';
+import { site } from '@/site';
 import Diagram from '@common/Diagram.astro';
 import Icon from '@ui/icons/Icon.astro';
-import type { WithContext, Thing } from 'schema-dts';
 import { Image } from 'astro:assets';
 import image_1 from '@images/toolbar.webp';
 
@@ -12,8 +14,7 @@ const platform = {
     'Leverage the power of AI-driven analytics without complex configurations. DataNova Core integrates seamlessly with your existing data sources, ensuring smooth data ingestion, transformation, and visualization.',
 };
 
-const video =
-  'https://vyclk3sx0z.ufs.sh/f/hv6ttNERWpXuOGj0KhIPk5MLw0bimBlYnq6Vd2NfSJW9gCQU';
+const video = site.links.video;
 
 const automatedDataProcessing = {
   title: 'Automated Data Processing',
@@ -86,70 +87,36 @@ const threatDetection = [
   'Trend Micro',
 ];
 
-// SEO metadata for the page
-const seo = {
-  title: 'DataNova Core - Seamless AI-Driven Data Processing',
+const page = describePage({
+  title: `${site.product} - Seamless AI-Driven Data Processing`,
   description:
     'Discover DataNova Core, an AI-powered platform that streamlines data processing and integrates effortlessly with your existing data sources, enabling businesses to unlock actionable insights with advanced analytics and predictive modeling.',
-};
-
-// Schema.org metadata for SEO
-const schema: WithContext<Thing> = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  inLanguage: 'en-US',
-  '@id': Astro.url.href,
-  url: Astro.url.href,
-  name: 'DataNova Core - Seamless AI-Driven Data Processing',
-  description:
-    'Explore DataNova Core, the powerful analytics platform that automates data processing, integrates seamlessly with cloud storage and spreadsheets, and empowers businesses to make smarter, data-driven decisions without complex configurations.',
-  isPartOf: {
-    '@type': 'WebSite',
-    url: `${Astro.site}`,
-    name: 'DataNova',
-    description:
-      'DataNova Analytics Inc. provides advanced analytics for Excel to help businesses unlock actionable insights quickly with no coding required.',
-  },
-};
+  url: Astro.url,
+});
 ---
 
-<BaseLayout seo={seo} schema={schema}>
-  <section class="mx-auto max-w-[85rem] px-4 pt-48 pb-12 sm:px-6 lg:px-8">
-    <div class="max-w-7xl">
-      <div class="mx-auto max-w-2xl lg:mx-0">
-        <h1
-          class="text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
-        >
-          {platform.title}
-        </h1>
-        <p
-          class="mt-8 text-lg font-medium text-pretty text-slate-700 sm:text-xl/8"
-        >
-          {platform.description}
-        </p>
+<BaseLayout page={page}>
+  <PageHero title={platform.title} subtitle={platform.description}>
+    <div slot="aside" class="relative m-auto w-full pt-16 sm:w-[90%]">
+      <div
+        class="via-off-white to-off-white pointer-events-none absolute inset-x-0 -bottom-2 z-10 hidden h-1/3 w-full bg-linear-to-b/oklch from-transparent sm:block"
+      >
       </div>
-
-      <div class="relative m-auto w-full pt-16 sm:w-[90%]">
-        <div
-          class="via-off-white to-off-white pointer-events-none absolute inset-x-0 -bottom-2 z-10 hidden h-1/3 w-full bg-linear-to-b/oklch from-transparent sm:block"
+      <div class="aspect-video">
+        <video
+          autoplay
+          loop
+          muted
+          playsinline
+          preload="metadata"
+          class="aspect-auto rounded-xl"
         >
-        </div>
-        <div class="aspect-video">
-          <video
-            autoplay
-            loop
-            muted
-            playsinline
-            preload="metadata"
-            class="aspect-auto rounded-xl"
-          >
-            <source src={video} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        </div>
+          <source src={video} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
     </div>
-  </section>
+  </PageHero>
 
   <section
     class="mx-auto max-w-[85rem] border-b border-dashed border-slate-400 px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20"
@@ -319,7 +286,7 @@ const schema: WithContext<Thing> = {
         class="group to-off-white pointer-events-none absolute inset-0 -top-[10%] h-[120%] w-full rounded-xl bg-linear-to-r/oklch from-teal-200 opacity-0 transition duration-1000 group-hover:opacity-100"
       >
       </div>
-      <div class="svgBlock mx-auto max-w-7xl">
+      <div class="guilloche mx-auto max-w-7xl">
         <div class="relative z-5 mx-auto text-center">
           <h2
             class="text-2xl font-semibold tracking-tight text-balance text-slate-800 md:text-3xl md:leading-tight"
@@ -349,20 +316,4 @@ const schema: WithContext<Thing> = {
       </div>
     </div>
   </section>
-
-  <style>
-    .svgBlock::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url(/guilloche.svg);
-      background-repeat: repeat;
-      background-position: right top;
-      background-size: 20px, 20px;
-      opacity: 0.075;
-      background-clip: padding-box;
-      mask-image: linear-gradient(270deg, rgb(0, 0, 0), rgba(0, 0, 0, 0));
-      pointer-events: none;
-    }
-  </style>
 </BaseLayout>

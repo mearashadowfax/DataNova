@@ -1,9 +1,10 @@
 ---
 import Icon from '@ui/icons/Icon.astro';
+import { site } from '@/site';
 
-const text = 'Introducing DataNova';
+const text = `Introducing ${site.brand}`;
 const linkText = 'Now ready to try!';
-const linkHref = 'https://github.com/mearashadowfax/DataNova';
+const linkHref = site.links.repo;
 ---
 
 <div class="flex justify-center">

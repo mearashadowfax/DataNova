@@ -1,23 +1,49 @@
+import { HONEYPOT_FIELD } from '@/forms/declare';
+
 /**
- * Shared client helper for Formspree (or demo-mode) JSON form posts.
+ * Binds every `<form data-form>` on the page: posts its fields as JSON to
+ * the delivery target's URL in `data-endpoint`, or pretends to when it is
+ * empty (demo mode). Shows progress in `[data-form-status]`,
+ * toggles `[data-form-submit]`, and grows textareas with their content.
  */
-export function bindFormspreeForm(options: {
-  formId: string;
-  endpointEnv: string | undefined;
-  submittingLabel: string;
-  defaultSubmitLabel: string;
-  demoMessage: string;
-}): void {
-  const form = document.getElementById(
-    options.formId
-  ) as HTMLFormElement | null;
-  if (!form || form.dataset.bound === 'true') return;
+export function bindJsonForms(root: ParentNode = document): void {
+  root
+    .querySelectorAll<HTMLFormElement>('form[data-form]')
+    .forEach(bindJsonForm);
+}
+
+function bindJsonForm(form: HTMLFormElement): void {
+  if (form.dataset.bound === 'true') return;
   form.dataset.bound = 'true';
 
-  const status = form.querySelector('[data-form-status]') as HTMLElement | null;
-  const submit = form.querySelector(
-    '[data-form-submit]'
-  ) as HTMLButtonElement | null;
+  const endpoint = form.dataset.endpoint?.trim() || null;
+  const submittingLabel = form.dataset.submittingLabel || 'Sending…';
+  const sentMessage =
+    form.dataset.sentMessage || 'Thanks! Your message has been sent.';
+  const demoMessage = form.dataset.demoMessage || sentMessage;
+  const status = form.querySelector<HTMLElement>('[data-form-status]');
+  const submit = form.querySelector<HTMLButtonElement>('[data-form-submit]');
+  const defaultSubmitLabel = submit?.textContent ?? '';
+
+  form.querySelectorAll('textarea').forEach(autoGrow);
+
+  const setStatus = (text: string, tone: 'pending' | 'success' | 'error') => {
+    if (!status) return;
+    status.classList.remove(
+      'hidden',
+      'text-slate-600',
+      'text-teal-800',
+      'text-red-600'
+    );
+    status.classList.add(
+      tone === 'pending'
+        ? 'text-slate-600'
+        : tone === 'success'
+          ? 'text-teal-800'
+          : 'text-red-600'
+    );
+    status.textContent = text;
+  };
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
@@ -27,76 +53,61 @@ export function bindFormspreeForm(options: {
       return;
     }
 
-    const formData = new FormData(form);
-    const payload = Object.fromEntries(formData.entries());
+    const payload = Object.fromEntries(new FormData(form).entries());
 
-    // Honeypot – bots fill this; humans leave it empty
-    if (typeof payload.website === 'string' && payload.website.trim()) {
-      if (status) {
-        status.classList.remove('hidden', 'text-red-600');
-        status.classList.add('text-teal-800');
-        status.textContent = 'Thanks! Your message has been sent.';
-      }
+    // Bots get the same answer as humans so they cannot tell they were dropped.
+    const honeypot = payload[HONEYPOT_FIELD];
+    if (typeof honeypot === 'string' && honeypot.trim()) {
+      setStatus(sentMessage, 'success');
       form.reset();
       return;
     }
+    delete payload[HONEYPOT_FIELD];
 
-    if (status) {
-      status.classList.remove('hidden', 'text-red-600', 'text-teal-800');
-      status.classList.add('text-slate-600');
-      status.textContent = options.submittingLabel;
-    }
+    setStatus(submittingLabel, 'pending');
     if (submit) {
       submit.disabled = true;
-      submit.textContent = options.submittingLabel;
+      submit.textContent = submittingLabel;
     }
 
     try {
-      const endpoint = options.endpointEnv?.trim();
-
       if (!endpoint) {
-        // Demo mode for the static template when Formspree is not configured
         await new Promise(resolve => setTimeout(resolve, 400));
-        if (status) {
-          status.classList.remove('text-slate-600', 'text-red-600');
-          status.classList.add('text-teal-800');
-          status.textContent = options.demoMessage;
+        setStatus(demoMessage, 'success');
+      } else {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ ...payload, form: form.dataset.form }),
+        });
+        if (!response.ok) {
+          throw new Error('Request failed. Please try again.');
         }
-        form.reset();
-        return;
-      }
-
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        throw new Error('Request failed. Please try again.');
-      }
-
-      if (status) {
-        status.classList.remove('text-slate-600', 'text-red-600');
-        status.classList.add('text-teal-800');
-        status.textContent = 'Thanks! Your message has been sent.';
+        setStatus(sentMessage, 'success');
       }
       form.reset();
     } catch (error) {
-      if (status) {
-        status.classList.remove('text-slate-600', 'text-teal-800');
-        status.classList.add('text-red-600');
-        status.textContent =
-          error instanceof Error ? error.message : 'Something went wrong.';
-      }
+      setStatus(
+        error instanceof Error ? error.message : 'Something went wrong.',
+        'error'
+      );
     } finally {
       if (submit) {
         submit.disabled = false;
-        submit.textContent = options.defaultSubmitLabel;
+        submit.textContent = defaultSubmitLabel;
       }
     }
   });
+}
+
+function autoGrow(textarea: HTMLTextAreaElement): void {
+  const resize = () => {
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight + 3}px`;
+  };
+  resize();
+  textarea.addEventListener('input', resize);
 }

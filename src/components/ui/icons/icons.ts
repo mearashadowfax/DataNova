@@ -500,3 +500,6 @@ export const Icons = {
     stroke: 'currentColor',
   },
 };
+
+/** Every icon `Icon.astro` can render. */
+export type IconName = keyof typeof Icons;
