@@ -58,7 +58,7 @@
     "@types/node": "^26.6.1",
     "drizzle-kit": "^0.31.10",
     "mdast-util-from-markdown": "^2.0.3",
-    "prettier": "^3.9.7",
+    "prettier": "^3.9.8",
     "prettier-plugin-astro": "^1.0.1",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "vitest": "^5.0.1"
