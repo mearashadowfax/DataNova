@@ -57,7 +57,7 @@
     "@tailwindcss/typography": "^0.5.20",
     "@types/node": "^26.6.4",
     "drizzle-kit": "^0.31.11",
-    "mdast-util-from-markdown": "^2.0.3",
+    "mdast-util-from-markdown": "^2.1.0",
     "prettier": "^3.9.9",
     "prettier-plugin-astro": "^1.1.0",
     "prettier-plugin-tailwindcss": "^0.8.1",
