@@ -36,7 +36,7 @@
     "astro": "^7.3.8",
     "astro-font": "^1.2.0",
     "astro-seo": "^1.2.0",
-    "astro-seo-schema": "^7.0.0",
+    "astro-seo-schema": "^7.0.1",
     "drizzle-orm": "^0.45.4",
     "mdast-util-to-string": "^4.0.0",
     "preline": "^5.0.0",
