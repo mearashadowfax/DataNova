@@ -57,8 +57,8 @@ importers:
         specifier: ^1.2.0
         version: 1.2.0
       astro-seo-schema:
-        specifier: ^7.0.0
-        version: 7.0.0(astro@7.3.8(@types/node@26.6.5)(@vercel/functions@3.10.1(ws@8.21.3))(esbuild@0.28.2)(idb-keyval@6.3.0)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.1))(schema-dts@1.1.5)
+        specifier: ^7.0.1
+        version: 7.0.1(astro@7.3.8(@types/node@26.6.5)(@vercel/functions@3.10.1(ws@8.21.3))(esbuild@0.28.2)(idb-keyval@6.3.0)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.1))(schema-dts@1.1.5)
       drizzle-orm:
         specifier: ^0.45.4
         version: 0.45.4(@libsql/client@0.18.0)
@@ -1974,8 +1974,8 @@ packages:
   astro-font@1.2.0:
     resolution: {integrity: sha512-Jcgag+vUQQIlw/RBMrQ+lsDc+m0Weyjke3+ilK9lWIJVkTn24jUKBS0FE7Zi+ojDMVSyasJ8HEmHzKizJL3SkA==}
 
-  astro-seo-schema@7.0.0:
-    resolution: {integrity: sha512-icG6vL2pKNf7WBI03JxZYn6gQiLASxq/U3JVv27roaPJ+WH0p3sats9mMInzp6x40G1mVdLLoAEUObmKY1If+A==}
+  astro-seo-schema@7.0.1:
+    resolution: {integrity: sha512-JkPW+0ww5JGfpN67rodL4OrT2X3hDurNFcBIGRP9CnQIDfa/PD+jPBB+ZQPH6q+x4MZNGdFVeZ3BRXbykxaVIQ==}
     peerDependencies:
       astro: ^7.0.0
       schema-dts: ^1.1.0
@@ -5638,7 +5638,7 @@ snapshots:
 
   astro-font@1.2.0: {}
 
-  astro-seo-schema@7.0.0(astro@7.3.8(@types/node@26.6.5)(@vercel/functions@3.10.1(ws@8.21.3))(esbuild@0.28.2)(idb-keyval@6.3.0)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.1))(schema-dts@1.1.5):
+  astro-seo-schema@7.0.1(astro@7.3.8(@types/node@26.6.5)(@vercel/functions@3.10.1(ws@8.21.3))(esbuild@0.28.2)(idb-keyval@6.3.0)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.1))(schema-dts@1.1.5):
     dependencies:
       astro: 7.3.8(@types/node@26.6.5)(@vercel/functions@3.10.1(ws@8.21.3))(esbuild@0.28.2)(idb-keyval@6.3.0)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.1)
       schema-dts: 1.1.5
