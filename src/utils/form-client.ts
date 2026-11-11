@@ -1,4 +1,5 @@
-import type { FormResponse } from '@/forms/submit';
+import type { FormSuccess } from '@/forms/submit';
+import { requestJson } from './json-client';
 
 /**
  * Binds every `<form data-form data-endpoint>` on the page: posts its fields as
@@ -57,36 +58,21 @@ function bindJsonForm(form: HTMLFormElement): void {
       submit.textContent = submittingLabel;
     }
 
-    try {
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
+    const result = await requestJson<FormSuccess>(endpoint, {
+      method: 'POST',
+      body: payload,
+    });
 
-      const data = (await response
-        .json()
-        .catch(() => null)) as FormResponse | null;
-
-      if (!response.ok || !data || !data.ok) {
-        throw new Error((data && !data.ok && data.error) || 'Request failed');
-      }
-
-      setStatus(data.message, 'success');
+    if (result.ok) {
+      setStatus(result.message, 'success');
       form.reset();
-    } catch (error) {
-      setStatus(
-        error instanceof Error ? error.message : 'Something went wrong.',
-        'error'
-      );
-    } finally {
-      if (submit) {
-        submit.disabled = false;
-        submit.textContent = defaultSubmitLabel;
-      }
+    } else {
+      setStatus(result.error, 'error');
+    }
+
+    if (submit) {
+      submit.disabled = false;
+      submit.textContent = defaultSubmitLabel;
     }
   });
 }

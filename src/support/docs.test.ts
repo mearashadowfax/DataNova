@@ -28,10 +28,6 @@ describe('describeDoc', () => {
     ]);
   });
 
-  it('namespaces the feedback slug by collection', () => {
-    expect(describeDoc(input).feedbackSlug).toBe('reference/quick-start');
-  });
-
   it('derives SEO and schema.org data for every collection', () => {
     const doc = describeDoc(input);
     expect(doc.seo).toEqual({

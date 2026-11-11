@@ -1,21 +1,45 @@
 import { config, fields, collection } from '@keystatic/core';
 import { getConfig } from './src/config';
+import {
+  docCollectionNames,
+  docCollections,
+  docFrontmatter,
+  type DocCollection,
+} from './src/support/collections';
 
 // https://keystatic.com/docs/local-mode
 // Storage mode comes from PUBLIC_KEYSTATIC_STORAGE_MODE (github | local) and the
 // PUBLIC_KEYSTATIC_GITHUB_REPO_OWNER / PUBLIC_KEYSTATIC_GITHUB_REPO_NAME pair – see src/config.ts.
 const { keystatic } = getConfig();
 
-/** A Markdoc document collection: articles and reference share one shape. */
-function docCollection(label: string, dir: string) {
+/**
+ * The frontmatter fields as Keystatic edits them. Labels come from the shared
+ * declaration; `satisfies` makes a field added there a compile error here
+ * until Keystatic can edit it too.
+ */
+const frontmatterFields = {
+  title: fields.slug({ name: { label: docFrontmatter.title.label } }),
+  description: fields.text({
+    label: docFrontmatter.description.label,
+    validation: { isRequired: true },
+  }),
+  date: fields.date({
+    label: docFrontmatter.date.label,
+    description: docFrontmatter.date.description,
+    validation: { isRequired: true },
+  }),
+} satisfies Record<keyof typeof docFrontmatter, unknown>;
+
+/** A Markdoc document collection: every doc collection shares one shape. */
+function docCollection(name: DocCollection) {
+  const { label, dir } = docCollections[name];
   return collection({
     label,
     slugField: 'title',
     path: `src/content/${dir}/*` as const,
     format: { contentField: 'content' },
     schema: {
-      title: fields.slug({ name: { label: 'Title' } }),
-      description: fields.text({ label: 'Description' }),
+      ...frontmatterFields,
       content: fields.markdoc({
         label: 'Content',
         options: {
@@ -25,13 +49,13 @@ function docCollection(label: string, dir: string) {
           },
         },
       }),
-      date: fields.date({
-        label: 'Publication date',
-        description: 'The date of the publication',
-      }),
     },
   });
 }
+
+const docs = Object.fromEntries(
+  docCollectionNames.map(name => [name, docCollection(name)])
+) as Record<DocCollection, ReturnType<typeof docCollection>>;
 
 export default config({
   storage:
@@ -40,8 +64,7 @@ export default config({
       : { kind: 'local' },
 
   collections: {
-    articles: docCollection('Articles', 'articles'),
-    reference: docCollection('Reference', 'reference'),
+    ...docs,
     spreadsheets: collection({
       label: 'Sample Spreadsheets',
       slugField: 'title',

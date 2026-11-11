@@ -124,8 +124,27 @@ const primaryCTA = {
 </header>
 
 <script>
-  document.addEventListener('astro:page-load', async () => {
-    const { HSStaticMethods } = await import('preline');
-    HSStaticMethods.autoInit();
+  // Import only the plugins the navbar uses, statically, so they ship in this
+  // module's chunk instead of a ~430 KB dynamic import of all of Preline that
+  // only resolves after page load (menus were dead until then).
+  import HSDropdown from 'preline/plugins/dropdown-non-auto';
+  import HSCollapse from 'preline/plugins/collapse-non-auto';
+
+  // ClientRouter fires astro:page-load on the first load too, so this is the
+  // only init call needed.
+  document.addEventListener('astro:page-load', () => {
+    HSDropdown.autoInit();
+    HSCollapse.autoInit();
+  });
+
+  // The -non-auto build also leaves out the auto build's resize listener,
+  // which re-reads each dropdown's responsive settings – without it the mega
+  // menus keep the trigger mode (click below xl, hover at xl) of first load.
+  type DropdownEntry = { element: { resizeHandler(): void } };
+  window.addEventListener('resize', () => {
+    const { $hsDropdownCollection } = window as unknown as {
+      $hsDropdownCollection?: DropdownEntry[];
+    };
+    $hsDropdownCollection?.forEach(({ element }) => element.resizeHandler());
   });
 </script>

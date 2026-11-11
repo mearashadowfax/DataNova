@@ -162,7 +162,7 @@ Also change `site` in `astro.config.mjs` from `https://data-nova.vercel.app` to 
     ├── db/
     │   ├── client.ts           # libSQL client, opened on first use
     │   └── schema.ts           # Feedback table
-    ├── feedback/store.ts       # Helpful / not-helpful feedback: counts(), record()
+    ├── feedback/               # Helpful / not-helpful feedback: the endpoint and the store
     ├── forms/                  # Form declarations, the submit pipeline and the delivery seam
     ├── layout/BaseLayout.astro # <head>, SEO, fonts, navbar and footer for every page
     ├── navigation.ts           # Mega menus, top-level links and breadcrumb roots
@@ -173,8 +173,8 @@ Also change `site` in `astro.config.mjs` from `https://data-nova.vercel.app` to 
     │   ├── support/            # articles/, reference/, knowledge base, spreadsheets, whitepapers
     │   ├── index.astro, about.astro, contact.astro, 404.astro
     │   └── robots.txt.ts       # Generated from `site`
-    ├── support/                # docs.ts (what a support document is), load.ts (astro:content)
-    ├── utils/                  # rate-limit.ts, sanitize.ts, form-client.ts, reading-time.ts
+    ├── support/                # collections.ts (the doc collections), docs.ts (what a page derives), load.ts (astro:content)
+    ├── utils/                  # rate-limit.ts, json-client.ts, form-client.ts, sanitize.ts, reading-time.ts
     └── content.config.ts       # Astro content collection schemas
 ```
 
@@ -272,7 +272,7 @@ Tailwind CSS 4 is configured in CSS, not in a JS config file. Theme tokens live 
 
 ## Content Management with Keystatic
 
-Keystatic gives editors a web UI for the `articles` and `reference` Markdoc collections. Collection shapes are defined in [`keystatic.config.ts`](keystatic.config.ts); the matching Astro schemas are in [`src/content.config.ts`](src/content.config.ts). Both files build the `articles` and `reference` collections from one `docCollection()` helper, so a new field is added in two places, once per file. What a page derives from a document (table of contents, reading time, SEO, schema.org, breadcrumbs, feedback slug) lives in [`src/support/docs.ts`](src/support/docs.ts).
+Keystatic gives editors a web UI for the `articles` and `reference` Markdoc collections. The collections and their frontmatter fields are declared once in [`src/support/collections.ts`](src/support/collections.ts); [`keystatic.config.ts`](keystatic.config.ts), [`src/content.config.ts`](src/content.config.ts) and the doc pages all build from it. To add a collection, add an entry there and its `[id].astro` / `index.astro` pages. A new frontmatter field fails type-checking until `keystatic.config.ts` gives it an editor. What a page derives from a document (table of contents, reading time, SEO, schema.org, breadcrumbs) lives in [`src/support/docs.ts`](src/support/docs.ts).
 
 - **Local development:** <http://localhost:4321/keystatic> – edits write to `src/content/`.
 - **Production (GitHub mode):** `https://your-domain.com/keystatic` – edits are committed to your repository.
@@ -346,7 +346,7 @@ export const feedback = sqliteTable('Feedback', {
 });
 ```
 
-All reads and writes go through [`src/feedback/store.ts`](src/feedback/store.ts) – `counts(slug)` and `record(slug, kind)` – which is also what `pnpm test` exercises against an in-memory libSQL database. The connection itself comes from [`src/db/client.ts`](src/db/client.ts), opened on first use, with its URL resolved in [`src/config.ts`](src/config.ts): `TURSO_DATABASE_URL` when set, `file:.data/local.db` otherwise. **On Vercel the config refuses to fall back to a local file**, so a misconfigured deploy fails loudly instead of silently writing to a throwaway file.
+All reads and writes go through [`src/feedback/store.ts`](src/feedback/store.ts) – `counts(doc)` and `record(doc, kind)`, where `doc` is `{ collection, id }` – which `pnpm test` exercises against an in-memory libSQL database. [`src/feedback/endpoint.ts`](src/feedback/endpoint.ts) handles the HTTP side (rate limit, validation, a `404` for documents that don't exist) and is tested without a server. The connection itself comes from [`src/db/client.ts`](src/db/client.ts), opened on first use, with its URL resolved in [`src/config.ts`](src/config.ts): `TURSO_DATABASE_URL` when set, `file:.data/local.db` otherwise. **On Vercel the config refuses to fall back to a local file**, so a misconfigured deploy fails loudly instead of silently writing to a throwaway file.
 
 **Set up a production database:**
 
@@ -442,14 +442,14 @@ To add a form: add a `declareForm(...)` declaration, a one-line route under `src
 
 ## API Routes
 
-| Route                    | Method | Purpose                                                            |
-| ------------------------ | ------ | ------------------------------------------------------------------ |
-| `/api/contact`           | POST   | Contact form – `{ name, email, message }`                          |
-| `/api/quote`             | POST   | Quote form – `{ name, company, email, licenseType, message }`      |
-| `/api/newsletter`        | POST   | Newsletter subscribe – `{ email }`                                 |
-| `/api/feedback?slug=...` | GET    | Read helpful / not-helpful counts for a document (`articles/<id>`) |
-| `/api/feedback`          | POST   | Record feedback – `{ slug, type: 'helpful' \| 'notHelpful' }`      |
-| `/api/health`            | GET    | `{ ok, database }` – returns 503 if the database is unreachable    |
+| Route                                 | Method | Purpose                                                                 |
+| ------------------------------------- | ------ | ----------------------------------------------------------------------- |
+| `/api/contact`                        | POST   | Contact form – `{ name, email, message }`                               |
+| `/api/quote`                          | POST   | Quote form – `{ name, company, email, licenseType, message }`           |
+| `/api/newsletter`                     | POST   | Newsletter subscribe – `{ email }`                                      |
+| `/api/feedback?collection=...&id=...` | GET    | Read helpful / not-helpful counts for a document                        |
+| `/api/feedback`                       | POST   | Record feedback – `{ collection, id, type: 'helpful' \| 'notHelpful' }` |
+| `/api/health`                         | GET    | `{ ok, database }` – returns 503 if the database is unreachable         |
 
 Form and feedback routes declare a rate-limit policy (`{ name, limit, windowMs }`) enforced by [`src/utils/rate-limit.ts`](src/utils/rate-limit.ts), which answers `429` with a `Retry-After` header. Buckets live behind a `RateLimitStore` seam; the default in-memory store is per instance, so pass `createRateLimiter({ store })` a KV- or Redis-backed store if you run many instances.
 

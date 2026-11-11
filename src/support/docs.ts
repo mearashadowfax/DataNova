@@ -1,47 +1,20 @@
 import type { MarkdownHeading } from 'astro';
 import type { Thing, WithContext } from 'schema-dts';
-import { feedbackSlug } from '@/feedback/store';
 import { supportTrail, type Crumb } from '@/navigation';
 import { site as company } from '@/site';
 import { getReadingTime } from '@/utils/reading-time';
+import {
+  docCollections,
+  type DocCollection,
+  type DocData,
+} from './collections';
 
 /**
  * A support document is a Markdoc entry in one of the doc collections.
  * Everything a doc page derives from an entry – table of contents, reading
- * time, SEO, schema.org, breadcrumbs, feedback slug – is computed here, once,
- * for every collection.
+ * time, SEO, schema.org, breadcrumbs – is computed here, once, for every
+ * collection. The collections themselves are declared in `./collections`.
  */
-
-export const docCollections = {
-  articles: {
-    label: 'Articles',
-    basePath: '/support/articles',
-    schemaType: 'Article',
-    empty: {
-      title: 'No articles yet',
-      description:
-        'Add articles in Keystatic or src/content/articles to populate this list.',
-    },
-  },
-  reference: {
-    label: 'Reference',
-    basePath: '/support/reference',
-    schemaType: 'TechArticle',
-    empty: {
-      title: 'No reference docs yet',
-      description:
-        'Add reference entries in Keystatic or src/content/reference to populate this list.',
-    },
-  },
-} as const;
-
-export type DocCollection = keyof typeof docCollections;
-
-export interface DocData {
-  title: string;
-  description: string;
-  date: Date;
-}
 
 export interface DocMeta {
   collection: DocCollection;
@@ -54,14 +27,13 @@ export interface DocMeta {
   /** Second-level headings, for the "On this page" list. */
   toc: { slug: string; text: string }[];
   breadcrumbs: Crumb[];
-  feedbackSlug: string;
   seo: { title: string; description: string };
   schema: WithContext<Thing>;
 }
 
 /**
  * Everything a doc page derives from a content entry. Pure, so the table of
- * contents, feedback slug, SEO and schema.org rules are tested once and hold
+ * contents, SEO and schema.org rules are tested once and hold
  * for every collection.
  */
 export function describeDoc(input: {
@@ -87,7 +59,6 @@ export function describeDoc(input: {
       .filter(heading => heading.depth === 2)
       .map(({ slug, text }) => ({ slug, text })),
     breadcrumbs: supportTrail({ label, href: basePath }, { label: data.title }),
-    feedbackSlug: feedbackSlug(collection, id),
     seo: { title: data.title, description: data.description },
     schema: {
       '@context': 'https://schema.org',

@@ -53,8 +53,11 @@ describe('resolveConfig', () => {
   describe('forms', () => {
     it('runs in demo mode when no webhook is configured', () => {
       expect(resolveConfig({}).forms).toEqual({
-        contact: null,
-        newsletter: null,
+        contact: { webhookUrl: null, envVar: 'FORMSPREE_CONTACT_ENDPOINT' },
+        newsletter: {
+          webhookUrl: null,
+          envVar: 'FORMSPREE_NEWSLETTER_ENDPOINT',
+        },
       });
     });
 
@@ -64,10 +67,10 @@ describe('resolveConfig', () => {
         FORM_WEBHOOK_CONTACT: 'https://example.com/contact',
         FORM_WEBHOOK_NEWSLETTER: 'https://example.com/newsletter',
       });
-      expect(forms).toEqual({
-        contact: 'https://formspree.io/f/contact',
-        newsletter: 'https://example.com/newsletter',
-      });
+      expect(forms.contact.webhookUrl).toBe('https://formspree.io/f/contact');
+      expect(forms.newsletter.webhookUrl).toBe(
+        'https://example.com/newsletter'
+      );
     });
   });
 
