@@ -1,5 +1,6 @@
 import { getCollection, getEntry, render } from 'astro:content';
-import { describeDoc, type DocCollection, type DocMeta } from './docs';
+import type { DocCollection, DocRef } from './collections';
+import { describeDoc, type DocMeta } from './docs';
 
 export type LoadedDoc = DocMeta & {
   Content: Awaited<ReturnType<typeof render>>['Content'];
@@ -37,4 +38,9 @@ export async function listDocs(collection: DocCollection) {
   return entries.toSorted(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
   );
+}
+
+/** Whether `doc` names a document that exists. */
+export async function docExists({ collection, id }: DocRef): Promise<boolean> {
+  return (await getEntry(collection, id)) !== undefined;
 }

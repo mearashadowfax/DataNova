@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { deliveryEnvVar, getConfig } from '@/config';
+import { getConfig } from '@/config';
 import { apiError, type ApiError } from '@/utils/api-error';
 import { rateLimiter, type RateLimiter } from '@/utils/rate-limit';
 import { formSchema, HONEYPOT_FIELD, type FormDeclaration } from './declare';
@@ -48,12 +48,12 @@ export async function submitForm(
   }
 
   try {
-    const { demo } = await deps.deliver({ ...payload, form: form.name });
+    const delivered = await deps.deliver({ ...payload, form: form.name });
     return success({
       ok: true,
-      demo,
-      message: demo
-        ? `${form.messages.sent} (Demo mode – set ${deliveryEnvVar[form.deliverTo]} to deliver.)`
+      demo: delivered.demo,
+      message: delivered.demo
+        ? `${form.messages.sent} (${delivered.hint})`
         : form.messages.sent,
     });
   } catch (error) {

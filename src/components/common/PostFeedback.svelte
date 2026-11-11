@@ -1,16 +1,24 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import type { FeedbackSuccess } from '@/feedback/endpoint';
   import type { FeedbackCounts, FeedbackKind } from '@/feedback/store';
+  import { docKey, type DocCollection } from '@/support/collections';
+  import { requestJson } from '@/utils/json-client';
 
   interface Props {
     title: string;
     firstChoice: string;
     secondChoice: string;
-    /** Namespaced document slug, e.g. `articles/my-post` (see `feedbackSlug`). */
-    slug: string;
+    /** The document the feedback is about. */
+    collection: DocCollection;
+    id: string;
   }
 
-  let { title, firstChoice, secondChoice, slug }: Props = $props();
+  let { title, firstChoice, secondChoice, collection, id }: Props = $props();
+
+  // Key for this browser's record of its own choice: the same `collection/id`
+  // format as the feedback rows, so returning readers keep their choice.
+  const savedKey = $derived(docKey({ collection, id }));
 
   let helpful = $state(0);
   let notHelpful = $state(0);
@@ -26,36 +34,28 @@
   }
 
   function applyCounts(counts: FeedbackCounts) {
-    helpful = counts.helpful || 0;
-    notHelpful = counts.notHelpful || 0;
+    helpful = counts.helpful;
+    notHelpful = counts.notHelpful;
   }
 
   onMount(() => {
     const saved = savedFeedback();
-    feedbackGiven = !!saved[slug];
-    userChoice = saved[slug] || null;
+    feedbackGiven = !!saved[savedKey];
+    userChoice = saved[savedKey] || null;
     fetchFeedback();
   });
 
   async function fetchFeedback() {
     fetchError = '';
-    try {
-      const response = await fetch(
-        `/api/feedback?slug=${encodeURIComponent(slug)}`,
-        { headers: { Accept: 'application/json' } }
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      applyCounts((await response.json()) as FeedbackCounts);
-      initialFetch = true;
-    } catch (error) {
-      console.error('Failed to fetch feedback count:', error);
+    const params = new URLSearchParams({ collection, id });
+    const result = await requestJson<FeedbackSuccess>(`/api/feedback?${params}`);
+    if (result.ok) {
+      applyCounts(result);
+    } else {
+      console.error('Failed to fetch feedback count:', result.error);
       fetchError = 'Could not load feedback counts.';
-      initialFetch = true;
     }
+    initialFetch = true;
   }
 
   async function handleFeedback(type: FeedbackKind) {
@@ -64,34 +64,24 @@
     submitting = true;
     submitError = '';
 
-    try {
-      const response = await fetch('/api/feedback', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ slug, type }),
-      });
+    const result = await requestJson<FeedbackSuccess>('/api/feedback', {
+      method: 'POST',
+      body: { collection, id, type },
+    });
 
-      const body = await response.json().catch(() => ({}));
-
-      if (!response.ok) {
-        throw new Error(body.error || `HTTP error! status: ${response.status}`);
-      }
-
-      applyCounts(body as FeedbackCounts);
+    if (result.ok) {
+      applyCounts(result);
 
       const saved = savedFeedback();
-      saved[slug] = type;
+      saved[savedKey] = type;
       localStorage.setItem('feedback', JSON.stringify(saved));
 
       feedbackGiven = true;
       userChoice = type;
-    } catch (error) {
-      console.error('Error submitting feedback:', error);
-      submitError =
-        error instanceof Error ? error.message : 'Could not submit feedback.';
-    } finally {
-      submitting = false;
+    } else {
+      submitError = result.error;
     }
+    submitting = false;
   }
 </script>
 

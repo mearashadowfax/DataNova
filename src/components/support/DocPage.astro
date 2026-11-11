@@ -75,7 +75,8 @@ const { Content } = doc;
             title="Was this helpful?"
             firstChoice="Yes"
             secondChoice="No"
-            slug={doc.feedbackSlug}
+            collection={doc.collection}
+            id={doc.id}
           >
             <fragment slot="helpfulIcon">
               <Icon

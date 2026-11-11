@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { createRateLimiter } from '@/utils/rate-limit';
 import { declareForm, formSchema } from './declare';
 import { contactForm, newsletterForm, quoteForm } from './declarations';
+import type { DeliveryResult } from './deliver';
 import { submitForm, type FormResponse } from './submit';
 
 const form = declareForm({
@@ -31,7 +32,9 @@ function post(body: unknown, ip = '203.0.113.1') {
 }
 
 function deps(demo = false) {
-  const deliver = vi.fn(async () => ({ demo }));
+  const deliver = vi.fn(async (): Promise<DeliveryResult> =>
+    demo ? { demo: true, hint: 'Demo mode – set X to deliver.' } : { demo }
+  );
   return { deliver, limiter: createRateLimiter() };
 }
 
@@ -59,7 +62,9 @@ describe('submitForm', () => {
   it('reports demo mode in the message', async () => {
     const { body } = await run({ email: 'a@b.co' }, deps(true));
     expect(body).toMatchObject({ ok: true, demo: true });
-    expect(body.ok && body.message).toContain('FORMSPREE_CONTACT_ENDPOINT');
+    expect(body.ok && body.message).toBe(
+      'Sent. (Demo mode – set X to deliver.)'
+    );
   });
 
   it('rejects invalid fields with 400', async () => {
