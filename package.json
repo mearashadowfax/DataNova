@@ -30,7 +30,7 @@
     "@keystatic/astro": "^6.0.0",
     "@keystatic/core": "^0.6.9",
     "@libsql/client": "^0.18.0",
-    "@tailwindcss/vite": "^4.3.3",
+    "@tailwindcss/vite": "^4.3.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "astro": "^7.4.7",
