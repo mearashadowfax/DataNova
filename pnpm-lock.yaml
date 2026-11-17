@@ -66,8 +66,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       preline:
-        specifier: ^5.0.0
-        version: 5.0.0
+        specifier: ^5.1.0
+        version: 5.1.0
       react:
         specifier: ^19.3.0
         version: 19.3.0
@@ -3010,9 +3010,9 @@ packages:
     resolution: {integrity: sha512-LJlKCCAUFKOuZxipUdYw1NzIITEsPcgyOG9LkvRJvuKj/bRzbuRY0ARXvL0pWGpsZvn8jku+LMep2eU0seHp8g==}
     engines: {node: ^10 || ^12 || >=14}
 
-  preline@5.0.0:
-    resolution: {integrity: sha512-c1ayJoroSzIUcfsBLHrEbYV1NCjCNvjd8l1e/H5EPNQWzZiK1I36eUBgpR+J9scfrf1+1OnXt8Y+EBYUG640cQ==}
-    engines: {node: 22.22.2, npm: '>=10'}
+  preline@5.1.0:
+    resolution: {integrity: sha512-qR2AgV7ICZzfmyiiLbRHJsL8E1q2fgQhOlSlsdiOzRMvL3fUKXUfqiXlM64yceS4HYtJho7JEi+poDefWqOr7g==}
+    engines: {npm: '>=10'}
     hasBin: true
 
   prettier-plugin-astro@1.1.2:
@@ -3535,8 +3535,8 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
-  vanilla-calendar-pro@3.3.2:
-    resolution: {integrity: sha512-RaLpDtvQFeKi0ajOpGBedLNrr0YoiYAF+0sppk4XZV/U57AuihJIhw8h2whUvIG1ZSR3LrdSXk3lHLkCPGlHvg==}
+  vanilla-calendar-pro@3.4.0:
+    resolution: {integrity: sha512-HLWjzHOWvMIrjI77tXK5bYzp0s5TeBSrZC247STjcTAdWI7kqEwWT6Xvu20vqdwzF498H1Da8l4WpdgVIGtc1Q==}
 
   verkit@0.5.0:
     resolution: {integrity: sha512-u4J1hr6Y+C/hit34GwL3eIcUf3wngT8TlYUjK7tk0jxydKLAq3sYvifjdTDA6U3KCKRcQCQDGf/srjxfZF3l7g==}
@@ -6737,7 +6737,7 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.2
 
-  preline@5.0.0:
+  preline@5.1.0:
     dependencies:
       '@floating-ui/dom': 1.8.0
       '@types/culori': 4.0.1
@@ -6747,7 +6747,7 @@ snapshots:
       datatables.net-dt: 2.3.8
       dropzone: 6.3.1
       nouislider: 15.8.1
-      vanilla-calendar-pro: 3.3.2
+      vanilla-calendar-pro: 3.4.0
 
   prettier-plugin-astro@1.1.2(prettier@3.10.1):
     dependencies:
@@ -7299,7 +7299,7 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  vanilla-calendar-pro@3.3.2: {}
+  vanilla-calendar-pro@3.4.0: {}
 
   verkit@0.5.0: {}
 
