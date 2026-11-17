@@ -39,7 +39,7 @@
     "astro-seo-schema": "^7.0.2",
     "drizzle-orm": "^0.45.4",
     "mdast-util-to-string": "^4.0.0",
-    "preline": "^5.0.0",
+    "preline": "^5.1.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "reading-time": "^1.5.0",
