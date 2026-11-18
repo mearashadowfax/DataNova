@@ -18,16 +18,16 @@ jobs:
     if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: ${{ github.head_ref }}
           # Optional: add a PAT/fine-grained token as FORMAT_BOT_TOKEN so the
           # push re-triggers CI (GITHUB_TOKEN commits do not start new runs).
           token: ${{ secrets.FORMAT_BOT_TOKEN || secrets.GITHUB_TOKEN }}
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: pnpm
