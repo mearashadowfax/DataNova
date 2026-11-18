@@ -24,24 +24,24 @@
   "dependencies": {
     "@astrojs/check": "^0.9.12",
     "@astrojs/markdoc": "^2.1.5",
-    "@astrojs/react": "7.1.4",
-    "@astrojs/svelte": "^9.1.2",
-    "@astrojs/vercel": "11.0.20",
+    "@astrojs/react": "7.1.9",
+    "@astrojs/svelte": "^9.1.6",
+    "@astrojs/vercel": "11.0.22",
     "@keystatic/astro": "^6.0.0",
     "@keystatic/core": "^0.6.9",
     "@libsql/client": "^0.18.0",
     "@tailwindcss/vite": "^4.3.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "astro": "^7.4.7",
+    "astro": "^7.4.12",
     "astro-font": "^1.2.0",
     "astro-seo": "^1.2.0",
     "astro-seo-schema": "^7.0.2",
     "drizzle-orm": "^0.45.4",
     "mdast-util-to-string": "^4.0.0",
     "preline": "^5.1.0",
-    "react": "^19.3.0",
-    "react-dom": "^19.3.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "reading-time": "^1.5.0",
     "schema-dts": "^1.1.5",
     "sharp": "0.35.5",
@@ -62,6 +62,6 @@
     "prettier": "^3.10.1",
     "prettier-plugin-astro": "^1.1.2",
     "prettier-plugin-tailwindcss": "^0.8.1",
-    "vitest": "^5.0.5"
+    "vitest": "^5.1.0"
   }
 }
