@@ -28,12 +28,12 @@
     "@astrojs/svelte": "^9.1.6",
     "@astrojs/vercel": "11.0.22",
     "@keystatic/astro": "^6.0.0",
-    "@keystatic/core": "^0.6.9",
+    "@keystatic/core": "^0.6.10",
     "@libsql/client": "^0.18.0",
     "@tailwindcss/vite": "^4.3.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "astro": "^7.4.12",
+    "astro": "^7.4.13",
     "astro-font": "^1.2.0",
     "astro-seo": "^1.2.0",
     "astro-seo-schema": "^7.0.2",
@@ -45,8 +45,8 @@
     "reading-time": "^1.5.0",
     "schema-dts": "^1.1.5",
     "sharp": "0.35.5",
-    "svelte": "^5.57.3",
-    "tailwind-merge": "^3.7.0",
+    "svelte": "^5.59.1",
+    "tailwind-merge": "^3.7.1",
     "tailwindcss": "^4.3.5",
     "tslib": "^2.9.1",
     "typescript": "^6.0.3",
@@ -62,6 +62,6 @@
     "prettier": "^3.10.1",
     "prettier-plugin-astro": "^1.1.2",
     "prettier-plugin-tailwindcss": "^0.8.1",
-    "vitest": "^5.1.0"
+    "vitest": "^5.1.1"
   }
 }
